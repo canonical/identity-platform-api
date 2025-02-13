@@ -1,0 +1,59 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+package identity.platform.admin.ui;
+option go_package = "github.com/canonical/identity-platform-admin-ui-api/api";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Identity Platform Admin UI API"
+    description: "REST API for the Admin UI service"
+    version: "0.1"
+    contact: {
+      name: "Identity Platform Admin UI API"
+      url: "https://github.com/canonical/identity-platform-admin-ui-api"
+    }
+    license: {
+      name: "AGPL-3.0"
+      url: "https://github.com/canonical/identity-platform-admin-ui-api/blob/main/LICENSE"
+    }
+  }
+  external_docs: {
+    url: "https://github.com/canonical/identity-platform-admin-ui/blob/main/API.md";
+    description: "REST API for the Admin UI service";
+  };
+  schemes: HTTPS
+  consumes: "application/json"
+  produces: "application/json"
+  security_definitions: {
+    security: {
+      key: "OAuth2"
+      value: {
+        type: TYPE_OAUTH2
+        flow: FLOW_ACCESS_CODE
+      }
+    }
+  }
+  responses: {
+    key: "403"
+    value: {description: "Returned when the user does not have permission to access the resource."}
+  }
+  responses: {
+    key: "404"
+    value: {
+      description: "Returned when the resource does not exist."
+      schema: {
+        json_schema: {type: STRING}
+      }
+    }
+  }
+  responses: {
+    key: "500"
+    value: {
+      description: "Server error"
+    }
+  }
+};
