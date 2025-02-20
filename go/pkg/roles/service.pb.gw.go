@@ -370,7 +370,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoles", runtime.WithHTTPPathPattern("/api/v1/roles"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoles", runtime.WithHTTPPathPattern("/api/v0/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -390,7 +390,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/GetRole", runtime.WithHTTPPathPattern("/api/v1/roles/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/GetRole", runtime.WithHTTPPathPattern("/api/v0/roles/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -410,7 +410,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/CreateRole", runtime.WithHTTPPathPattern("/api/v1/roles"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/CreateRole", runtime.WithHTTPPathPattern("/api/v0/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -430,7 +430,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRole", runtime.WithHTTPPathPattern("/api/v1/roles/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRole", runtime.WithHTTPPathPattern("/api/v0/roles/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -450,7 +450,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRole", runtime.WithHTTPPathPattern("/api/v1/roles/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRole", runtime.WithHTTPPathPattern("/api/v0/roles/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -470,7 +470,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoleEntitlements", runtime.WithHTTPPathPattern("/api/v1/roles/{id}/entitlements"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoleEntitlements", runtime.WithHTTPPathPattern("/api/v0/roles/{id}/entitlements"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -490,7 +490,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRoleEntitlements", runtime.WithHTTPPathPattern("/api/v1/roles/{id}/entitlements"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRoleEntitlements", runtime.WithHTTPPathPattern("/api/v0/roles/{id}/entitlements"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -510,7 +510,7 @@ func RegisterRolesServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRoleEntitlement", runtime.WithHTTPPathPattern("/api/v1/roles/{id}/entitlements/{entitlementId}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRoleEntitlement", runtime.WithHTTPPathPattern("/api/v0/roles/{id}/entitlements/{entitlementId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -588,7 +588,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoles", runtime.WithHTTPPathPattern("/api/v1/roles"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoles", runtime.WithHTTPPathPattern("/api/v0/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -605,7 +605,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/GetRole", runtime.WithHTTPPathPattern("/api/v1/roles/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/GetRole", runtime.WithHTTPPathPattern("/api/v0/roles/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -622,7 +622,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/CreateRole", runtime.WithHTTPPathPattern("/api/v1/roles"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/CreateRole", runtime.WithHTTPPathPattern("/api/v0/roles"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -639,7 +639,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRole", runtime.WithHTTPPathPattern("/api/v1/roles/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRole", runtime.WithHTTPPathPattern("/api/v0/roles/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -656,7 +656,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRole", runtime.WithHTTPPathPattern("/api/v1/roles/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRole", runtime.WithHTTPPathPattern("/api/v0/roles/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -673,7 +673,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoleEntitlements", runtime.WithHTTPPathPattern("/api/v1/roles/{id}/entitlements"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/ListRoleEntitlements", runtime.WithHTTPPathPattern("/api/v0/roles/{id}/entitlements"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -690,7 +690,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRoleEntitlements", runtime.WithHTTPPathPattern("/api/v1/roles/{id}/entitlements"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/UpdateRoleEntitlements", runtime.WithHTTPPathPattern("/api/v0/roles/{id}/entitlements"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -707,7 +707,7 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRoleEntitlement", runtime.WithHTTPPathPattern("/api/v1/roles/{id}/entitlements/{entitlementId}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.roles.RolesService/RemoveRoleEntitlement", runtime.WithHTTPPathPattern("/api/v0/roles/{id}/entitlements/{entitlementId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -741,14 +741,14 @@ func RegisterRolesServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_RolesService_ListRoles_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "roles"}, ""))
-	pattern_RolesService_GetRole_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "roles", "id"}, ""))
-	pattern_RolesService_CreateRole_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v1", "roles"}, ""))
-	pattern_RolesService_UpdateRole_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "roles", "id"}, ""))
-	pattern_RolesService_RemoveRole_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "roles", "id"}, ""))
-	pattern_RolesService_ListRoleEntitlements_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v1", "roles", "id", "entitlements"}, ""))
-	pattern_RolesService_UpdateRoleEntitlements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v1", "roles", "id", "entitlements"}, ""))
-	pattern_RolesService_RemoveRoleEntitlement_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v1", "roles", "id", "entitlements", "entitlementId"}, ""))
+	pattern_RolesService_ListRoles_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v0", "roles"}, ""))
+	pattern_RolesService_GetRole_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v0", "roles", "id"}, ""))
+	pattern_RolesService_CreateRole_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v0", "roles"}, ""))
+	pattern_RolesService_UpdateRole_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v0", "roles", "id"}, ""))
+	pattern_RolesService_RemoveRole_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v0", "roles", "id"}, ""))
+	pattern_RolesService_ListRoleEntitlements_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "roles", "id", "entitlements"}, ""))
+	pattern_RolesService_UpdateRoleEntitlements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "roles", "id", "entitlements"}, ""))
+	pattern_RolesService_RemoveRoleEntitlement_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v0", "roles", "id", "entitlements", "entitlementId"}, ""))
 	pattern_RolesService_GetRoleGroups_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "roles", "id", "groups"}, ""))
 )
 

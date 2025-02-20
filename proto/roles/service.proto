@@ -14,7 +14,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 service RolesService {
   rpc ListRoles(google.protobuf.Empty) returns (ListRolesResp) {
     option (google.api.http) = {
-      get: "/api/v1/roles"
+      get: "/api/v0/roles"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -62,7 +62,7 @@ service RolesService {
 
   rpc GetRole(GetRoleReq) returns (ListRolesResp) {
     option (google.api.http) = {
-      get: "/api/v1/roles/{id}"
+      get: "/api/v0/roles/{id}"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -107,7 +107,7 @@ service RolesService {
 
   rpc CreateRole(CreateRoleReq) returns (ListRolesResp) {
     option (google.api.http) = {
-      post: "/api/v1/roles"
+      post: "/api/v0/roles"
       body: "role"
     };
 
@@ -153,7 +153,7 @@ service RolesService {
 
   rpc UpdateRole(UpdateRoleReq) returns (UpdateRoleResp) {
     option (google.api.http) = {
-      patch: "/api/v1/roles/{id}"
+      patch: "/api/v0/roles/{id}"
       body: "role"
     };
 
@@ -207,7 +207,7 @@ service RolesService {
 
   rpc RemoveRole(RemoveRoleReq) returns (RemoveRoleResp) {
     option (google.api.http) = {
-      delete: "/api/v1/roles/{id}"
+      delete: "/api/v0/roles/{id}"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -252,7 +252,7 @@ service RolesService {
 
   rpc ListRoleEntitlements(ListRoleEntitlementsReq) returns (ListRoleEntitlementsResp) {
     option (google.api.http) = {
-      get: "/api/v1/roles/{id}/entitlements"
+      get: "/api/v0/roles/{id}/entitlements"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       parameters: {
@@ -304,7 +304,7 @@ service RolesService {
 
   rpc UpdateRoleEntitlements (UpdateRoleEntitlementsReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      patch: "/api/v1/roles/{id}/entitlements"
+      patch: "/api/v0/roles/{id}/entitlements"
       body: "entitlementsPatchReq"
     };
 
@@ -350,7 +350,7 @@ service RolesService {
 
   rpc RemoveRoleEntitlement (RemoveRoleEntitlementReq) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/api/v1/roles/{id}/entitlements/{entitlementId}"
+      delete: "/api/v0/roles/{id}/entitlements/{entitlementId}"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {

@@ -28,56 +28,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/v0/roles/{id}/groups": {
-      "get": {
-        "operationId": "RolesService_GetRoleGroups",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/rolesGetRoleGroupsResp"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "RolesService"
-        ]
-      }
-    },
-    "/api/v1/roles": {
+    "/api/v0/roles": {
       "get": {
         "operationId": "RolesService_ListRoles",
         "responses": {
@@ -171,7 +122,7 @@
         ]
       }
     },
-    "/api/v1/roles/{id}": {
+    "/api/v0/roles/{id}": {
       "get": {
         "operationId": "RolesService_GetRole",
         "responses": {
@@ -328,7 +279,7 @@
         ]
       }
     },
-    "/api/v1/roles/{id}/entitlements": {
+    "/api/v0/roles/{id}/entitlements": {
       "get": {
         "operationId": "RolesService_ListRoleEntitlements",
         "responses": {
@@ -440,7 +391,7 @@
         ]
       }
     },
-    "/api/v1/roles/{id}/entitlements/{entitlementId}": {
+    "/api/v0/roles/{id}/entitlements/{entitlementId}": {
       "delete": {
         "operationId": "RolesService_RemoveRoleEntitlement",
         "responses": {
@@ -486,6 +437,55 @@
           },
           {
             "name": "entitlementId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RolesService"
+        ]
+      }
+    },
+    "/api/v0/roles/{id}/groups": {
+      "get": {
+        "operationId": "RolesService_GetRoleGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rolesGetRoleGroupsResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
