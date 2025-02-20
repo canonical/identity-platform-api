@@ -1,0 +1,96 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.roles;
+option go_package = "github.com/canonical/identity-platform-admin-ui-api/api/roles";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+message Role {
+  string id = 1;
+  string name = 2;
+}
+
+message ListRolesResp {
+  repeated Role data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional Pagination _meta = 4;
+}
+
+message Pagination {
+  int32 size = 1;
+  optional string pageToken = 2;
+  optional string next = 3;
+  optional string prev = 4;
+}
+
+message GetRoleReq {
+  string id = 1;
+}
+
+message CreateRoleReq {
+  Role role = 1;
+}
+
+message UpdateRoleReq {
+  string id = 1;
+  Role role = 2;
+}
+
+message UpdateRoleResp {}
+
+message RemoveRoleReq {
+  string id = 1;
+}
+
+message RemoveRoleResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message ListRoleEntitlementsReq {
+  string id = 1;
+}
+
+message ListRoleEntitlementsResp {
+  repeated string data = 1;
+  int32 status = 2;
+  string message = 3;
+}
+
+message UpdateRoleEntitlementsReq {
+  string id = 1;
+  Permissions entitlementsPatchReq = 2;
+}
+
+message Permission {
+  string relation = 1;
+  string object = 2;
+}
+
+message Permissions {
+  repeated Permission updates = 1;
+}
+
+message RemoveRoleEntitlementReq {
+  string id = 1;
+  string entitlementId = 2;
+}
+
+message GetRoleGroupsReq {
+  string id = 1;
+}
+
+message GetRoleGroupsResp {
+  message Group {
+    string id = 1;
+    string name = 2;
+  }
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional Pagination _meta = 4;
+}
