@@ -1,3 +1,6 @@
+# Copyright 2025 Canonical Ltd.
+# SPDX-License-Identifier: AGPL-3.0
+
 GO_GEN_FOLDER=go
 OPENAPI_GEN_FOLDER=openapi
 GO=go
@@ -5,10 +8,8 @@ GO_BIN=admin-ui-api
 BUF_BIN=buf
 
 clean:
-	rm -f $(GO_GEN_FOLDER)/*.pb.go
-	rm -f $(GO_GEN_FOLDER)/*.pb.gw.go
-	rm -f $(OPENAPI_GEN_FOLDER)/*.swagger.json
-	rm -f $(OPENAPI_GEN_FOLDER)/openapi.yaml
+	rm -rf $(GO_GEN_FOLDER)/pkg
+	rm -rf $(OPENAPI_GEN_FOLDER)/*
 .PHONY: clean
 
 generate:

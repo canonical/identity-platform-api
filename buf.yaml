@@ -6,6 +6,8 @@
 version: v2
 modules:
   - path: proto
+    excludes:
+      - proto/google
 lint:
   use:
     - STANDARD
