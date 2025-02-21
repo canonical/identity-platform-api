@@ -1,15 +1,19 @@
 # Copyright 2025 Canonical Ltd.
 # SPDX-License-Identifier: AGPL-3.0
 
-GO_GEN_FOLDER=go
+GO_GEN_FOLDER=gen
 OPENAPI_GEN_FOLDER=openapi
 GO=go
 GO_BIN=admin-ui-api
 BUF_BIN=buf
 
 clean:
-	rm -rf $(GO_GEN_FOLDER)/pkg
-	rm -rf $(OPENAPI_GEN_FOLDER)/*
+	find gen -not \
+		\( -name 'entrypoint.go' -or \
+		   -name 'go.mod' -or \
+		   -name 'go.sum' -or \
+		   -name 'gen' \
+	    \) -delete
 .PHONY: clean
 
 generate:

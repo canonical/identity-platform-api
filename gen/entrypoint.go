@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/canonical/identity-platform-api/pkg/roles"
+	"github.com/canonical/identity-platform-api/roles"
 )
 
 type roleService struct {
