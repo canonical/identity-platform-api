@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	srcFile = flag.String("swagger-file", "openapi/openapi.swagger.json", "Swagger file path")
-	dstFile = flag.String("openapiv3-file", "openapi/openapi.yaml", "destination OpenAPI v3 file path")
+	srcFile = flag.String("swagger-file", "../openapi/openapi.swagger.json", "Swagger file path")
+	dstFile = flag.String("openapiv3-file", "../openapi/openapi.yaml", "destination OpenAPI v3 file path")
 )
 
 func main() {

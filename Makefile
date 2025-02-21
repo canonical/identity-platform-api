@@ -1,6 +1,8 @@
 # Copyright 2025 Canonical Ltd.
 # SPDX-License-Identifier: AGPL-3.0
 
+.ONESHELL:
+
 GO_GEN_FOLDER=gen
 OPENAPI_GEN_FOLDER=openapi
 GO=go
@@ -43,5 +45,6 @@ build:
 .PHONY: build
 
 openapi-v3:
+	cd convert
 	$(GO) run convert.go
 .PHONY: openapi-v3
