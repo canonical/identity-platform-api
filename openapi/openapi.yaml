@@ -142,50 +142,7 @@ info:
     version: "0.1"
 openapi: 3.0.3
 paths:
-    /api/v0/roles/{id}/groups:
-        get:
-            operationId: RolesService_GetRoleGroups
-            parameters:
-                - in: path
-                  name: id
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/rolesGetRoleGroupsResp'
-                    description: A successful response.
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Unauthorized
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
-                default:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Internal server error
-            tags:
-                - RolesService
-    /api/v1/roles:
+    /api/v0/roles:
         get:
             operationId: RolesService_ListRoles
             responses:
@@ -270,7 +227,7 @@ paths:
                     description: Internal server error
             tags:
                 - RolesService
-    /api/v1/roles/{id}:
+    /api/v0/roles/{id}:
         delete:
             operationId: RolesService_RemoveRole
             parameters:
@@ -410,7 +367,7 @@ paths:
                     description: Internal server error
             tags:
                 - RolesService
-    /api/v1/roles/{id}/entitlements:
+    /api/v0/roles/{id}/entitlements:
         get:
             operationId: RolesService_ListRoleEntitlements
             parameters:
@@ -507,7 +464,7 @@ paths:
                     description: Internal server error
             tags:
                 - RolesService
-    /api/v1/roles/{id}/entitlements/{entitlementId}:
+    /api/v0/roles/{id}/entitlements/{entitlementId}:
         delete:
             operationId: RolesService_RemoveRoleEntitlement
             parameters:
@@ -527,6 +484,49 @@ paths:
                         application/json:
                             schema:
                                 type: object
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+    /api/v0/roles/{id}/groups:
+        get:
+            operationId: RolesService_GetRoleGroups
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesGetRoleGroupsResp'
                     description: A successful response.
                 "401":
                     content:

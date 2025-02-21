@@ -4,7 +4,7 @@
 syntax = "proto3";
 
 package identity.platform.api.types;
-option go_package = "github.com/canonical/identity-platform-admin-ui-api/api/types";
+option go_package = "github.com/canonical/identity-platform-api/api/types";
 
 message ErrorResponse {
   int32 status = 1;

@@ -4,7 +4,7 @@
 syntax = "proto3";
 
 package identity.platform.api.roles;
-option go_package = "github.com/canonical/identity-platform-admin-ui-api/api/roles";
+option go_package = "github.com/canonical/identity-platform-api/roles";
 
 import "roles/model.proto";
 import "google/protobuf/empty.proto";

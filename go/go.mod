@@ -1,7 +1,7 @@
 // Copyright 2025 Canonical Ltd.
 // SPDX-License-Identifier: AGPL-3.0
 
-module github.com/canonical/identity-platform-admin-ui-api
+module github.com/canonical/identity-platform-api
 
 go 1.23.3
 
