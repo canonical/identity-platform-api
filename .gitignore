@@ -19,3 +19,5 @@ test_source.json
 ### Go Patch ###
 /vendor/
 /Godeps/
+/proto/google/
+/generated-protobufs/

@@ -1,0 +1,559 @@
+components:
+    schemas:
+        GetRoleGroupsRespGroup:
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+            type: object
+        protobufAny:
+            additionalProperties: {}
+            properties:
+                '@type':
+                    type: string
+            type: object
+        rolesGetRoleGroupsResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/rolesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/GetRoleGroupsRespGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        rolesListRoleEntitlementsResp:
+            properties:
+                data:
+                    items:
+                        type: string
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        rolesListRolesResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/rolesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/rolesRole'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        rolesPagination:
+            properties:
+                next:
+                    type: string
+                pageToken:
+                    type: string
+                prev:
+                    type: string
+                size:
+                    format: int32
+                    type: integer
+            type: object
+        rolesPermission:
+            properties:
+                object:
+                    type: string
+                relation:
+                    type: string
+            type: object
+        rolesPermissions:
+            properties:
+                updates:
+                    items:
+                        $ref: '#/components/schemas/rolesPermission'
+                    type: array
+            type: object
+        rolesRemoveRoleResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        rolesRole:
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+            type: object
+        rolesUpdateRoleResp:
+            type: object
+        rpcStatus:
+            properties:
+                code:
+                    format: int32
+                    type: integer
+                details:
+                    items:
+                        $ref: '#/components/schemas/protobufAny'
+                    type: array
+                message:
+                    type: string
+            type: object
+        typesErrorResponse:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+    securitySchemes:
+        OAuth2:
+            flows:
+                authorizationCode:
+                    authorizationUrl: https://example.com/oauth/authorize
+                    scopes:
+                        email: ""
+                        openid: ""
+                        profile: ""
+                    tokenUrl: https://example.com/oauth/token
+            type: oauth2
+externalDocs:
+    description: REST API for the Admin UI service
+    url: https://github.com/canonical/identity-platform-admin-ui/blob/main/API.md
+info:
+    contact:
+        name: Identity Platform API
+        url: https://github.com/canonical/identity-platform-api
+    description: REST API for the Admin UI service
+    license:
+        name: AGPL-3.0
+        url: https://github.com/canonical/identity-platform-api/blob/main/LICENSE
+    title: Identity Platform API
+    version: "0.1"
+openapi: 3.0.3
+paths:
+    /api/v0/roles:
+        get:
+            operationId: RolesService_ListRoles
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesListRolesResp'
+                    description: Created
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+        post:
+            operationId: RolesService_CreateRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/rolesRole'
+                required: true
+                x-originalParamName: role
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesListRolesResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+    /api/v0/roles/{id}:
+        delete:
+            operationId: RolesService_RemoveRole
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesRemoveRoleResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+        get:
+            operationId: RolesService_GetRole
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesListRolesResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+        patch:
+            operationId: RolesService_UpdateRole
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/rolesRole'
+                required: true
+                x-originalParamName: role
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesUpdateRoleResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                "501":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not implemented
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+    /api/v0/roles/{id}/entitlements:
+        get:
+            operationId: RolesService_ListRoleEntitlements
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - description: Base64 encoded pagination info
+                  in: header
+                  name: X-Token-Pagination
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesListRoleEntitlementsResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+        patch:
+            operationId: RolesService_UpdateRoleEntitlements
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/rolesPermissions'
+                required: true
+                x-originalParamName: entitlementsPatchReq
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+    /api/v0/roles/{id}/entitlements/{entitlementId}:
+        delete:
+            operationId: RolesService_RemoveRoleEntitlement
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: entitlementId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+    /api/v0/roles/{id}/groups:
+        get:
+            operationId: RolesService_GetRoleGroups
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/rolesGetRoleGroupsResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - RolesService
+tags:
+    - name: RolesService

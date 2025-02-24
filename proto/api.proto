@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 package identity.platform.api;
-option go_package = "github.com/canonical/identity-platform-admin-ui-api/api";
+option go_package = "github.com/canonical/identity-platform-api/main";
 
 import "protoc-gen-openapiv2/options/annotations.proto";
 
