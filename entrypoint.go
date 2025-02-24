@@ -8,11 +8,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/canonical/identity-platform-api/v0/roles"
+
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/protobuf/types/known/emptypb"
-
-	"github.com/canonical/identity-platform-api/roles"
 )
 
 type roleService struct {
