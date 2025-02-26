@@ -3,18 +3,18 @@
 
 .ONESHELL:
 
-GO_GEN_FOLDER=gen
+GO_GEN_FOLDER=v0
 OPENAPI_GEN_FOLDER=openapi
 GO=go
 GO_BIN=admin-ui-api
 BUF_BIN=buf
 
 clean:
-	find gen -not \
+	find $(GO_GEN_FOLDER) -not \
 		\( -name 'entrypoint.go' -or \
 		   -name 'go.mod' -or \
 		   -name 'go.sum' -or \
-		   -name 'gen' \
+		   -name "$(GO_GEN_FOLDER)" \
 	    \) -delete
 .PHONY: clean
 

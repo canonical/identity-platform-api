@@ -3,7 +3,7 @@
 
 module github.com/canonical/identity-platform-api
 
-go 1.23.3
+go 1.23.6
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.1
