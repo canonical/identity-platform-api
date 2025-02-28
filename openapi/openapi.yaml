@@ -13,6 +13,20 @@ components:
                 '@type':
                     type: string
             type: object
+        rolesCreateRoleResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/rolesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/rolesRole'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
         rolesGetRoleGroupsResp:
             properties:
                 Meta:
@@ -20,6 +34,20 @@ components:
                 data:
                     items:
                         $ref: '#/components/schemas/GetRoleGroupsRespGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        rolesGetRoleResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/rolesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/rolesRole'
                     type: array
                 message:
                     type: string
@@ -193,7 +221,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/rolesListRolesResp'
+                                $ref: '#/components/schemas/rolesCreateRoleResp'
                     description: A successful response.
                 "201":
                     content:
@@ -283,7 +311,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/rolesListRolesResp'
+                                $ref: '#/components/schemas/rolesGetRoleResp'
                     description: A successful response.
                 "401":
                     content:

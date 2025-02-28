@@ -31,8 +31,22 @@ message GetRoleReq {
   string id = 1;
 }
 
+message GetRoleResp {
+  repeated Role data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional Pagination _meta = 4;
+}
+
 message CreateRoleReq {
   Role role = 1;
+}
+
+message CreateRoleResp {
+  repeated Role data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional Pagination _meta = 4;
 }
 
 message UpdateRoleReq {

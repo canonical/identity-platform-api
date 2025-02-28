@@ -39,8 +39,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RolesServiceClient interface {
 	ListRoles(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListRolesResp, error)
-	GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*ListRolesResp, error)
-	CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*ListRolesResp, error)
+	GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error)
+	CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
 	RemoveRole(ctx context.Context, in *RemoveRoleReq, opts ...grpc.CallOption) (*RemoveRoleResp, error)
 	ListRoleEntitlements(ctx context.Context, in *ListRoleEntitlementsReq, opts ...grpc.CallOption) (*ListRoleEntitlementsResp, error)
@@ -66,8 +66,8 @@ func (c *rolesServiceClient) ListRoles(ctx context.Context, in *emptypb.Empty, o
 	return out, nil
 }
 
-func (c *rolesServiceClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*ListRolesResp, error) {
-	out := new(ListRolesResp)
+func (c *rolesServiceClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error) {
+	out := new(GetRoleResp)
 	err := c.cc.Invoke(ctx, RolesService_GetRole_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -75,8 +75,8 @@ func (c *rolesServiceClient) GetRole(ctx context.Context, in *GetRoleReq, opts .
 	return out, nil
 }
 
-func (c *rolesServiceClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*ListRolesResp, error) {
-	out := new(ListRolesResp)
+func (c *rolesServiceClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error) {
+	out := new(CreateRoleResp)
 	err := c.cc.Invoke(ctx, RolesService_CreateRole_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -143,8 +143,8 @@ func (c *rolesServiceClient) GetRoleGroups(ctx context.Context, in *GetRoleGroup
 // for forward compatibility
 type RolesServiceServer interface {
 	ListRoles(context.Context, *emptypb.Empty) (*ListRolesResp, error)
-	GetRole(context.Context, *GetRoleReq) (*ListRolesResp, error)
-	CreateRole(context.Context, *CreateRoleReq) (*ListRolesResp, error)
+	GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error)
+	CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error)
 	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
 	RemoveRole(context.Context, *RemoveRoleReq) (*RemoveRoleResp, error)
 	ListRoleEntitlements(context.Context, *ListRoleEntitlementsReq) (*ListRoleEntitlementsResp, error)
@@ -161,10 +161,10 @@ type UnimplementedRolesServiceServer struct {
 func (UnimplementedRolesServiceServer) ListRoles(context.Context, *emptypb.Empty) (*ListRolesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoles not implemented")
 }
-func (UnimplementedRolesServiceServer) GetRole(context.Context, *GetRoleReq) (*ListRolesResp, error) {
+func (UnimplementedRolesServiceServer) GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
 }
-func (UnimplementedRolesServiceServer) CreateRole(context.Context, *CreateRoleReq) (*ListRolesResp, error) {
+func (UnimplementedRolesServiceServer) CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
 func (UnimplementedRolesServiceServer) UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error) {

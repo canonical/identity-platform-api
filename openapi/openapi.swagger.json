@@ -74,7 +74,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/rolesListRolesResp"
+              "$ref": "#/definitions/rolesCreateRoleResp"
             }
           },
           "201": {
@@ -129,7 +129,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/rolesListRolesResp"
+              "$ref": "#/definitions/rolesGetRoleResp"
             }
           },
           "401": {
@@ -518,6 +518,28 @@
       },
       "additionalProperties": {}
     },
+    "rolesCreateRoleResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rolesRole"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/rolesPagination"
+        }
+      }
+    },
     "rolesGetRoleGroupsResp": {
       "type": "object",
       "properties": {
@@ -526,6 +548,28 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/GetRoleGroupsRespGroup"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/rolesPagination"
+        }
+      }
+    },
+    "rolesGetRoleResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rolesRole"
           }
         },
         "status": {
