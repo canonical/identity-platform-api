@@ -45,7 +45,7 @@ components:
                     $ref: '#/components/schemas/rolesPagination'
                 data:
                     items:
-                        $ref: '#/components/schemas/rolesRole'
+                        type: string
                     type: array
                 message:
                     type: string
