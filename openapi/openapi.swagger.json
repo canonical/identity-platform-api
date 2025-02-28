@@ -564,8 +564,7 @@
         "data": {
           "type": "array",
           "items": {
-            "type": "object",
-            "$ref": "#/definitions/rolesRole"
+            "type": "string"
           }
         },
         "status": {
