@@ -99,11 +99,7 @@ message GetRoleGroupsReq {
 }
 
 message GetRoleGroupsResp {
-  message Group {
-    string id = 1;
-    string name = 2;
-  }
-  repeated Group data = 1;
+  repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
   optional Pagination _meta = 4;
