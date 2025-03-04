@@ -45,7 +45,7 @@ type RolesServiceClient interface {
 	RemoveRole(ctx context.Context, in *RemoveRoleReq, opts ...grpc.CallOption) (*RemoveRoleResp, error)
 	ListRoleEntitlements(ctx context.Context, in *ListRoleEntitlementsReq, opts ...grpc.CallOption) (*ListRoleEntitlementsResp, error)
 	UpdateRoleEntitlements(ctx context.Context, in *UpdateRoleEntitlementsReq, opts ...grpc.CallOption) (*UpdateRoleEntitlementsResp, error)
-	RemoveRoleEntitlement(ctx context.Context, in *RemoveRoleEntitlementReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	RemoveRoleEntitlement(ctx context.Context, in *RemoveRoleEntitlementReq, opts ...grpc.CallOption) (*RemoveRoleEntitlementResp, error)
 	GetRoleGroups(ctx context.Context, in *GetRoleGroupsReq, opts ...grpc.CallOption) (*GetRoleGroupsResp, error)
 }
 
@@ -120,8 +120,8 @@ func (c *rolesServiceClient) UpdateRoleEntitlements(ctx context.Context, in *Upd
 	return out, nil
 }
 
-func (c *rolesServiceClient) RemoveRoleEntitlement(ctx context.Context, in *RemoveRoleEntitlementReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *rolesServiceClient) RemoveRoleEntitlement(ctx context.Context, in *RemoveRoleEntitlementReq, opts ...grpc.CallOption) (*RemoveRoleEntitlementResp, error) {
+	out := new(RemoveRoleEntitlementResp)
 	err := c.cc.Invoke(ctx, RolesService_RemoveRoleEntitlement_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -149,7 +149,7 @@ type RolesServiceServer interface {
 	RemoveRole(context.Context, *RemoveRoleReq) (*RemoveRoleResp, error)
 	ListRoleEntitlements(context.Context, *ListRoleEntitlementsReq) (*ListRoleEntitlementsResp, error)
 	UpdateRoleEntitlements(context.Context, *UpdateRoleEntitlementsReq) (*UpdateRoleEntitlementsResp, error)
-	RemoveRoleEntitlement(context.Context, *RemoveRoleEntitlementReq) (*emptypb.Empty, error)
+	RemoveRoleEntitlement(context.Context, *RemoveRoleEntitlementReq) (*RemoveRoleEntitlementResp, error)
 	GetRoleGroups(context.Context, *GetRoleGroupsReq) (*GetRoleGroupsResp, error)
 	mustEmbedUnimplementedRolesServiceServer()
 }
@@ -179,7 +179,7 @@ func (UnimplementedRolesServiceServer) ListRoleEntitlements(context.Context, *Li
 func (UnimplementedRolesServiceServer) UpdateRoleEntitlements(context.Context, *UpdateRoleEntitlementsReq) (*UpdateRoleEntitlementsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoleEntitlements not implemented")
 }
-func (UnimplementedRolesServiceServer) RemoveRoleEntitlement(context.Context, *RemoveRoleEntitlementReq) (*emptypb.Empty, error) {
+func (UnimplementedRolesServiceServer) RemoveRoleEntitlement(context.Context, *RemoveRoleEntitlementReq) (*RemoveRoleEntitlementResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveRoleEntitlement not implemented")
 }
 func (UnimplementedRolesServiceServer) GetRoleGroups(context.Context, *GetRoleGroupsReq) (*GetRoleGroupsResp, error) {

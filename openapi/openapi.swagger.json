@@ -397,8 +397,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "type": "object",
-              "properties": {}
+              "$ref": "#/definitions/rolesRemoveRoleEntitlementResp"
             }
           },
           "401": {
@@ -648,6 +647,18 @@
             "type": "object",
             "$ref": "#/definitions/rolesPermission"
           }
+        }
+      }
+    },
+    "rolesRemoveRoleEntitlementResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
