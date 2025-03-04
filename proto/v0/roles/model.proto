@@ -99,6 +99,12 @@ message RemoveRoleEntitlementReq {
   string entitlementId = 2;
 }
 
+message RemoveRoleEntitlementResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+
 message GetRoleGroupsReq {
   string id = 1;
 }
