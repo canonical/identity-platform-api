@@ -302,7 +302,7 @@ service RolesService {
     };
   }
 
-  rpc UpdateRoleEntitlements (UpdateRoleEntitlementsReq) returns (google.protobuf.Empty) {
+  rpc UpdateRoleEntitlements (UpdateRoleEntitlementsReq) returns (UpdateRoleEntitlementsResp) {
     option (google.api.http) = {
       patch: "/api/v0/roles/{id}/entitlements"
       body: "entitlementsPatchReq"

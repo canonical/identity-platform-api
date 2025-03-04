@@ -1,12 +1,5 @@
 components:
     schemas:
-        GetRoleGroupsRespGroup:
-            properties:
-                id:
-                    type: string
-                name:
-                    type: string
-            type: object
         protobufAny:
             additionalProperties: {}
             properties:
@@ -33,7 +26,7 @@ components:
                     $ref: '#/components/schemas/rolesPagination'
                 data:
                     items:
-                        $ref: '#/components/schemas/GetRoleGroupsRespGroup'
+                        type: string
                     type: array
                 message:
                     type: string
@@ -121,6 +114,14 @@ components:
                     type: string
                 name:
                     type: string
+            type: object
+        rolesUpdateRoleEntitlementsResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
             type: object
         rolesUpdateRoleResp:
             type: object
@@ -463,7 +464,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: object
+                                $ref: '#/components/schemas/rolesUpdateRoleEntitlementsResp'
                     description: A successful response.
                 "401":
                     content:

@@ -80,6 +80,11 @@ message UpdateRoleEntitlementsReq {
   Permissions entitlementsPatchReq = 2;
 }
 
+message UpdateRoleEntitlementsResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
 message Permission {
   string relation = 1;
   string object = 2;

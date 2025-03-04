@@ -817,6 +817,61 @@ func (x *UpdateRoleEntitlementsReq) GetEntitlementsPatchReq() *Permissions {
 	return nil
 }
 
+type UpdateRoleEntitlementsResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status  int32   `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Message *string `protobuf:"bytes,2,opt,name=message,proto3,oneof" json:"message,omitempty"`
+}
+
+func (x *UpdateRoleEntitlementsResp) Reset() {
+	*x = UpdateRoleEntitlementsResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v0_roles_model_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateRoleEntitlementsResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRoleEntitlementsResp) ProtoMessage() {}
+
+func (x *UpdateRoleEntitlementsResp) ProtoReflect() protoreflect.Message {
+	mi := &file_v0_roles_model_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRoleEntitlementsResp.ProtoReflect.Descriptor instead.
+func (*UpdateRoleEntitlementsResp) Descriptor() ([]byte, []int) {
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *UpdateRoleEntitlementsResp) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *UpdateRoleEntitlementsResp) GetMessage() string {
+	if x != nil && x.Message != nil {
+		return *x.Message
+	}
+	return ""
+}
+
 type Permission struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -829,7 +884,7 @@ type Permission struct {
 func (x *Permission) Reset() {
 	*x = Permission{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[14]
+		mi := &file_v0_roles_model_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -842,7 +897,7 @@ func (x *Permission) String() string {
 func (*Permission) ProtoMessage() {}
 
 func (x *Permission) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[14]
+	mi := &file_v0_roles_model_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -855,7 +910,7 @@ func (x *Permission) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Permission.ProtoReflect.Descriptor instead.
 func (*Permission) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{14}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *Permission) GetRelation() string {
@@ -883,7 +938,7 @@ type Permissions struct {
 func (x *Permissions) Reset() {
 	*x = Permissions{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[15]
+		mi := &file_v0_roles_model_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -896,7 +951,7 @@ func (x *Permissions) String() string {
 func (*Permissions) ProtoMessage() {}
 
 func (x *Permissions) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[15]
+	mi := &file_v0_roles_model_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -909,7 +964,7 @@ func (x *Permissions) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Permissions.ProtoReflect.Descriptor instead.
 func (*Permissions) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{15}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *Permissions) GetUpdates() []*Permission {
@@ -931,7 +986,7 @@ type RemoveRoleEntitlementReq struct {
 func (x *RemoveRoleEntitlementReq) Reset() {
 	*x = RemoveRoleEntitlementReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[16]
+		mi := &file_v0_roles_model_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -944,7 +999,7 @@ func (x *RemoveRoleEntitlementReq) String() string {
 func (*RemoveRoleEntitlementReq) ProtoMessage() {}
 
 func (x *RemoveRoleEntitlementReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[16]
+	mi := &file_v0_roles_model_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -957,7 +1012,7 @@ func (x *RemoveRoleEntitlementReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveRoleEntitlementReq.ProtoReflect.Descriptor instead.
 func (*RemoveRoleEntitlementReq) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{16}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *RemoveRoleEntitlementReq) GetId() string {
@@ -985,7 +1040,7 @@ type GetRoleGroupsReq struct {
 func (x *GetRoleGroupsReq) Reset() {
 	*x = GetRoleGroupsReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[17]
+		mi := &file_v0_roles_model_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -998,7 +1053,7 @@ func (x *GetRoleGroupsReq) String() string {
 func (*GetRoleGroupsReq) ProtoMessage() {}
 
 func (x *GetRoleGroupsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[17]
+	mi := &file_v0_roles_model_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1011,7 +1066,7 @@ func (x *GetRoleGroupsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRoleGroupsReq.ProtoReflect.Descriptor instead.
 func (*GetRoleGroupsReq) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{17}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetRoleGroupsReq) GetId() string {
@@ -1026,16 +1081,16 @@ type GetRoleGroupsResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data    []*GetRoleGroupsResp_Group `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
-	Status  int32                      `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	Message *string                    `protobuf:"bytes,3,opt,name=message,proto3,oneof" json:"message,omitempty"`
-	XMeta   *Pagination                `protobuf:"bytes,4,opt,name=_meta,json=Meta,proto3,oneof" json:"_meta,omitempty"`
+	Data    []string    `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+	Status  int32       `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
+	Message *string     `protobuf:"bytes,3,opt,name=message,proto3,oneof" json:"message,omitempty"`
+	XMeta   *Pagination `protobuf:"bytes,4,opt,name=_meta,json=Meta,proto3,oneof" json:"_meta,omitempty"`
 }
 
 func (x *GetRoleGroupsResp) Reset() {
 	*x = GetRoleGroupsResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[18]
+		mi := &file_v0_roles_model_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1048,7 +1103,7 @@ func (x *GetRoleGroupsResp) String() string {
 func (*GetRoleGroupsResp) ProtoMessage() {}
 
 func (x *GetRoleGroupsResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[18]
+	mi := &file_v0_roles_model_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1061,10 +1116,10 @@ func (x *GetRoleGroupsResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRoleGroupsResp.ProtoReflect.Descriptor instead.
 func (*GetRoleGroupsResp) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{18}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{19}
 }
 
-func (x *GetRoleGroupsResp) GetData() []*GetRoleGroupsResp_Group {
+func (x *GetRoleGroupsResp) GetData() []string {
 	if x != nil {
 		return x.Data
 	}
@@ -1090,61 +1145,6 @@ func (x *GetRoleGroupsResp) GetXMeta() *Pagination {
 		return x.XMeta
 	}
 	return nil
-}
-
-type GetRoleGroupsResp_Group struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-}
-
-func (x *GetRoleGroupsResp_Group) Reset() {
-	*x = GetRoleGroupsResp_Group{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[19]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetRoleGroupsResp_Group) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetRoleGroupsResp_Group) ProtoMessage() {}
-
-func (x *GetRoleGroupsResp_Group) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[19]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetRoleGroupsResp_Group.ProtoReflect.Descriptor instead.
-func (*GetRoleGroupsResp_Group) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{18, 0}
-}
-
-func (x *GetRoleGroupsResp_Group) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *GetRoleGroupsResp_Group) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
 }
 
 var File_v0_roles_model_proto protoreflect.FileDescriptor
@@ -1245,46 +1245,45 @@ var file_v0_roles_model_proto_rawDesc = []byte{
 	0x2e, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f,
 	0x72, 0x6d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x2e, 0x50, 0x65, 0x72,
 	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x14, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c,
-	0x65, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x50, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x22, 0x40,
-	0x0a, 0x0a, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08,
-	0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x6f, 0x62, 0x6a, 0x65,
-	0x63, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74,
-	0x22, 0x50, 0x0a, 0x0b, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x12,
-	0x41, 0x0a, 0x07, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
-	0x32, 0x27, 0x2e, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74,
-	0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x2e, 0x50,
-	0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x07, 0x75, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x73, 0x22, 0x50, 0x0a, 0x18, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x6f, 0x6c, 0x65,
-	0x45, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x12, 0x0e,
-	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x24,
-	0x0a, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65,
-	0x6e, 0x74, 0x49, 0x64, 0x22, 0x22, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x9a, 0x02, 0x0a, 0x11, 0x47, 0x65, 0x74,
-	0x52, 0x6f, 0x6c, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12, 0x48,
-	0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x34, 0x2e, 0x69,
-	0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x6f,
-	0x6c, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x73, 0x70, 0x2e, 0x47, 0x72, 0x6f,
-	0x75, 0x70, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
-	0x12, 0x1d, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x09, 0x48, 0x00, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x88, 0x01, 0x01, 0x12,
-	0x41, 0x0a, 0x05, 0x5f, 0x6d, 0x65, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27,
-	0x2e, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f,
-	0x72, 0x6d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x2e, 0x50, 0x61, 0x67,
-	0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x01, 0x52, 0x04, 0x4d, 0x65, 0x74, 0x61, 0x88,
-	0x01, 0x01, 0x1a, 0x2b, 0x0a, 0x05, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x0e, 0x0a, 0x02, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e,
-	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x42,
-	0x0a, 0x0a, 0x08, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x42, 0x08, 0x0a, 0x06, 0x58,
-	0x5f, 0x6d, 0x65, 0x74, 0x61, 0x42, 0x32, 0x5a, 0x30, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x61, 0x6e, 0x6f, 0x6e, 0x69, 0x63, 0x61, 0x6c, 0x2f, 0x69, 0x64,
-	0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2d, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2d,
-	0x61, 0x70, 0x69, 0x2f, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x65, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x50, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x22, 0x5f,
+	0x0a, 0x1a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x45, 0x6e, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12, 0x16, 0x0a, 0x06,
+	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x12, 0x1d, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x88, 0x01, 0x01, 0x42, 0x0a, 0x0a, 0x08, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22,
+	0x40, 0x0a, 0x0a, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a,
+	0x08, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x08, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x6f, 0x62, 0x6a,
+	0x65, 0x63, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6f, 0x62, 0x6a, 0x65, 0x63,
+	0x74, 0x22, 0x50, 0x0a, 0x0b, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73,
+	0x12, 0x41, 0x0a, 0x07, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x27, 0x2e, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61,
+	0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x2e,
+	0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x07, 0x75, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x73, 0x22, 0x50, 0x0a, 0x18, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x6f, 0x6c,
+	0x65, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x24, 0x0a, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d,
+	0x65, 0x6e, 0x74, 0x49, 0x64, 0x22, 0x22, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0xb7, 0x01, 0x0a, 0x11, 0x47, 0x65,
+	0x74, 0x52, 0x6f, 0x6c, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12,
+	0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1d, 0x0a, 0x07, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x07,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x88, 0x01, 0x01, 0x12, 0x41, 0x0a, 0x05, 0x5f, 0x6d,
+	0x65, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x69, 0x64, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x48, 0x01, 0x52, 0x04, 0x4d, 0x65, 0x74, 0x61, 0x88, 0x01, 0x01, 0x42, 0x0a, 0x0a,
+	0x08, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x42, 0x08, 0x0a, 0x06, 0x58, 0x5f, 0x6d,
+	0x65, 0x74, 0x61, 0x42, 0x32, 0x5a, 0x30, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x63, 0x61, 0x6e, 0x6f, 0x6e, 0x69, 0x63, 0x61, 0x6c, 0x2f, 0x69, 0x64, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x2d, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2d, 0x61, 0x70,
+	0x69, 0x2f, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1301,26 +1300,26 @@ func file_v0_roles_model_proto_rawDescGZIP() []byte {
 
 var file_v0_roles_model_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_v0_roles_model_proto_goTypes = []interface{}{
-	(*Role)(nil),                      // 0: identity.platform.api.roles.Role
-	(*ListRolesResp)(nil),             // 1: identity.platform.api.roles.ListRolesResp
-	(*Pagination)(nil),                // 2: identity.platform.api.roles.Pagination
-	(*GetRoleReq)(nil),                // 3: identity.platform.api.roles.GetRoleReq
-	(*GetRoleResp)(nil),               // 4: identity.platform.api.roles.GetRoleResp
-	(*CreateRoleReq)(nil),             // 5: identity.platform.api.roles.CreateRoleReq
-	(*CreateRoleResp)(nil),            // 6: identity.platform.api.roles.CreateRoleResp
-	(*UpdateRoleReq)(nil),             // 7: identity.platform.api.roles.UpdateRoleReq
-	(*UpdateRoleResp)(nil),            // 8: identity.platform.api.roles.UpdateRoleResp
-	(*RemoveRoleReq)(nil),             // 9: identity.platform.api.roles.RemoveRoleReq
-	(*RemoveRoleResp)(nil),            // 10: identity.platform.api.roles.RemoveRoleResp
-	(*ListRoleEntitlementsReq)(nil),   // 11: identity.platform.api.roles.ListRoleEntitlementsReq
-	(*ListRoleEntitlementsResp)(nil),  // 12: identity.platform.api.roles.ListRoleEntitlementsResp
-	(*UpdateRoleEntitlementsReq)(nil), // 13: identity.platform.api.roles.UpdateRoleEntitlementsReq
-	(*Permission)(nil),                // 14: identity.platform.api.roles.Permission
-	(*Permissions)(nil),               // 15: identity.platform.api.roles.Permissions
-	(*RemoveRoleEntitlementReq)(nil),  // 16: identity.platform.api.roles.RemoveRoleEntitlementReq
-	(*GetRoleGroupsReq)(nil),          // 17: identity.platform.api.roles.GetRoleGroupsReq
-	(*GetRoleGroupsResp)(nil),         // 18: identity.platform.api.roles.GetRoleGroupsResp
-	(*GetRoleGroupsResp_Group)(nil),   // 19: identity.platform.api.roles.GetRoleGroupsResp.Group
+	(*Role)(nil),                       // 0: identity.platform.api.roles.Role
+	(*ListRolesResp)(nil),              // 1: identity.platform.api.roles.ListRolesResp
+	(*Pagination)(nil),                 // 2: identity.platform.api.roles.Pagination
+	(*GetRoleReq)(nil),                 // 3: identity.platform.api.roles.GetRoleReq
+	(*GetRoleResp)(nil),                // 4: identity.platform.api.roles.GetRoleResp
+	(*CreateRoleReq)(nil),              // 5: identity.platform.api.roles.CreateRoleReq
+	(*CreateRoleResp)(nil),             // 6: identity.platform.api.roles.CreateRoleResp
+	(*UpdateRoleReq)(nil),              // 7: identity.platform.api.roles.UpdateRoleReq
+	(*UpdateRoleResp)(nil),             // 8: identity.platform.api.roles.UpdateRoleResp
+	(*RemoveRoleReq)(nil),              // 9: identity.platform.api.roles.RemoveRoleReq
+	(*RemoveRoleResp)(nil),             // 10: identity.platform.api.roles.RemoveRoleResp
+	(*ListRoleEntitlementsReq)(nil),    // 11: identity.platform.api.roles.ListRoleEntitlementsReq
+	(*ListRoleEntitlementsResp)(nil),   // 12: identity.platform.api.roles.ListRoleEntitlementsResp
+	(*UpdateRoleEntitlementsReq)(nil),  // 13: identity.platform.api.roles.UpdateRoleEntitlementsReq
+	(*UpdateRoleEntitlementsResp)(nil), // 14: identity.platform.api.roles.UpdateRoleEntitlementsResp
+	(*Permission)(nil),                 // 15: identity.platform.api.roles.Permission
+	(*Permissions)(nil),                // 16: identity.platform.api.roles.Permissions
+	(*RemoveRoleEntitlementReq)(nil),   // 17: identity.platform.api.roles.RemoveRoleEntitlementReq
+	(*GetRoleGroupsReq)(nil),           // 18: identity.platform.api.roles.GetRoleGroupsReq
+	(*GetRoleGroupsResp)(nil),          // 19: identity.platform.api.roles.GetRoleGroupsResp
 }
 var file_v0_roles_model_proto_depIdxs = []int32{
 	2,  // 0: identity.platform.api.roles.ListRolesResp._meta:type_name -> identity.platform.api.roles.Pagination
@@ -1330,15 +1329,14 @@ var file_v0_roles_model_proto_depIdxs = []int32{
 	0,  // 4: identity.platform.api.roles.CreateRoleResp.data:type_name -> identity.platform.api.roles.Role
 	2,  // 5: identity.platform.api.roles.CreateRoleResp._meta:type_name -> identity.platform.api.roles.Pagination
 	0,  // 6: identity.platform.api.roles.UpdateRoleReq.role:type_name -> identity.platform.api.roles.Role
-	15, // 7: identity.platform.api.roles.UpdateRoleEntitlementsReq.entitlementsPatchReq:type_name -> identity.platform.api.roles.Permissions
-	14, // 8: identity.platform.api.roles.Permissions.updates:type_name -> identity.platform.api.roles.Permission
-	19, // 9: identity.platform.api.roles.GetRoleGroupsResp.data:type_name -> identity.platform.api.roles.GetRoleGroupsResp.Group
-	2,  // 10: identity.platform.api.roles.GetRoleGroupsResp._meta:type_name -> identity.platform.api.roles.Pagination
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	16, // 7: identity.platform.api.roles.UpdateRoleEntitlementsReq.entitlementsPatchReq:type_name -> identity.platform.api.roles.Permissions
+	15, // 8: identity.platform.api.roles.Permissions.updates:type_name -> identity.platform.api.roles.Permission
+	2,  // 9: identity.platform.api.roles.GetRoleGroupsResp._meta:type_name -> identity.platform.api.roles.Pagination
+	10, // [10:10] is the sub-list for method output_type
+	10, // [10:10] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_v0_roles_model_proto_init() }
@@ -1516,7 +1514,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Permission); i {
+			switch v := v.(*UpdateRoleEntitlementsResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1528,7 +1526,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Permissions); i {
+			switch v := v.(*Permission); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1540,7 +1538,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemoveRoleEntitlementReq); i {
+			switch v := v.(*Permissions); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1552,7 +1550,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRoleGroupsReq); i {
+			switch v := v.(*RemoveRoleEntitlementReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1564,7 +1562,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRoleGroupsResp); i {
+			switch v := v.(*GetRoleGroupsReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1576,7 +1574,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRoleGroupsResp_Group); i {
+			switch v := v.(*GetRoleGroupsResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1594,7 +1592,8 @@ func file_v0_roles_model_proto_init() {
 	file_v0_roles_model_proto_msgTypes[6].OneofWrappers = []interface{}{}
 	file_v0_roles_model_proto_msgTypes[10].OneofWrappers = []interface{}{}
 	file_v0_roles_model_proto_msgTypes[12].OneofWrappers = []interface{}{}
-	file_v0_roles_model_proto_msgTypes[18].OneofWrappers = []interface{}{}
+	file_v0_roles_model_proto_msgTypes[14].OneofWrappers = []interface{}{}
+	file_v0_roles_model_proto_msgTypes[19].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

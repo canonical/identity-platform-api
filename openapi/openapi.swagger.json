@@ -340,8 +340,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "type": "object",
-              "properties": {}
+              "$ref": "#/definitions/rolesUpdateRoleEntitlementsResp"
             }
           },
           "401": {
@@ -498,17 +497,6 @@
     }
   },
   "definitions": {
-    "GetRoleGroupsRespGroup": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -546,8 +534,7 @@
         "data": {
           "type": "array",
           "items": {
-            "type": "object",
-            "$ref": "#/definitions/GetRoleGroupsRespGroup"
+            "type": "string"
           }
         },
         "status": {
@@ -683,6 +670,18 @@
           "type": "string"
         },
         "name": {
+          "type": "string"
+        }
+      }
+    },
+    "rolesUpdateRoleEntitlementsResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
           "type": "string"
         }
       }
