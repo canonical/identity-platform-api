@@ -1029,6 +1029,61 @@ func (x *RemoveRoleEntitlementReq) GetEntitlementId() string {
 	return ""
 }
 
+type RemoveRoleEntitlementResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status  int32   `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Message *string `protobuf:"bytes,2,opt,name=message,proto3,oneof" json:"message,omitempty"`
+}
+
+func (x *RemoveRoleEntitlementResp) Reset() {
+	*x = RemoveRoleEntitlementResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v0_roles_model_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RemoveRoleEntitlementResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveRoleEntitlementResp) ProtoMessage() {}
+
+func (x *RemoveRoleEntitlementResp) ProtoReflect() protoreflect.Message {
+	mi := &file_v0_roles_model_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveRoleEntitlementResp.ProtoReflect.Descriptor instead.
+func (*RemoveRoleEntitlementResp) Descriptor() ([]byte, []int) {
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *RemoveRoleEntitlementResp) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *RemoveRoleEntitlementResp) GetMessage() string {
+	if x != nil && x.Message != nil {
+		return *x.Message
+	}
+	return ""
+}
+
 type GetRoleGroupsReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1040,7 +1095,7 @@ type GetRoleGroupsReq struct {
 func (x *GetRoleGroupsReq) Reset() {
 	*x = GetRoleGroupsReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[18]
+		mi := &file_v0_roles_model_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1053,7 +1108,7 @@ func (x *GetRoleGroupsReq) String() string {
 func (*GetRoleGroupsReq) ProtoMessage() {}
 
 func (x *GetRoleGroupsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[18]
+	mi := &file_v0_roles_model_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1066,7 +1121,7 @@ func (x *GetRoleGroupsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRoleGroupsReq.ProtoReflect.Descriptor instead.
 func (*GetRoleGroupsReq) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{18}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetRoleGroupsReq) GetId() string {
@@ -1090,7 +1145,7 @@ type GetRoleGroupsResp struct {
 func (x *GetRoleGroupsResp) Reset() {
 	*x = GetRoleGroupsResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_roles_model_proto_msgTypes[19]
+		mi := &file_v0_roles_model_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1103,7 +1158,7 @@ func (x *GetRoleGroupsResp) String() string {
 func (*GetRoleGroupsResp) ProtoMessage() {}
 
 func (x *GetRoleGroupsResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_roles_model_proto_msgTypes[19]
+	mi := &file_v0_roles_model_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1116,7 +1171,7 @@ func (x *GetRoleGroupsResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRoleGroupsResp.ProtoReflect.Descriptor instead.
 func (*GetRoleGroupsResp) Descriptor() ([]byte, []int) {
-	return file_v0_roles_model_proto_rawDescGZIP(), []int{19}
+	return file_v0_roles_model_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetRoleGroupsResp) GetData() []string {
@@ -1266,7 +1321,13 @@ var file_v0_roles_model_proto_rawDesc = []byte{
 	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
 	0x24, 0x0a, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x64,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d,
-	0x65, 0x6e, 0x74, 0x49, 0x64, 0x22, 0x22, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65,
+	0x65, 0x6e, 0x74, 0x49, 0x64, 0x22, 0x5e, 0x0a, 0x19, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52,
+	0x6f, 0x6c, 0x65, 0x45, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1d, 0x0a, 0x07, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x07, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x88, 0x01, 0x01, 0x42, 0x0a, 0x0a, 0x08, 0x5f, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x22, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65,
 	0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0xb7, 0x01, 0x0a, 0x11, 0x47, 0x65,
 	0x74, 0x52, 0x6f, 0x6c, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12,
@@ -1298,7 +1359,7 @@ func file_v0_roles_model_proto_rawDescGZIP() []byte {
 	return file_v0_roles_model_proto_rawDescData
 }
 
-var file_v0_roles_model_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_v0_roles_model_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_v0_roles_model_proto_goTypes = []interface{}{
 	(*Role)(nil),                       // 0: identity.platform.api.roles.Role
 	(*ListRolesResp)(nil),              // 1: identity.platform.api.roles.ListRolesResp
@@ -1318,8 +1379,9 @@ var file_v0_roles_model_proto_goTypes = []interface{}{
 	(*Permission)(nil),                 // 15: identity.platform.api.roles.Permission
 	(*Permissions)(nil),                // 16: identity.platform.api.roles.Permissions
 	(*RemoveRoleEntitlementReq)(nil),   // 17: identity.platform.api.roles.RemoveRoleEntitlementReq
-	(*GetRoleGroupsReq)(nil),           // 18: identity.platform.api.roles.GetRoleGroupsReq
-	(*GetRoleGroupsResp)(nil),          // 19: identity.platform.api.roles.GetRoleGroupsResp
+	(*RemoveRoleEntitlementResp)(nil),  // 18: identity.platform.api.roles.RemoveRoleEntitlementResp
+	(*GetRoleGroupsReq)(nil),           // 19: identity.platform.api.roles.GetRoleGroupsReq
+	(*GetRoleGroupsResp)(nil),          // 20: identity.platform.api.roles.GetRoleGroupsResp
 }
 var file_v0_roles_model_proto_depIdxs = []int32{
 	2,  // 0: identity.platform.api.roles.ListRolesResp._meta:type_name -> identity.platform.api.roles.Pagination
@@ -1562,7 +1624,7 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRoleGroupsReq); i {
+			switch v := v.(*RemoveRoleEntitlementResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1574,6 +1636,18 @@ func file_v0_roles_model_proto_init() {
 			}
 		}
 		file_v0_roles_model_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRoleGroupsReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v0_roles_model_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetRoleGroupsResp); i {
 			case 0:
 				return &v.state
@@ -1593,14 +1667,15 @@ func file_v0_roles_model_proto_init() {
 	file_v0_roles_model_proto_msgTypes[10].OneofWrappers = []interface{}{}
 	file_v0_roles_model_proto_msgTypes[12].OneofWrappers = []interface{}{}
 	file_v0_roles_model_proto_msgTypes[14].OneofWrappers = []interface{}{}
-	file_v0_roles_model_proto_msgTypes[19].OneofWrappers = []interface{}{}
+	file_v0_roles_model_proto_msgTypes[18].OneofWrappers = []interface{}{}
+	file_v0_roles_model_proto_msgTypes[20].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_v0_roles_model_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
