@@ -7,6 +7,7 @@ package identity.platform.api.roles;
 option go_package = "github.com/canonical/identity-platform-api/roles";
 
 import "protoc-gen-openapiv2/options/annotations.proto";
+import "v0/http/types.proto";
 
 message Role {
   string id = 1;
@@ -17,14 +18,7 @@ message ListRolesResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional Pagination _meta = 4;
-}
-
-message Pagination {
-  int32 size = 1;
-  optional string pageToken = 2;
-  optional string next = 3;
-  optional string prev = 4;
+  optional identity.platform.api.types.Pagination _meta = 4;
 }
 
 message GetRoleReq {
@@ -35,7 +29,7 @@ message GetRoleResp {
   repeated Role data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination _meta = 4;
 }
 
 message CreateRoleReq {
@@ -46,7 +40,7 @@ message CreateRoleResp {
   repeated Role data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination _meta = 4;
 }
 
 message UpdateRoleReq {
@@ -77,21 +71,12 @@ message ListRoleEntitlementsResp {
 
 message UpdateRoleEntitlementsReq {
   string id = 1;
-  Permissions entitlementsPatchReq = 2;
+  identity.platform.api.types.Permissions entitlementsPatchReq = 2;
 }
 
 message UpdateRoleEntitlementsResp {
   int32 status = 1;
   optional string message = 2;
-}
-
-message Permission {
-  string relation = 1;
-  string object = 2;
-}
-
-message Permissions {
-  repeated Permission updates = 1;
 }
 
 message RemoveRoleEntitlementReq {
@@ -104,7 +89,6 @@ message RemoveRoleEntitlementResp {
   optional string message = 2;
 }
 
-
 message GetRoleGroupsReq {
   string id = 1;
 }
@@ -113,5 +97,5 @@ message GetRoleGroupsResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination _meta = 4;
 }
