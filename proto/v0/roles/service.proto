@@ -19,10 +19,7 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200",
-        value: {
-          description: "Created";
-        }
+        key: "200"
       };
       responses: {
         key: "401",
@@ -89,6 +86,17 @@ service RolesService {
             }
           }
           description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
         }
       };
       responses: {
