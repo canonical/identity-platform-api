@@ -1,5 +1,166 @@
 components:
     schemas:
+        groupsCreateGroupResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsGetGroupIdentitiesResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        type: string
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsGetGroupResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsGetGroupRolesResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        type: string
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsGroup:
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+            type: object
+        groupsIdentities:
+            properties:
+                identities:
+                    items:
+                        type: string
+                    type: array
+            type: object
+        groupsListGroupEntitlementsResp:
+            properties:
+                data:
+                    items:
+                        type: string
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsListGroupsResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        type: string
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsRemoveGroupEntitlementResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsRemoveGroupIdentityResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsRemoveGroupResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsRemoveGroupRoleResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsRoles:
+            properties:
+                roles:
+                    items:
+                        type: string
+                    type: array
+            type: object
+        groupsUpdateGroupEntitlementsResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsUpdateGroupIdentitiesResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        groupsUpdateGroupResp:
+            type: object
+        groupsUpdateGroupRolesResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
         protobufAny:
             additionalProperties: {}
             properties:
@@ -9,7 +170,7 @@ components:
         rolesCreateRoleResp:
             properties:
                 Meta:
-                    $ref: '#/components/schemas/rolesPagination'
+                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/rolesRole'
@@ -23,7 +184,7 @@ components:
         rolesGetRoleGroupsResp:
             properties:
                 Meta:
-                    $ref: '#/components/schemas/rolesPagination'
+                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
@@ -37,7 +198,7 @@ components:
         rolesGetRoleResp:
             properties:
                 Meta:
-                    $ref: '#/components/schemas/rolesPagination'
+                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/rolesRole'
@@ -63,7 +224,7 @@ components:
         rolesListRolesResp:
             properties:
                 Meta:
-                    $ref: '#/components/schemas/rolesPagination'
+                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
@@ -73,32 +234,6 @@ components:
                 status:
                     format: int32
                     type: integer
-            type: object
-        rolesPagination:
-            properties:
-                next:
-                    type: string
-                pageToken:
-                    type: string
-                prev:
-                    type: string
-                size:
-                    format: int32
-                    type: integer
-            type: object
-        rolesPermission:
-            properties:
-                object:
-                    type: string
-                relation:
-                    type: string
-            type: object
-        rolesPermissions:
-            properties:
-                updates:
-                    items:
-                        $ref: '#/components/schemas/rolesPermission'
-                    type: array
             type: object
         rolesRemoveRoleEntitlementResp:
             properties:
@@ -153,6 +288,32 @@ components:
                     format: int32
                     type: integer
             type: object
+        typesPagination:
+            properties:
+                next:
+                    type: string
+                pageToken:
+                    type: string
+                prev:
+                    type: string
+                size:
+                    format: int32
+                    type: integer
+            type: object
+        typesPermission:
+            properties:
+                object:
+                    type: string
+                relation:
+                    type: string
+            type: object
+        typesPermissions:
+            properties:
+                updates:
+                    items:
+                        $ref: '#/components/schemas/typesPermission'
+                    type: array
+            type: object
     securitySchemes:
         OAuth2:
             flows:
@@ -179,6 +340,701 @@ info:
     version: "0.1"
 openapi: 3.0.3
 paths:
+    /api/v0/groups:
+        get:
+            operationId: GroupsService_ListGroups
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsListGroupsResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+        post:
+            operationId: GroupsService_CreateGroup
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/groupsGroup'
+                required: true
+                x-originalParamName: group
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsCreateGroupResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}:
+        delete:
+            operationId: GroupsService_RemoveGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsRemoveGroupResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+        get:
+            operationId: GroupsService_GetGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsGetGroupResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+        patch:
+            operationId: GroupsService_UpdateGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/groupsGroup'
+                required: true
+                x-originalParamName: group
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsUpdateGroupResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                "501":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not implemented
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}/entitlements:
+        get:
+            operationId: GroupsService_ListGroupEntitlements
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - description: Base64 encoded pagination info
+                  in: header
+                  name: X-Token-Pagination
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsListGroupEntitlementsResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+        patch:
+            operationId: GroupsService_UpdateGroupEntitlements
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/typesPermissions'
+                required: true
+                x-originalParamName: entitlementsPatchReq
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsUpdateGroupEntitlementsResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}/entitlements/{entitlementId}:
+        delete:
+            operationId: GroupsService_RemoveGroupEntitlement
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: entitlementId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsRemoveGroupEntitlementResp'
+                    description: A successful response.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}/identities:
+        get:
+            operationId: GroupsService_GetGroupIdentities
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsGetGroupIdentitiesResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+        patch:
+            operationId: GroupsService_UpdateGroupIdentities
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/groupsIdentities'
+                required: true
+                x-originalParamName: identities
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsUpdateGroupIdentitiesResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}/identities/{identityId}:
+        delete:
+            operationId: GroupsService_RemoveGroupIdentity
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: identityId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsRemoveGroupIdentityResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}/roles:
+        get:
+            operationId: GroupsService_GetGroupRoles
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsGetGroupRolesResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+        post:
+            operationId: GroupsService_UpdateGroupRoles
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/groupsRoles'
+                required: true
+                x-originalParamName: roles
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsUpdateGroupRolesResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
+    /api/v0/groups/{id}/roles/{roleId}:
+        delete:
+            operationId: GroupsService_RemoveGroupRole
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: roleId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/groupsRemoveGroupRoleResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - GroupsService
     /api/v0/roles:
         get:
             operationId: RolesService_ListRoles
@@ -188,7 +1044,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesListRolesResp'
-                    description: Created
+                    description: A successful response.
                 "401":
                     content:
                         application/json:
@@ -338,9 +1194,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
                 default:
                     content:
                         application/json:
@@ -464,7 +1319,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/rolesPermissions'
+                            $ref: '#/components/schemas/typesPermissions'
                 required: true
                 x-originalParamName: entitlementsPatchReq
             responses:
@@ -593,4 +1448,5 @@ paths:
             tags:
                 - RolesService
 tags:
+    - name: GroupsService
     - name: RolesService

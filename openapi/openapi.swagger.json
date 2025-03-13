@@ -15,6 +15,9 @@
   },
   "tags": [
     {
+      "name": "GroupsService"
+    },
+    {
       "name": "RolesService"
     }
   ],
@@ -28,12 +31,789 @@
     "application/json"
   ],
   "paths": {
+    "/api/v0/groups": {
+      "get": {
+        "operationId": "GroupsService_ListGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsListGroupsResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "post": {
+        "operationId": "GroupsService_CreateGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsCreateGroupResp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupsGroup"
+            }
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}": {
+      "get": {
+        "operationId": "GroupsService_GetGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsGetGroupResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "delete": {
+        "operationId": "GroupsService_RemoveGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsRemoveGroupResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "patch": {
+        "operationId": "GroupsService_UpdateGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsUpdateGroupResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupsGroup"
+            }
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/entitlements": {
+      "get": {
+        "operationId": "GroupsService_ListGroupEntitlements",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsListGroupEntitlementsResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Token-Pagination",
+            "description": "Base64 encoded pagination info",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "patch": {
+        "operationId": "GroupsService_UpdateGroupEntitlements",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsUpdateGroupEntitlementsResp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "entitlementsPatchReq",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/typesPermissions"
+            }
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/entitlements/{entitlementId}": {
+      "delete": {
+        "operationId": "GroupsService_RemoveGroupEntitlement",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsRemoveGroupEntitlementResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "entitlementId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/identities": {
+      "get": {
+        "operationId": "GroupsService_GetGroupIdentities",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsGetGroupIdentitiesResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "patch": {
+        "operationId": "GroupsService_UpdateGroupIdentities",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsUpdateGroupIdentitiesResp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identities",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupsIdentities"
+            }
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/identities/{identityId}": {
+      "delete": {
+        "operationId": "GroupsService_RemoveGroupIdentity",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsRemoveGroupIdentityResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/roles": {
+      "get": {
+        "operationId": "GroupsService_GetGroupRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsGetGroupRolesResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "post": {
+        "operationId": "GroupsService_UpdateGroupRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsUpdateGroupRolesResp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "roles",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupsRoles"
+            }
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/roles/{roleId}": {
+      "delete": {
+        "operationId": "GroupsService_RemoveGroupRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupsRemoveGroupRoleResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "roleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
     "/api/v0/roles": {
       "get": {
         "operationId": "RolesService_ListRoles",
         "responses": {
           "200": {
-            "description": "Created",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/rolesListRolesResp"
             }
@@ -145,10 +925,9 @@
             }
           },
           "404": {
-            "description": "Returned when the resource does not exist.",
+            "description": "Not found",
             "schema": {
-              "type": "object",
-              "format": "object"
+              "$ref": "#/definitions/typesErrorResponse"
             }
           },
           "default": {
@@ -381,7 +1160,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/rolesPermissions"
+              "$ref": "#/definitions/typesPermissions"
             }
           }
         ],
@@ -496,6 +1275,251 @@
     }
   },
   "definitions": {
+    "groupsCreateGroupResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/groupsGroup"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "groupsGetGroupIdentitiesResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "groupsGetGroupResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/groupsGroup"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "groupsGetGroupRolesResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "groupsGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsIdentities": {
+      "type": "object",
+      "properties": {
+        "identities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "groupsListGroupEntitlementsResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsListGroupsResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "groupsRemoveGroupEntitlementResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsRemoveGroupIdentityResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsRemoveGroupResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsRemoveGroupRoleResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsRoles": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "groupsUpdateGroupEntitlementsResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsUpdateGroupIdentitiesResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "groupsUpdateGroupResp": {
+      "type": "object"
+    },
+    "groupsUpdateGroupRolesResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -523,7 +1547,7 @@
           "type": "string"
         },
         "Meta": {
-          "$ref": "#/definitions/rolesPagination"
+          "$ref": "#/definitions/typesPagination"
         }
       }
     },
@@ -544,7 +1568,7 @@
           "type": "string"
         },
         "Meta": {
-          "$ref": "#/definitions/rolesPagination"
+          "$ref": "#/definitions/typesPagination"
         }
       }
     },
@@ -566,7 +1590,7 @@
           "type": "string"
         },
         "Meta": {
-          "$ref": "#/definitions/rolesPagination"
+          "$ref": "#/definitions/typesPagination"
         }
       }
     },
@@ -605,48 +1629,7 @@
           "type": "string"
         },
         "Meta": {
-          "$ref": "#/definitions/rolesPagination"
-        }
-      }
-    },
-    "rolesPagination": {
-      "type": "object",
-      "properties": {
-        "size": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageToken": {
-          "type": "string"
-        },
-        "next": {
-          "type": "string"
-        },
-        "prev": {
-          "type": "string"
-        }
-      }
-    },
-    "rolesPermission": {
-      "type": "object",
-      "properties": {
-        "relation": {
-          "type": "string"
-        },
-        "object": {
-          "type": "string"
-        }
-      }
-    },
-    "rolesPermissions": {
-      "type": "object",
-      "properties": {
-        "updates": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/rolesPermission"
-          }
+          "$ref": "#/definitions/typesPagination"
         }
       }
     },
@@ -728,6 +1711,47 @@
         },
         "message": {
           "type": "string"
+        }
+      }
+    },
+    "typesPagination": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageToken": {
+          "type": "string"
+        },
+        "next": {
+          "type": "string"
+        },
+        "prev": {
+          "type": "string"
+        }
+      }
+    },
+    "typesPermission": {
+      "type": "object",
+      "properties": {
+        "relation": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      }
+    },
+    "typesPermissions": {
+      "type": "object",
+      "properties": {
+        "updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/typesPermission"
+          }
         }
       }
     }
