@@ -4,9 +4,25 @@
 syntax = "proto3";
 
 package identity.platform.api.types;
-option go_package = "github.com/canonical/identity-platform-api/api/types";
+option go_package = "github.com/canonical/identity-platform-api/v0/http;types";
 
 message ErrorResponse {
   int32 status = 1;
   string message = 2;
+}
+
+message Pagination {
+  int32 size = 1;
+  optional string pageToken = 2;
+  optional string next = 3;
+  optional string prev = 4;
+}
+
+message Permission {
+  string relation = 1;
+  string object = 2;
+}
+
+message Permissions {
+  repeated Permission updates = 1;
 }

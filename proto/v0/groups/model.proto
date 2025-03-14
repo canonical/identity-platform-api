@@ -1,0 +1,160 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.groups;
+option go_package = "github.com/canonical/identity-platform-api/groups";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "v0/http/types.proto";
+
+message Group {
+  string id = 1;
+  string name = 2;
+}
+
+message ListGroupsResp {
+  repeated string data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message GetGroupReq {
+  string id = 1;
+}
+
+message GetGroupResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message CreateGroupReq {
+  Group group = 1;
+}
+
+message CreateGroupResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message UpdateGroupReq {
+  string id = 1;
+  Group group = 2;
+}
+
+message UpdateGroupResp {}
+
+message RemoveGroupReq {
+  string id = 1;
+}
+
+message RemoveGroupResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message ListGroupEntitlementsReq {
+  string id = 1;
+}
+
+message ListGroupEntitlementsResp {
+  repeated string data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message UpdateGroupEntitlementsReq {
+  string id = 1;
+  identity.platform.api.types.Permissions entitlementsPatchReq = 2;
+}
+
+message UpdateGroupEntitlementsResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message RemoveGroupEntitlementReq {
+  string id = 1;
+  string entitlementId = 2;
+}
+
+message RemoveGroupEntitlementResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message GetGroupRolesReq {
+  string id = 1;
+}
+
+message GetGroupRolesResp {
+  repeated string data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message UpdateGroupRolesReq {
+  string id = 1;
+  Roles roles = 2;
+}
+
+message Roles {
+  repeated string roles = 1;
+}
+
+message UpdateGroupRolesResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message RemoveGroupRoleReq {
+  string id = 1;
+  string roleId = 2;
+}
+
+message RemoveGroupRoleResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message GetGroupIdentitiesReq {
+  string id = 1;
+}
+
+message GetGroupIdentitiesResp {
+  repeated string data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message UpdateGroupIdentitiesReq {
+  string id = 1;
+  Identities identities = 2;
+}
+
+message Identities {
+  repeated string identities = 1;
+}
+
+message UpdateGroupIdentitiesResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message RemoveGroupIdentityReq {
+  string id = 1;
+  string identityId = 2;
+}
+
+message RemoveGroupIdentityResp {
+  int32 status = 1;
+  optional string message = 2;
+}

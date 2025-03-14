@@ -3,18 +3,19 @@
 
 syntax = "proto3";
 
-package identity.platform.api.roles;
-option go_package = "github.com/canonical/identity-platform-api/roles";
+package identity.platform.api.groups;
+option go_package = "github.com/canonical/identity-platform-api/groups";
 
-import "v0/roles/model.proto";
+import "v0/groups/model.proto";
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-service RolesService {
-  rpc ListRoles(google.protobuf.Empty) returns (ListRolesResp) {
+
+service GroupsService {
+  rpc ListGroups (google.protobuf.Empty) returns (ListGroupsResp) {
     option (google.api.http) = {
-      get: "/api/v0/roles"
+      get: "/api/v0/groups"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -57,9 +58,9 @@ service RolesService {
     };
   }
 
-  rpc GetRole(GetRoleReq) returns (GetRoleResp) {
+  rpc GetGroup(GetGroupReq) returns (GetGroupResp) {
     option (google.api.http) = {
-      get: "/api/v0/roles/{id}"
+      get: "/api/v0/groups/{id}"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -89,17 +90,6 @@ service RolesService {
         }
       };
       responses: {
-        key: "404",
-        value: {
-          schema: {
-            json_schema: {
-              ref: ".identity.platform.api.types.ErrorResponse"
-            }
-          }
-          description: "Not found";
-        }
-      };
-      responses: {
         key: "default",
         value: {
           schema: {
@@ -113,10 +103,10 @@ service RolesService {
     };
   }
 
-  rpc CreateRole(CreateRoleReq) returns (CreateRoleResp) {
+  rpc CreateGroup(CreateGroupReq) returns (CreateGroupResp) {
     option (google.api.http) = {
-      post: "/api/v0/roles"
-      body: "role"
+      post: "/api/v0/groups"
+      body: "group"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -124,6 +114,17 @@ service RolesService {
         key: "201"
       };
       responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
         key: "401",
         value: {
           schema: {
@@ -159,10 +160,10 @@ service RolesService {
     };
   }
 
-  rpc UpdateRole(UpdateRoleReq) returns (UpdateRoleResp) {
+  rpc UpdateGroup(UpdateGroupReq) returns (UpdateGroupResp) {
     option (google.api.http) = {
-      patch: "/api/v0/roles/{id}"
-      body: "role"
+      patch: "/api/v0/groups/{id}"
+      body: "group"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -213,9 +214,9 @@ service RolesService {
     };
   }
 
-  rpc RemoveRole(RemoveRoleReq) returns (RemoveRoleResp) {
+  rpc RemoveGroup(RemoveGroupReq) returns (RemoveGroupResp) {
     option (google.api.http) = {
-      delete: "/api/v0/roles/{id}"
+      delete: "/api/v0/groups/{id}"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -258,9 +259,9 @@ service RolesService {
     };
   }
 
-  rpc ListRoleEntitlements(ListRoleEntitlementsReq) returns (ListRoleEntitlementsResp) {
+  rpc ListGroupEntitlements(ListGroupEntitlementsReq) returns (ListGroupEntitlementsResp) {
     option (google.api.http) = {
-      get: "/api/v0/roles/{id}/entitlements"
+      get: "/api/v0/groups/{id}/entitlements"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       parameters: {
@@ -310,15 +311,26 @@ service RolesService {
     };
   }
 
-  rpc UpdateRoleEntitlements (UpdateRoleEntitlementsReq) returns (UpdateRoleEntitlementsResp) {
+  rpc UpdateGroupEntitlements (UpdateGroupEntitlementsReq) returns (UpdateGroupEntitlementsResp) {
     option (google.api.http) = {
-      patch: "/api/v0/roles/{id}/entitlements"
+      patch: "/api/v0/groups/{id}/entitlements"
       body: "entitlementsPatchReq"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "201"
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
       };
       responses: {
         key: "401",
@@ -356,10 +368,66 @@ service RolesService {
     };
   }
 
-  rpc RemoveRoleEntitlement (RemoveRoleEntitlementReq) returns (RemoveRoleEntitlementResp) {
+  rpc RemoveGroupEntitlement (RemoveGroupEntitlementReq) returns (RemoveGroupEntitlementResp) {
     option (google.api.http) = {
-      delete: "/api/v0/roles/{id}/entitlements/{entitlementId}"
+      delete: "/api/v0/groups/{id}/entitlements/{entitlementId}"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc GetGroupRoles (GetGroupRolesReq) returns (GetGroupRolesResp) {
+    option (google.api.http) = {
+      get: "/api/v0/groups/{id}/roles"
+    };
+
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
         key: "200"
@@ -400,9 +468,213 @@ service RolesService {
     };
   }
 
-  rpc GetRoleGroups (GetRoleGroupsReq) returns (GetRoleGroupsResp) {
+  rpc UpdateGroupRoles (UpdateGroupRolesReq) returns (UpdateGroupRolesResp) {
     option (google.api.http) = {
-      get: "/api/v0/roles/{id}/groups"
+      post: "/api/v0/groups/{id}/roles"
+      body: "roles"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "201"
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc RemoveGroupRole (RemoveGroupRoleReq) returns (RemoveGroupRoleResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/groups/{id}/roles/{roleId}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc GetGroupIdentities (GetGroupIdentitiesReq) returns (GetGroupIdentitiesResp) {
+    option (google.api.http) = {
+      get: "/api/v0/groups/{id}/identities"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc UpdateGroupIdentities (UpdateGroupIdentitiesReq) returns (UpdateGroupIdentitiesResp) {
+    option (google.api.http) = {
+      patch: "/api/v0/groups/{id}/identities"
+      body: "identities"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "201"
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc RemoveGroupIdentity (RemoveGroupIdentityReq) returns (RemoveGroupIdentityResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/groups/{id}/identities/{identityId}"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
