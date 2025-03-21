@@ -1,0 +1,55 @@
+name: Generate Protobuf Files
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+      - "release-**"
+
+
+jobs:
+  generate-go:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necessary in order to make `git push` work
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.0'
+
+      - name: Install buf via our script
+        run: |
+          chmod +x install-buf.sh
+          ./install-buf.sh
+
+      - name: Generate protobuf files
+        run: make generate
+
+      - name: Convert Swagger file to OpenAPI v3
+        run: make openapi-v3
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            echo "changes=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected"
+            echo "changes=true" >> $GITHUB_ENV
+          fi
+
+      - name: Commit and push changes
+        if: env.changes == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "feat: generate go files"
+          git push
