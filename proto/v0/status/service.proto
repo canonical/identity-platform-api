@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package identity.platform.api.status;
+option go_package = "github.com/canonical/identity-platform-api/status";
+
+import "v0/status/model.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+service StatusService {
+  rpc GetStatus (google.protobuf.Empty) returns (Status) {
+    option (google.api.http) = {
+      get: "/api/v0/status"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.status.Status"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc GetVersion (google.protobuf.Empty) returns (BuildInfo) {
+    option (google.api.http) = {
+      get: "/api/v0/version"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.status.BuildInfo"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+}
