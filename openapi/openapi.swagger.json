@@ -19,6 +19,9 @@
     },
     {
       "name": "RolesService"
+    },
+    {
+      "name": "StatusService"
     }
   ],
   "schemes": [
@@ -1272,9 +1275,125 @@
           "RolesService"
         ]
       }
+    },
+    "/api/v0/status": {
+      "get": {
+        "operationId": "StatusService_GetStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apistatusStatus"
+            }
+          },
+          "401": {
+            "description": "Returned when the user is not authenticated.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "StatusService"
+        ]
+      }
+    },
+    "/api/v0/version": {
+      "get": {
+        "operationId": "StatusService_GetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/statusBuildInfo"
+            }
+          },
+          "401": {
+            "description": "Returned when the user is not authenticated.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "StatusService"
+        ]
+      }
     }
   },
   "definitions": {
+    "apistatusStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "buildInfo": {
+          "$ref": "#/definitions/statusBuildInfo"
+        }
+      }
+    },
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
     "groupsCreateGroupResp": {
       "type": "object",
       "properties": {
@@ -1683,22 +1802,17 @@
     "rolesUpdateRoleResp": {
       "type": "object"
     },
-    "rpcStatus": {
+    "statusBuildInfo": {
       "type": "object",
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
+        "version": {
           "type": "string"
         },
-        "details": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protobufAny"
-          }
+        "commitHash": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
