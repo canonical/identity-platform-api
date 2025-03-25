@@ -1,5 +1,24 @@
 components:
     schemas:
+        apistatusStatus:
+            properties:
+                buildInfo:
+                    $ref: '#/components/schemas/statusBuildInfo'
+                status:
+                    type: string
+            type: object
+        googlerpcStatus:
+            properties:
+                code:
+                    format: int32
+                    type: integer
+                details:
+                    items:
+                        $ref: '#/components/schemas/protobufAny'
+                    type: array
+                message:
+                    type: string
+            type: object
         groupsCreateGroupResp:
             properties:
                 Meta:
@@ -268,16 +287,13 @@ components:
             type: object
         rolesUpdateRoleResp:
             type: object
-        rpcStatus:
+        statusBuildInfo:
             properties:
-                code:
-                    format: int32
-                    type: integer
-                details:
-                    items:
-                        $ref: '#/components/schemas/protobufAny'
-                    type: array
-                message:
+                commitHash:
+                    type: string
+                name:
+                    type: string
+                version:
                     type: string
             type: object
         typesErrorResponse:
@@ -1447,6 +1463,85 @@ paths:
                     description: Internal server error
             tags:
                 - RolesService
+    /api/v0/status:
+        get:
+            operationId: StatusService_GetStatus
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apistatusStatus'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user is not authenticated.
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user does not have permission to access the resource.
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - StatusService
+    /api/v0/version:
+        get:
+            operationId: StatusService_GetVersion
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/statusBuildInfo'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user is not authenticated.
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user does not have permission to access the resource.
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - StatusService
 tags:
     - name: GroupsService
     - name: RolesService
+    - name: StatusService

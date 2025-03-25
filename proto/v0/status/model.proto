@@ -1,0 +1,20 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.status;
+option go_package = "github.com/canonical/identity-platform-api/status";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+message Status {
+  string status = 1;
+  optional BuildInfo buildInfo = 2;
+}
+
+message BuildInfo {
+  string version = 1;
+  string commit_hash = 2;
+  string name = 3;
+}
