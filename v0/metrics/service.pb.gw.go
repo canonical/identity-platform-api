@@ -2,11 +2,11 @@
 // source: v0/metrics/service.proto
 
 /*
-Package groups is a reverse proxy.
+Package metrics is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package groups
+package metrics
 
 import (
 	"context"
@@ -66,7 +66,7 @@ func RegisterMetricsServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.groups.MetricsService/ListMetrics", runtime.WithHTTPPathPattern("/api/v0/metrics"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.metrics.MetricsService/ListMetrics", runtime.WithHTTPPathPattern("/api/v0/metrics"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -124,7 +124,7 @@ func RegisterMetricsServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.groups.MetricsService/ListMetrics", runtime.WithHTTPPathPattern("/api/v0/metrics"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.metrics.MetricsService/ListMetrics", runtime.WithHTTPPathPattern("/api/v0/metrics"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
