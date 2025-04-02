@@ -3,8 +3,8 @@
 
 syntax = "proto3";
 
-package identity.platform.api.groups;
-option go_package = "github.com/canonical/identity-platform-api/groups";
+package identity.platform.api.metrics;
+option go_package = "github.com/canonical/identity-platform-api/metrics";
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
