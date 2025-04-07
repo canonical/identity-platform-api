@@ -180,6 +180,191 @@ components:
                     format: int32
                     type: integer
             type: object
+        identitiesCreateIdentityResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/identitiesIdentity'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        identitiesGetIdentityResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/identitiesIdentity'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        identitiesIdentity:
+            properties:
+                additionalProperties:
+                    additionalProperties: {}
+                    type: object
+                createdAt:
+                    format: date-time
+                    type: string
+                credentials:
+                    additionalProperties:
+                        $ref: '#/components/schemas/identitiesIdentityCredentials'
+                    type: object
+                id:
+                    type: string
+                metadataAdmin:
+                    type: object
+                metadataPublic:
+                    type: object
+                organizationId:
+                    $ref: '#/components/schemas/identitiesNullableString'
+                recoveryAddresses:
+                    items:
+                        $ref: '#/components/schemas/identitiesRecoveryIdentityAddress'
+                    type: array
+                schemaId:
+                    type: string
+                schemaUrl:
+                    type: string
+                state:
+                    type: string
+                stateChangedAt:
+                    format: date-time
+                    type: string
+                traits:
+                    type: object
+                updatedAt:
+                    format: date-time
+                    type: string
+                verifiableAddresses:
+                    items:
+                        $ref: '#/components/schemas/identitiesVerifiableIdentityAddress'
+                    type: array
+            type: object
+        identitiesIdentityCredentials:
+            properties:
+                additionalProperties:
+                    additionalProperties: {}
+                    type: object
+                config:
+                    additionalProperties: {}
+                    type: object
+                createdAt:
+                    format: date-time
+                    type: string
+                identifiers:
+                    items:
+                        type: string
+                    type: array
+                type:
+                    type: string
+                updatedAt:
+                    format: date-time
+                    type: string
+                version:
+                    format: int64
+                    type: string
+            type: object
+        identitiesListIdentitiesResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/identitiesIdentity'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        identitiesNullableString:
+            properties:
+                isSet:
+                    type: boolean
+                value:
+                    type: string
+            type: object
+        identitiesRecoveryIdentityAddress:
+            properties:
+                additionalProperties:
+                    additionalProperties: {}
+                    type: object
+                createdAt:
+                    format: date-time
+                    type: string
+                id:
+                    type: string
+                updatedAt:
+                    format: date-time
+                    type: string
+                value:
+                    type: string
+                via:
+                    type: string
+            type: object
+        identitiesRemoveIdentityResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/identitiesIdentity'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        identitiesUpdateIdentityResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/identitiesIdentity'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        identitiesVerifiableIdentityAddress:
+            properties:
+                additionalProperties:
+                    additionalProperties: {}
+                    type: object
+                createdAt:
+                    format: date-time
+                    type: string
+                id:
+                    type: string
+                status:
+                    type: string
+                updatedAt:
+                    format: date-time
+                    type: string
+                value:
+                    type: string
+                verified:
+                    type: boolean
+                verifiedAt:
+                    format: date-time
+                    type: string
+                via:
+                    type: string
+            type: object
         protobufAny:
             additionalProperties: {}
             description: |-
@@ -301,6 +486,18 @@ components:
                         used with implementation specific semantics.
                     type: string
             type: object
+        protobufNullValue:
+            default: NULL_VALUE
+            description: |-
+                `NullValue` is a singleton enumeration to represent the null value for the
+                `Value` type union.
+
+                The JSON representation for `NullValue` is JSON `null`.
+
+                 - NULL_VALUE: Null value.
+            enum:
+                - NULL_VALUE
+            type: string
         rolesCreateRoleResp:
             properties:
                 Meta:
@@ -1166,6 +1363,250 @@ paths:
                     description: Internal server error
             tags:
                 - GroupsService
+    /api/v0/identities:
+        get:
+            operationId: IdentitiesService_ListIdentities
+            parameters:
+                - in: query
+                  name: credID
+                  schema:
+                    type: string
+                - in: query
+                  name: size
+                  schema:
+                    type: string
+                - in: query
+                  name: pageToken
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/identitiesListIdentitiesResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdentitiesService
+        post:
+            operationId: IdentitiesService_CreateIdentity
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/identitiesIdentity'
+                required: true
+                x-originalParamName: identity
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/identitiesCreateIdentityResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdentitiesService
+    /api/v0/identities/{id}:
+        delete:
+            operationId: IdentitiesService_RemoveIdentity
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/identitiesRemoveIdentityResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdentitiesService
+        get:
+            operationId: IdentitiesService_GetIdentity
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/identitiesGetIdentityResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdentitiesService
+        put:
+            operationId: IdentitiesService_UpdateIdentity
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/identitiesIdentity'
+                required: true
+                x-originalParamName: identity
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/identitiesUpdateIdentityResp'
+                    description: A successful response.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdentitiesService
     /api/v0/metrics:
         get:
             operationId: MetricsService_ListMetrics
@@ -1697,6 +2138,7 @@ paths:
                 - StatusService
 tags:
     - name: GroupsService
+    - name: IdentitiesService
     - name: MetricsService
     - name: RolesService
     - name: StatusService
