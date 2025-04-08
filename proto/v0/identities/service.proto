@@ -1,0 +1,259 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.identities;
+option go_package = "github.com/canonical/identity-platform-api/identities";
+
+import "v0/identities/model.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+service IdentitiesService {
+  rpc ListIdentities(ListIdentitiesReq) returns (ListIdentitiesResp) {
+    option (google.api.http) = {
+      get: "/api/v0/identities"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+  rpc GetIdentity(GetIdentityReq) returns (GetIdentityResp) {
+    option (google.api.http) = {
+      get: "/api/v0/identities/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+  rpc CreateIdentity(CreateIdentityReq) returns (CreateIdentityResp) {
+    option (google.api.http) = {
+      post: "/api/v0/identities"
+      body: "identity"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "201"
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+  rpc UpdateIdentity(UpdateIdentityReq) returns (UpdateIdentityResp) {
+    option (google.api.http) = {
+      put: "/api/v0/identities/{id}"
+      body: "identity"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+  rpc RemoveIdentity(RemoveIdentityReq) returns (RemoveIdentityResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/identities/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200"
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+}
