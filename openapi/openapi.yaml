@@ -180,6 +180,31 @@ components:
                     format: int32
                     type: integer
             type: object
+        identitiesCreateIdentityBody:
+            properties:
+                additionalProperties:
+                    type: object
+                credentials:
+                    type: object
+                metadataAdmin:
+                    type: object
+                metadataPublic:
+                    type: object
+                recoveryAddresses:
+                    items:
+                        $ref: '#/components/schemas/identitiesRecoveryIdentityAddress'
+                    type: array
+                schemaId:
+                    type: string
+                state:
+                    type: string
+                traits:
+                    type: object
+                verifiableAddresses:
+                    items:
+                        $ref: '#/components/schemas/identitiesVerifiableIdentityAddress'
+                    type: array
+            type: object
         identitiesCreateIdentityResp:
             properties:
                 Meta:
@@ -325,6 +350,23 @@ components:
                 status:
                     format: int32
                     type: integer
+            type: object
+        identitiesUpdateIdentityBody:
+            properties:
+                additionalProperties:
+                    type: object
+                credentials:
+                    type: object
+                metadataAdmin:
+                    type: object
+                metadataPublic:
+                    type: object
+                schemaId:
+                    type: string
+                state:
+                    type: string
+                traits:
+                    type: object
             type: object
         identitiesUpdateIdentityResp:
             properties:
@@ -1419,7 +1461,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/identitiesIdentity'
+                            $ref: '#/components/schemas/identitiesCreateIdentityBody'
                 required: true
                 x-originalParamName: identity
             responses:
@@ -1564,7 +1606,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/identitiesIdentity'
+                            $ref: '#/components/schemas/identitiesUpdateIdentityBody'
                 required: true
                 x-originalParamName: identity
             responses:
