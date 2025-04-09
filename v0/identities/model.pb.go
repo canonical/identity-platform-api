@@ -187,6 +187,212 @@ func (x *Identity) GetAdditionalProperties() map[string]*structpb.Value {
 	return nil
 }
 
+type CreateIdentityBody struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Credentials          *structpb.Struct             `protobuf:"bytes,1,opt,name=credentials,proto3,oneof" json:"credentials,omitempty"`
+	MetadataAdmin        *structpb.Struct             `protobuf:"bytes,2,opt,name=metadata_admin,json=metadataAdmin,proto3" json:"metadata_admin,omitempty"`
+	MetadataPublic       *structpb.Struct             `protobuf:"bytes,3,opt,name=metadata_public,json=metadataPublic,proto3" json:"metadata_public,omitempty"`
+	RecoveryAddresses    []*RecoveryIdentityAddress   `protobuf:"bytes,4,rep,name=recovery_addresses,json=recoveryAddresses,proto3" json:"recovery_addresses,omitempty"`
+	SchemaId             string                       `protobuf:"bytes,5,opt,name=schema_id,json=schemaId,proto3" json:"schema_id,omitempty"`
+	State                string                       `protobuf:"bytes,6,opt,name=state,proto3" json:"state,omitempty"`
+	Traits               *structpb.Struct             `protobuf:"bytes,7,opt,name=traits,proto3" json:"traits,omitempty"`
+	VerifiableAddresses  []*VerifiableIdentityAddress `protobuf:"bytes,8,rep,name=verifiable_addresses,json=verifiableAddresses,proto3" json:"verifiable_addresses,omitempty"`
+	AdditionalProperties *structpb.Struct             `protobuf:"bytes,9,opt,name=additional_properties,json=additionalProperties,proto3" json:"additional_properties,omitempty"`
+}
+
+func (x *CreateIdentityBody) Reset() {
+	*x = CreateIdentityBody{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v0_identities_model_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateIdentityBody) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateIdentityBody) ProtoMessage() {}
+
+func (x *CreateIdentityBody) ProtoReflect() protoreflect.Message {
+	mi := &file_v0_identities_model_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateIdentityBody.ProtoReflect.Descriptor instead.
+func (*CreateIdentityBody) Descriptor() ([]byte, []int) {
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CreateIdentityBody) GetCredentials() *structpb.Struct {
+	if x != nil {
+		return x.Credentials
+	}
+	return nil
+}
+
+func (x *CreateIdentityBody) GetMetadataAdmin() *structpb.Struct {
+	if x != nil {
+		return x.MetadataAdmin
+	}
+	return nil
+}
+
+func (x *CreateIdentityBody) GetMetadataPublic() *structpb.Struct {
+	if x != nil {
+		return x.MetadataPublic
+	}
+	return nil
+}
+
+func (x *CreateIdentityBody) GetRecoveryAddresses() []*RecoveryIdentityAddress {
+	if x != nil {
+		return x.RecoveryAddresses
+	}
+	return nil
+}
+
+func (x *CreateIdentityBody) GetSchemaId() string {
+	if x != nil {
+		return x.SchemaId
+	}
+	return ""
+}
+
+func (x *CreateIdentityBody) GetState() string {
+	if x != nil {
+		return x.State
+	}
+	return ""
+}
+
+func (x *CreateIdentityBody) GetTraits() *structpb.Struct {
+	if x != nil {
+		return x.Traits
+	}
+	return nil
+}
+
+func (x *CreateIdentityBody) GetVerifiableAddresses() []*VerifiableIdentityAddress {
+	if x != nil {
+		return x.VerifiableAddresses
+	}
+	return nil
+}
+
+func (x *CreateIdentityBody) GetAdditionalProperties() *structpb.Struct {
+	if x != nil {
+		return x.AdditionalProperties
+	}
+	return nil
+}
+
+type UpdateIdentityBody struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Credentials          *structpb.Struct `protobuf:"bytes,1,opt,name=credentials,proto3,oneof" json:"credentials,omitempty"`
+	MetadataAdmin        *structpb.Struct `protobuf:"bytes,2,opt,name=metadata_admin,json=metadataAdmin,proto3" json:"metadata_admin,omitempty"`
+	MetadataPublic       *structpb.Struct `protobuf:"bytes,3,opt,name=metadata_public,json=metadataPublic,proto3" json:"metadata_public,omitempty"`
+	SchemaId             string           `protobuf:"bytes,4,opt,name=schema_id,json=schemaId,proto3" json:"schema_id,omitempty"`
+	State                string           `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
+	Traits               *structpb.Struct `protobuf:"bytes,6,opt,name=traits,proto3" json:"traits,omitempty"`
+	AdditionalProperties *structpb.Struct `protobuf:"bytes,7,opt,name=additional_properties,json=additionalProperties,proto3" json:"additional_properties,omitempty"`
+}
+
+func (x *UpdateIdentityBody) Reset() {
+	*x = UpdateIdentityBody{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v0_identities_model_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateIdentityBody) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateIdentityBody) ProtoMessage() {}
+
+func (x *UpdateIdentityBody) ProtoReflect() protoreflect.Message {
+	mi := &file_v0_identities_model_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateIdentityBody.ProtoReflect.Descriptor instead.
+func (*UpdateIdentityBody) Descriptor() ([]byte, []int) {
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UpdateIdentityBody) GetCredentials() *structpb.Struct {
+	if x != nil {
+		return x.Credentials
+	}
+	return nil
+}
+
+func (x *UpdateIdentityBody) GetMetadataAdmin() *structpb.Struct {
+	if x != nil {
+		return x.MetadataAdmin
+	}
+	return nil
+}
+
+func (x *UpdateIdentityBody) GetMetadataPublic() *structpb.Struct {
+	if x != nil {
+		return x.MetadataPublic
+	}
+	return nil
+}
+
+func (x *UpdateIdentityBody) GetSchemaId() string {
+	if x != nil {
+		return x.SchemaId
+	}
+	return ""
+}
+
+func (x *UpdateIdentityBody) GetState() string {
+	if x != nil {
+		return x.State
+	}
+	return ""
+}
+
+func (x *UpdateIdentityBody) GetTraits() *structpb.Struct {
+	if x != nil {
+		return x.Traits
+	}
+	return nil
+}
+
+func (x *UpdateIdentityBody) GetAdditionalProperties() *structpb.Struct {
+	if x != nil {
+		return x.AdditionalProperties
+	}
+	return nil
+}
+
 type IdentityCredentials struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -204,7 +410,7 @@ type IdentityCredentials struct {
 func (x *IdentityCredentials) Reset() {
 	*x = IdentityCredentials{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[1]
+		mi := &file_v0_identities_model_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -217,7 +423,7 @@ func (x *IdentityCredentials) String() string {
 func (*IdentityCredentials) ProtoMessage() {}
 
 func (x *IdentityCredentials) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[1]
+	mi := &file_v0_identities_model_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -230,7 +436,7 @@ func (x *IdentityCredentials) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IdentityCredentials.ProtoReflect.Descriptor instead.
 func (*IdentityCredentials) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{1}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *IdentityCredentials) GetConfig() map[string]*structpb.Value {
@@ -298,7 +504,7 @@ type RecoveryIdentityAddress struct {
 func (x *RecoveryIdentityAddress) Reset() {
 	*x = RecoveryIdentityAddress{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[2]
+		mi := &file_v0_identities_model_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -311,7 +517,7 @@ func (x *RecoveryIdentityAddress) String() string {
 func (*RecoveryIdentityAddress) ProtoMessage() {}
 
 func (x *RecoveryIdentityAddress) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[2]
+	mi := &file_v0_identities_model_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -324,7 +530,7 @@ func (x *RecoveryIdentityAddress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecoveryIdentityAddress.ProtoReflect.Descriptor instead.
 func (*RecoveryIdentityAddress) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{2}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *RecoveryIdentityAddress) GetCreatedAt() *timestamppb.Timestamp {
@@ -388,7 +594,7 @@ type VerifiableIdentityAddress struct {
 func (x *VerifiableIdentityAddress) Reset() {
 	*x = VerifiableIdentityAddress{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[3]
+		mi := &file_v0_identities_model_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -401,7 +607,7 @@ func (x *VerifiableIdentityAddress) String() string {
 func (*VerifiableIdentityAddress) ProtoMessage() {}
 
 func (x *VerifiableIdentityAddress) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[3]
+	mi := &file_v0_identities_model_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -414,7 +620,7 @@ func (x *VerifiableIdentityAddress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VerifiableIdentityAddress.ProtoReflect.Descriptor instead.
 func (*VerifiableIdentityAddress) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{3}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *VerifiableIdentityAddress) GetCreatedAt() *timestamppb.Timestamp {
@@ -492,7 +698,7 @@ type NullableString struct {
 func (x *NullableString) Reset() {
 	*x = NullableString{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[4]
+		mi := &file_v0_identities_model_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -505,7 +711,7 @@ func (x *NullableString) String() string {
 func (*NullableString) ProtoMessage() {}
 
 func (x *NullableString) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[4]
+	mi := &file_v0_identities_model_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -518,7 +724,7 @@ func (x *NullableString) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NullableString.ProtoReflect.Descriptor instead.
 func (*NullableString) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{4}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *NullableString) GetValue() string {
@@ -548,7 +754,7 @@ type ListIdentitiesReq struct {
 func (x *ListIdentitiesReq) Reset() {
 	*x = ListIdentitiesReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[5]
+		mi := &file_v0_identities_model_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -561,7 +767,7 @@ func (x *ListIdentitiesReq) String() string {
 func (*ListIdentitiesReq) ProtoMessage() {}
 
 func (x *ListIdentitiesReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[5]
+	mi := &file_v0_identities_model_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -574,7 +780,7 @@ func (x *ListIdentitiesReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListIdentitiesReq.ProtoReflect.Descriptor instead.
 func (*ListIdentitiesReq) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{5}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ListIdentitiesReq) GetCredID() string {
@@ -612,7 +818,7 @@ type ListIdentitiesResp struct {
 func (x *ListIdentitiesResp) Reset() {
 	*x = ListIdentitiesResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[6]
+		mi := &file_v0_identities_model_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -625,7 +831,7 @@ func (x *ListIdentitiesResp) String() string {
 func (*ListIdentitiesResp) ProtoMessage() {}
 
 func (x *ListIdentitiesResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[6]
+	mi := &file_v0_identities_model_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -638,7 +844,7 @@ func (x *ListIdentitiesResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListIdentitiesResp.ProtoReflect.Descriptor instead.
 func (*ListIdentitiesResp) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{6}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ListIdentitiesResp) GetData() []*Identity {
@@ -680,7 +886,7 @@ type GetIdentityReq struct {
 func (x *GetIdentityReq) Reset() {
 	*x = GetIdentityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[7]
+		mi := &file_v0_identities_model_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -693,7 +899,7 @@ func (x *GetIdentityReq) String() string {
 func (*GetIdentityReq) ProtoMessage() {}
 
 func (x *GetIdentityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[7]
+	mi := &file_v0_identities_model_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -706,7 +912,7 @@ func (x *GetIdentityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetIdentityReq.ProtoReflect.Descriptor instead.
 func (*GetIdentityReq) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{7}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetIdentityReq) GetId() string {
@@ -730,7 +936,7 @@ type GetIdentityResp struct {
 func (x *GetIdentityResp) Reset() {
 	*x = GetIdentityResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[8]
+		mi := &file_v0_identities_model_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -743,7 +949,7 @@ func (x *GetIdentityResp) String() string {
 func (*GetIdentityResp) ProtoMessage() {}
 
 func (x *GetIdentityResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[8]
+	mi := &file_v0_identities_model_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -756,7 +962,7 @@ func (x *GetIdentityResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetIdentityResp.ProtoReflect.Descriptor instead.
 func (*GetIdentityResp) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{8}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetIdentityResp) GetData() []*Identity {
@@ -798,7 +1004,7 @@ type CreateIdentityReq struct {
 func (x *CreateIdentityReq) Reset() {
 	*x = CreateIdentityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[9]
+		mi := &file_v0_identities_model_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -811,7 +1017,7 @@ func (x *CreateIdentityReq) String() string {
 func (*CreateIdentityReq) ProtoMessage() {}
 
 func (x *CreateIdentityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[9]
+	mi := &file_v0_identities_model_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -824,7 +1030,7 @@ func (x *CreateIdentityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateIdentityReq.ProtoReflect.Descriptor instead.
 func (*CreateIdentityReq) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{9}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *CreateIdentityReq) GetIdentity() *Identity {
@@ -848,7 +1054,7 @@ type CreateIdentityResp struct {
 func (x *CreateIdentityResp) Reset() {
 	*x = CreateIdentityResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[10]
+		mi := &file_v0_identities_model_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -861,7 +1067,7 @@ func (x *CreateIdentityResp) String() string {
 func (*CreateIdentityResp) ProtoMessage() {}
 
 func (x *CreateIdentityResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[10]
+	mi := &file_v0_identities_model_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -874,7 +1080,7 @@ func (x *CreateIdentityResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateIdentityResp.ProtoReflect.Descriptor instead.
 func (*CreateIdentityResp) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{10}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CreateIdentityResp) GetData() []*Identity {
@@ -917,7 +1123,7 @@ type UpdateIdentityReq struct {
 func (x *UpdateIdentityReq) Reset() {
 	*x = UpdateIdentityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[11]
+		mi := &file_v0_identities_model_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -930,7 +1136,7 @@ func (x *UpdateIdentityReq) String() string {
 func (*UpdateIdentityReq) ProtoMessage() {}
 
 func (x *UpdateIdentityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[11]
+	mi := &file_v0_identities_model_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -943,7 +1149,7 @@ func (x *UpdateIdentityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateIdentityReq.ProtoReflect.Descriptor instead.
 func (*UpdateIdentityReq) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{11}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UpdateIdentityReq) GetId() string {
@@ -974,7 +1180,7 @@ type UpdateIdentityResp struct {
 func (x *UpdateIdentityResp) Reset() {
 	*x = UpdateIdentityResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[12]
+		mi := &file_v0_identities_model_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -987,7 +1193,7 @@ func (x *UpdateIdentityResp) String() string {
 func (*UpdateIdentityResp) ProtoMessage() {}
 
 func (x *UpdateIdentityResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[12]
+	mi := &file_v0_identities_model_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1000,7 +1206,7 @@ func (x *UpdateIdentityResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateIdentityResp.ProtoReflect.Descriptor instead.
 func (*UpdateIdentityResp) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{12}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UpdateIdentityResp) GetData() []*Identity {
@@ -1042,7 +1248,7 @@ type RemoveIdentityReq struct {
 func (x *RemoveIdentityReq) Reset() {
 	*x = RemoveIdentityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[13]
+		mi := &file_v0_identities_model_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1055,7 +1261,7 @@ func (x *RemoveIdentityReq) String() string {
 func (*RemoveIdentityReq) ProtoMessage() {}
 
 func (x *RemoveIdentityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[13]
+	mi := &file_v0_identities_model_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1068,7 +1274,7 @@ func (x *RemoveIdentityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveIdentityReq.ProtoReflect.Descriptor instead.
 func (*RemoveIdentityReq) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{13}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *RemoveIdentityReq) GetId() string {
@@ -1091,7 +1297,7 @@ type RemoveIdentityResp struct {
 func (x *RemoveIdentityResp) Reset() {
 	*x = RemoveIdentityResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v0_identities_model_proto_msgTypes[14]
+		mi := &file_v0_identities_model_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1104,7 +1310,7 @@ func (x *RemoveIdentityResp) String() string {
 func (*RemoveIdentityResp) ProtoMessage() {}
 
 func (x *RemoveIdentityResp) ProtoReflect() protoreflect.Message {
-	mi := &file_v0_identities_model_proto_msgTypes[14]
+	mi := &file_v0_identities_model_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1117,7 +1323,7 @@ func (x *RemoveIdentityResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveIdentityResp.ProtoReflect.Descriptor instead.
 func (*RemoveIdentityResp) Descriptor() ([]byte, []int) {
-	return file_v0_identities_model_proto_rawDescGZIP(), []int{14}
+	return file_v0_identities_model_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *RemoveIdentityResp) GetData() []*Identity {
@@ -1239,7 +1445,72 @@ var file_v0_identities_model_proto_rawDesc = []byte{
 	0x64, 0x5f, 0x61, 0x74, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x42, 0x13,
 	0x0a, 0x11, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x5f, 0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x64,
 	0x5f, 0x61, 0x74, 0x42, 0x0d, 0x0a, 0x0b, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f,
-	0x61, 0x74, 0x22, 0xb8, 0x05, 0x0a, 0x13, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x43,
+	0x61, 0x74, 0x22, 0xf2, 0x04, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x49, 0x64, 0x65,
+	0x6e, 0x74, 0x69, 0x74, 0x79, 0x42, 0x6f, 0x64, 0x79, 0x12, 0x3e, 0x0a, 0x0b, 0x63, 0x72, 0x65,
+	0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17,
+	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
+	0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48, 0x00, 0x52, 0x0b, 0x63, 0x72, 0x65, 0x64, 0x65,
+	0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x88, 0x01, 0x01, 0x12, 0x3e, 0x0a, 0x0e, 0x6d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x0d, 0x6d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x12, 0x40, 0x0a, 0x0f, 0x6d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x0e, 0x6d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0x50, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x12, 0x68, 0x0a, 0x12, 0x72,
+	0x65, 0x63, 0x6f, 0x76, 0x65, 0x72, 0x79, 0x5f, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x65,
+	0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x39, 0x2e, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x52, 0x65, 0x63, 0x6f, 0x76,
+	0x65, 0x72, 0x79, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x41, 0x64, 0x64, 0x72, 0x65,
+	0x73, 0x73, 0x52, 0x11, 0x72, 0x65, 0x63, 0x6f, 0x76, 0x65, 0x72, 0x79, 0x41, 0x64, 0x64, 0x72,
+	0x65, 0x73, 0x73, 0x65, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x5f,
+	0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61,
+	0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x74, 0x72, 0x61, 0x69,
+	0x74, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63,
+	0x74, 0x52, 0x06, 0x74, 0x72, 0x61, 0x69, 0x74, 0x73, 0x12, 0x6e, 0x0a, 0x14, 0x76, 0x65, 0x72,
+	0x69, 0x66, 0x69, 0x61, 0x62, 0x6c, 0x65, 0x5f, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x65,
+	0x73, 0x18, 0x08, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x3b, 0x2e, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x56, 0x65, 0x72, 0x69, 0x66,
+	0x69, 0x61, 0x62, 0x6c, 0x65, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x41, 0x64, 0x64,
+	0x72, 0x65, 0x73, 0x73, 0x52, 0x13, 0x76, 0x65, 0x72, 0x69, 0x66, 0x69, 0x61, 0x62, 0x6c, 0x65,
+	0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x65, 0x73, 0x12, 0x4c, 0x0a, 0x15, 0x61, 0x64, 0x64,
+	0x69, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x5f, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69,
+	0x65, 0x73, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63,
+	0x74, 0x52, 0x14, 0x61, 0x64, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x50, 0x72, 0x6f,
+	0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x42, 0x0e, 0x0a, 0x0c, 0x5f, 0x63, 0x72, 0x65, 0x64,
+	0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x22, 0x98, 0x03, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x42, 0x6f, 0x64, 0x79, 0x12, 0x3e,
+	0x0a, 0x0b, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48, 0x00, 0x52, 0x0b,
+	0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x88, 0x01, 0x01, 0x12, 0x3e,
+	0x0a, 0x0e, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x61, 0x64, 0x6d, 0x69, 0x6e,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52,
+	0x0d, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x12, 0x40,
+	0x0a, 0x0f, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x70, 0x75, 0x62, 0x6c, 0x69,
+	0x63, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74,
+	0x52, 0x0e, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x50, 0x75, 0x62, 0x6c, 0x69, 0x63,
+	0x12, 0x1b, 0x0a, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x49, 0x64, 0x12, 0x14, 0x0a,
+	0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x73, 0x74,
+	0x61, 0x74, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x74, 0x72, 0x61, 0x69, 0x74, 0x73, 0x18, 0x06, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x06, 0x74, 0x72,
+	0x61, 0x69, 0x74, 0x73, 0x12, 0x4c, 0x0a, 0x15, 0x61, 0x64, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e,
+	0x61, 0x6c, 0x5f, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x18, 0x07, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x14, 0x61, 0x64,
+	0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69,
+	0x65, 0x73, 0x42, 0x0e, 0x0a, 0x0c, 0x5f, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61,
+	0x6c, 0x73, 0x22, 0xb8, 0x05, 0x0a, 0x13, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x43,
 	0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x12, 0x59, 0x0a, 0x06, 0x63, 0x6f,
 	0x6e, 0x66, 0x69, 0x67, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x41, 0x2e, 0x69, 0x64, 0x65,
 	0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x61,
@@ -1468,79 +1739,93 @@ func file_v0_identities_model_proto_rawDescGZIP() []byte {
 	return file_v0_identities_model_proto_rawDescData
 }
 
-var file_v0_identities_model_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_v0_identities_model_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_v0_identities_model_proto_goTypes = []interface{}{
 	(*Identity)(nil),                  // 0: identity.platform.api.identities.Identity
-	(*IdentityCredentials)(nil),       // 1: identity.platform.api.identities.IdentityCredentials
-	(*RecoveryIdentityAddress)(nil),   // 2: identity.platform.api.identities.RecoveryIdentityAddress
-	(*VerifiableIdentityAddress)(nil), // 3: identity.platform.api.identities.VerifiableIdentityAddress
-	(*NullableString)(nil),            // 4: identity.platform.api.identities.NullableString
-	(*ListIdentitiesReq)(nil),         // 5: identity.platform.api.identities.ListIdentitiesReq
-	(*ListIdentitiesResp)(nil),        // 6: identity.platform.api.identities.ListIdentitiesResp
-	(*GetIdentityReq)(nil),            // 7: identity.platform.api.identities.GetIdentityReq
-	(*GetIdentityResp)(nil),           // 8: identity.platform.api.identities.GetIdentityResp
-	(*CreateIdentityReq)(nil),         // 9: identity.platform.api.identities.CreateIdentityReq
-	(*CreateIdentityResp)(nil),        // 10: identity.platform.api.identities.CreateIdentityResp
-	(*UpdateIdentityReq)(nil),         // 11: identity.platform.api.identities.UpdateIdentityReq
-	(*UpdateIdentityResp)(nil),        // 12: identity.platform.api.identities.UpdateIdentityResp
-	(*RemoveIdentityReq)(nil),         // 13: identity.platform.api.identities.RemoveIdentityReq
-	(*RemoveIdentityResp)(nil),        // 14: identity.platform.api.identities.RemoveIdentityResp
-	nil,                               // 15: identity.platform.api.identities.Identity.CredentialsEntry
-	nil,                               // 16: identity.platform.api.identities.Identity.AdditionalPropertiesEntry
-	nil,                               // 17: identity.platform.api.identities.IdentityCredentials.ConfigEntry
-	nil,                               // 18: identity.platform.api.identities.IdentityCredentials.AdditionalPropertiesEntry
-	nil,                               // 19: identity.platform.api.identities.RecoveryIdentityAddress.AdditionalPropertiesEntry
-	nil,                               // 20: identity.platform.api.identities.VerifiableIdentityAddress.AdditionalPropertiesEntry
-	(*timestamppb.Timestamp)(nil),     // 21: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),           // 22: google.protobuf.Struct
-	(*http.Pagination)(nil),           // 23: identity.platform.api.types.Pagination
-	(*structpb.Value)(nil),            // 24: google.protobuf.Value
+	(*CreateIdentityBody)(nil),        // 1: identity.platform.api.identities.CreateIdentityBody
+	(*UpdateIdentityBody)(nil),        // 2: identity.platform.api.identities.UpdateIdentityBody
+	(*IdentityCredentials)(nil),       // 3: identity.platform.api.identities.IdentityCredentials
+	(*RecoveryIdentityAddress)(nil),   // 4: identity.platform.api.identities.RecoveryIdentityAddress
+	(*VerifiableIdentityAddress)(nil), // 5: identity.platform.api.identities.VerifiableIdentityAddress
+	(*NullableString)(nil),            // 6: identity.platform.api.identities.NullableString
+	(*ListIdentitiesReq)(nil),         // 7: identity.platform.api.identities.ListIdentitiesReq
+	(*ListIdentitiesResp)(nil),        // 8: identity.platform.api.identities.ListIdentitiesResp
+	(*GetIdentityReq)(nil),            // 9: identity.platform.api.identities.GetIdentityReq
+	(*GetIdentityResp)(nil),           // 10: identity.platform.api.identities.GetIdentityResp
+	(*CreateIdentityReq)(nil),         // 11: identity.platform.api.identities.CreateIdentityReq
+	(*CreateIdentityResp)(nil),        // 12: identity.platform.api.identities.CreateIdentityResp
+	(*UpdateIdentityReq)(nil),         // 13: identity.platform.api.identities.UpdateIdentityReq
+	(*UpdateIdentityResp)(nil),        // 14: identity.platform.api.identities.UpdateIdentityResp
+	(*RemoveIdentityReq)(nil),         // 15: identity.platform.api.identities.RemoveIdentityReq
+	(*RemoveIdentityResp)(nil),        // 16: identity.platform.api.identities.RemoveIdentityResp
+	nil,                               // 17: identity.platform.api.identities.Identity.CredentialsEntry
+	nil,                               // 18: identity.platform.api.identities.Identity.AdditionalPropertiesEntry
+	nil,                               // 19: identity.platform.api.identities.IdentityCredentials.ConfigEntry
+	nil,                               // 20: identity.platform.api.identities.IdentityCredentials.AdditionalPropertiesEntry
+	nil,                               // 21: identity.platform.api.identities.RecoveryIdentityAddress.AdditionalPropertiesEntry
+	nil,                               // 22: identity.platform.api.identities.VerifiableIdentityAddress.AdditionalPropertiesEntry
+	(*timestamppb.Timestamp)(nil),     // 23: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),           // 24: google.protobuf.Struct
+	(*http.Pagination)(nil),           // 25: identity.platform.api.types.Pagination
+	(*structpb.Value)(nil),            // 26: google.protobuf.Value
 }
 var file_v0_identities_model_proto_depIdxs = []int32{
-	21, // 0: identity.platform.api.identities.Identity.created_at:type_name -> google.protobuf.Timestamp
-	15, // 1: identity.platform.api.identities.Identity.credentials:type_name -> identity.platform.api.identities.Identity.CredentialsEntry
-	22, // 2: identity.platform.api.identities.Identity.metadata_admin:type_name -> google.protobuf.Struct
-	22, // 3: identity.platform.api.identities.Identity.metadata_public:type_name -> google.protobuf.Struct
-	4,  // 4: identity.platform.api.identities.Identity.organization_id:type_name -> identity.platform.api.identities.NullableString
-	2,  // 5: identity.platform.api.identities.Identity.recovery_addresses:type_name -> identity.platform.api.identities.RecoveryIdentityAddress
-	21, // 6: identity.platform.api.identities.Identity.state_changed_at:type_name -> google.protobuf.Timestamp
-	22, // 7: identity.platform.api.identities.Identity.traits:type_name -> google.protobuf.Struct
-	21, // 8: identity.platform.api.identities.Identity.updated_at:type_name -> google.protobuf.Timestamp
-	3,  // 9: identity.platform.api.identities.Identity.verifiable_addresses:type_name -> identity.platform.api.identities.VerifiableIdentityAddress
-	16, // 10: identity.platform.api.identities.Identity.additional_properties:type_name -> identity.platform.api.identities.Identity.AdditionalPropertiesEntry
-	17, // 11: identity.platform.api.identities.IdentityCredentials.config:type_name -> identity.platform.api.identities.IdentityCredentials.ConfigEntry
-	21, // 12: identity.platform.api.identities.IdentityCredentials.created_at:type_name -> google.protobuf.Timestamp
-	21, // 13: identity.platform.api.identities.IdentityCredentials.updated_at:type_name -> google.protobuf.Timestamp
-	18, // 14: identity.platform.api.identities.IdentityCredentials.additional_properties:type_name -> identity.platform.api.identities.IdentityCredentials.AdditionalPropertiesEntry
-	21, // 15: identity.platform.api.identities.RecoveryIdentityAddress.created_at:type_name -> google.protobuf.Timestamp
-	21, // 16: identity.platform.api.identities.RecoveryIdentityAddress.updated_at:type_name -> google.protobuf.Timestamp
-	19, // 17: identity.platform.api.identities.RecoveryIdentityAddress.additional_properties:type_name -> identity.platform.api.identities.RecoveryIdentityAddress.AdditionalPropertiesEntry
-	21, // 18: identity.platform.api.identities.VerifiableIdentityAddress.created_at:type_name -> google.protobuf.Timestamp
-	21, // 19: identity.platform.api.identities.VerifiableIdentityAddress.updated_at:type_name -> google.protobuf.Timestamp
-	21, // 20: identity.platform.api.identities.VerifiableIdentityAddress.verified_at:type_name -> google.protobuf.Timestamp
-	20, // 21: identity.platform.api.identities.VerifiableIdentityAddress.additional_properties:type_name -> identity.platform.api.identities.VerifiableIdentityAddress.AdditionalPropertiesEntry
-	0,  // 22: identity.platform.api.identities.ListIdentitiesResp.data:type_name -> identity.platform.api.identities.Identity
-	23, // 23: identity.platform.api.identities.ListIdentitiesResp._meta:type_name -> identity.platform.api.types.Pagination
-	0,  // 24: identity.platform.api.identities.GetIdentityResp.data:type_name -> identity.platform.api.identities.Identity
-	23, // 25: identity.platform.api.identities.GetIdentityResp._meta:type_name -> identity.platform.api.types.Pagination
-	0,  // 26: identity.platform.api.identities.CreateIdentityReq.identity:type_name -> identity.platform.api.identities.Identity
-	0,  // 27: identity.platform.api.identities.CreateIdentityResp.data:type_name -> identity.platform.api.identities.Identity
-	23, // 28: identity.platform.api.identities.CreateIdentityResp._meta:type_name -> identity.platform.api.types.Pagination
-	0,  // 29: identity.platform.api.identities.UpdateIdentityReq.identity:type_name -> identity.platform.api.identities.Identity
-	0,  // 30: identity.platform.api.identities.UpdateIdentityResp.data:type_name -> identity.platform.api.identities.Identity
-	23, // 31: identity.platform.api.identities.UpdateIdentityResp._meta:type_name -> identity.platform.api.types.Pagination
-	0,  // 32: identity.platform.api.identities.RemoveIdentityResp.data:type_name -> identity.platform.api.identities.Identity
-	1,  // 33: identity.platform.api.identities.Identity.CredentialsEntry.value:type_name -> identity.platform.api.identities.IdentityCredentials
-	24, // 34: identity.platform.api.identities.Identity.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
-	24, // 35: identity.platform.api.identities.IdentityCredentials.ConfigEntry.value:type_name -> google.protobuf.Value
-	24, // 36: identity.platform.api.identities.IdentityCredentials.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
-	24, // 37: identity.platform.api.identities.RecoveryIdentityAddress.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
-	24, // 38: identity.platform.api.identities.VerifiableIdentityAddress.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
-	39, // [39:39] is the sub-list for method output_type
-	39, // [39:39] is the sub-list for method input_type
-	39, // [39:39] is the sub-list for extension type_name
-	39, // [39:39] is the sub-list for extension extendee
-	0,  // [0:39] is the sub-list for field type_name
+	23, // 0: identity.platform.api.identities.Identity.created_at:type_name -> google.protobuf.Timestamp
+	17, // 1: identity.platform.api.identities.Identity.credentials:type_name -> identity.platform.api.identities.Identity.CredentialsEntry
+	24, // 2: identity.platform.api.identities.Identity.metadata_admin:type_name -> google.protobuf.Struct
+	24, // 3: identity.platform.api.identities.Identity.metadata_public:type_name -> google.protobuf.Struct
+	6,  // 4: identity.platform.api.identities.Identity.organization_id:type_name -> identity.platform.api.identities.NullableString
+	4,  // 5: identity.platform.api.identities.Identity.recovery_addresses:type_name -> identity.platform.api.identities.RecoveryIdentityAddress
+	23, // 6: identity.platform.api.identities.Identity.state_changed_at:type_name -> google.protobuf.Timestamp
+	24, // 7: identity.platform.api.identities.Identity.traits:type_name -> google.protobuf.Struct
+	23, // 8: identity.platform.api.identities.Identity.updated_at:type_name -> google.protobuf.Timestamp
+	5,  // 9: identity.platform.api.identities.Identity.verifiable_addresses:type_name -> identity.platform.api.identities.VerifiableIdentityAddress
+	18, // 10: identity.platform.api.identities.Identity.additional_properties:type_name -> identity.platform.api.identities.Identity.AdditionalPropertiesEntry
+	24, // 11: identity.platform.api.identities.CreateIdentityBody.credentials:type_name -> google.protobuf.Struct
+	24, // 12: identity.platform.api.identities.CreateIdentityBody.metadata_admin:type_name -> google.protobuf.Struct
+	24, // 13: identity.platform.api.identities.CreateIdentityBody.metadata_public:type_name -> google.protobuf.Struct
+	4,  // 14: identity.platform.api.identities.CreateIdentityBody.recovery_addresses:type_name -> identity.platform.api.identities.RecoveryIdentityAddress
+	24, // 15: identity.platform.api.identities.CreateIdentityBody.traits:type_name -> google.protobuf.Struct
+	5,  // 16: identity.platform.api.identities.CreateIdentityBody.verifiable_addresses:type_name -> identity.platform.api.identities.VerifiableIdentityAddress
+	24, // 17: identity.platform.api.identities.CreateIdentityBody.additional_properties:type_name -> google.protobuf.Struct
+	24, // 18: identity.platform.api.identities.UpdateIdentityBody.credentials:type_name -> google.protobuf.Struct
+	24, // 19: identity.platform.api.identities.UpdateIdentityBody.metadata_admin:type_name -> google.protobuf.Struct
+	24, // 20: identity.platform.api.identities.UpdateIdentityBody.metadata_public:type_name -> google.protobuf.Struct
+	24, // 21: identity.platform.api.identities.UpdateIdentityBody.traits:type_name -> google.protobuf.Struct
+	24, // 22: identity.platform.api.identities.UpdateIdentityBody.additional_properties:type_name -> google.protobuf.Struct
+	19, // 23: identity.platform.api.identities.IdentityCredentials.config:type_name -> identity.platform.api.identities.IdentityCredentials.ConfigEntry
+	23, // 24: identity.platform.api.identities.IdentityCredentials.created_at:type_name -> google.protobuf.Timestamp
+	23, // 25: identity.platform.api.identities.IdentityCredentials.updated_at:type_name -> google.protobuf.Timestamp
+	20, // 26: identity.platform.api.identities.IdentityCredentials.additional_properties:type_name -> identity.platform.api.identities.IdentityCredentials.AdditionalPropertiesEntry
+	23, // 27: identity.platform.api.identities.RecoveryIdentityAddress.created_at:type_name -> google.protobuf.Timestamp
+	23, // 28: identity.platform.api.identities.RecoveryIdentityAddress.updated_at:type_name -> google.protobuf.Timestamp
+	21, // 29: identity.platform.api.identities.RecoveryIdentityAddress.additional_properties:type_name -> identity.platform.api.identities.RecoveryIdentityAddress.AdditionalPropertiesEntry
+	23, // 30: identity.platform.api.identities.VerifiableIdentityAddress.created_at:type_name -> google.protobuf.Timestamp
+	23, // 31: identity.platform.api.identities.VerifiableIdentityAddress.updated_at:type_name -> google.protobuf.Timestamp
+	23, // 32: identity.platform.api.identities.VerifiableIdentityAddress.verified_at:type_name -> google.protobuf.Timestamp
+	22, // 33: identity.platform.api.identities.VerifiableIdentityAddress.additional_properties:type_name -> identity.platform.api.identities.VerifiableIdentityAddress.AdditionalPropertiesEntry
+	0,  // 34: identity.platform.api.identities.ListIdentitiesResp.data:type_name -> identity.platform.api.identities.Identity
+	25, // 35: identity.platform.api.identities.ListIdentitiesResp._meta:type_name -> identity.platform.api.types.Pagination
+	0,  // 36: identity.platform.api.identities.GetIdentityResp.data:type_name -> identity.platform.api.identities.Identity
+	25, // 37: identity.platform.api.identities.GetIdentityResp._meta:type_name -> identity.platform.api.types.Pagination
+	0,  // 38: identity.platform.api.identities.CreateIdentityReq.identity:type_name -> identity.platform.api.identities.Identity
+	0,  // 39: identity.platform.api.identities.CreateIdentityResp.data:type_name -> identity.platform.api.identities.Identity
+	25, // 40: identity.platform.api.identities.CreateIdentityResp._meta:type_name -> identity.platform.api.types.Pagination
+	0,  // 41: identity.platform.api.identities.UpdateIdentityReq.identity:type_name -> identity.platform.api.identities.Identity
+	0,  // 42: identity.platform.api.identities.UpdateIdentityResp.data:type_name -> identity.platform.api.identities.Identity
+	25, // 43: identity.platform.api.identities.UpdateIdentityResp._meta:type_name -> identity.platform.api.types.Pagination
+	0,  // 44: identity.platform.api.identities.RemoveIdentityResp.data:type_name -> identity.platform.api.identities.Identity
+	3,  // 45: identity.platform.api.identities.Identity.CredentialsEntry.value:type_name -> identity.platform.api.identities.IdentityCredentials
+	26, // 46: identity.platform.api.identities.Identity.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
+	26, // 47: identity.platform.api.identities.IdentityCredentials.ConfigEntry.value:type_name -> google.protobuf.Value
+	26, // 48: identity.platform.api.identities.IdentityCredentials.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
+	26, // 49: identity.platform.api.identities.RecoveryIdentityAddress.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
+	26, // 50: identity.platform.api.identities.VerifiableIdentityAddress.AdditionalPropertiesEntry.value:type_name -> google.protobuf.Value
+	51, // [51:51] is the sub-list for method output_type
+	51, // [51:51] is the sub-list for method input_type
+	51, // [51:51] is the sub-list for extension type_name
+	51, // [51:51] is the sub-list for extension extendee
+	0,  // [0:51] is the sub-list for field type_name
 }
 
 func init() { file_v0_identities_model_proto_init() }
@@ -1562,7 +1847,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*IdentityCredentials); i {
+			switch v := v.(*CreateIdentityBody); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1574,7 +1859,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RecoveryIdentityAddress); i {
+			switch v := v.(*UpdateIdentityBody); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1586,7 +1871,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*VerifiableIdentityAddress); i {
+			switch v := v.(*IdentityCredentials); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1598,7 +1883,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NullableString); i {
+			switch v := v.(*RecoveryIdentityAddress); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1610,7 +1895,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListIdentitiesReq); i {
+			switch v := v.(*VerifiableIdentityAddress); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1622,7 +1907,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListIdentitiesResp); i {
+			switch v := v.(*NullableString); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1634,7 +1919,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetIdentityReq); i {
+			switch v := v.(*ListIdentitiesReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1646,7 +1931,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetIdentityResp); i {
+			switch v := v.(*ListIdentitiesResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1658,7 +1943,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateIdentityReq); i {
+			switch v := v.(*GetIdentityReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1670,7 +1955,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateIdentityResp); i {
+			switch v := v.(*GetIdentityResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1682,7 +1967,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateIdentityReq); i {
+			switch v := v.(*CreateIdentityReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1694,7 +1979,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateIdentityResp); i {
+			switch v := v.(*CreateIdentityResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1706,7 +1991,7 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemoveIdentityReq); i {
+			switch v := v.(*UpdateIdentityReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1718,6 +2003,30 @@ func file_v0_identities_model_proto_init() {
 			}
 		}
 		file_v0_identities_model_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateIdentityResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v0_identities_model_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RemoveIdentityReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v0_identities_model_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RemoveIdentityResp); i {
 			case 0:
 				return &v.state
@@ -1737,17 +2046,19 @@ func file_v0_identities_model_proto_init() {
 	file_v0_identities_model_proto_msgTypes[4].OneofWrappers = []interface{}{}
 	file_v0_identities_model_proto_msgTypes[5].OneofWrappers = []interface{}{}
 	file_v0_identities_model_proto_msgTypes[6].OneofWrappers = []interface{}{}
+	file_v0_identities_model_proto_msgTypes[7].OneofWrappers = []interface{}{}
 	file_v0_identities_model_proto_msgTypes[8].OneofWrappers = []interface{}{}
 	file_v0_identities_model_proto_msgTypes[10].OneofWrappers = []interface{}{}
 	file_v0_identities_model_proto_msgTypes[12].OneofWrappers = []interface{}{}
 	file_v0_identities_model_proto_msgTypes[14].OneofWrappers = []interface{}{}
+	file_v0_identities_model_proto_msgTypes[16].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_v0_identities_model_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   21,
+			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
