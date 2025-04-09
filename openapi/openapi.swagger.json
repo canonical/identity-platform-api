@@ -928,7 +928,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/identitiesIdentity"
+              "$ref": "#/definitions/identitiesCreateIdentityBody"
             }
           }
         ],
@@ -1085,7 +1085,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/identitiesIdentity"
+              "$ref": "#/definitions/identitiesUpdateIdentityBody"
             }
           }
         ],
@@ -1965,6 +1965,46 @@
         }
       }
     },
+    "identitiesCreateIdentityBody": {
+      "type": "object",
+      "properties": {
+        "credentials": {
+          "type": "object"
+        },
+        "metadataAdmin": {
+          "type": "object"
+        },
+        "metadataPublic": {
+          "type": "object"
+        },
+        "recoveryAddresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/identitiesRecoveryIdentityAddress"
+          }
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "traits": {
+          "type": "object"
+        },
+        "verifiableAddresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/identitiesVerifiableIdentityAddress"
+          }
+        },
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
+    },
     "identitiesCreateIdentityResp": {
       "type": "object",
       "properties": {
@@ -2183,6 +2223,32 @@
         },
         "message": {
           "type": "string"
+        }
+      }
+    },
+    "identitiesUpdateIdentityBody": {
+      "type": "object",
+      "properties": {
+        "credentials": {
+          "type": "object"
+        },
+        "metadataAdmin": {
+          "type": "object"
+        },
+        "metadataPublic": {
+          "type": "object"
+        },
+        "schemaId": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "traits": {
+          "type": "object"
+        },
+        "additionalProperties": {
+          "type": "object"
         }
       }
     },

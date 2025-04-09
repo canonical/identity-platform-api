@@ -114,7 +114,7 @@ message GetIdentityResp {
 }
 
 message CreateIdentityReq {
-  Identity identity = 1;
+  CreateIdentityBody identity = 1;
 }
 
 message CreateIdentityResp {
@@ -126,7 +126,7 @@ message CreateIdentityResp {
 
 message UpdateIdentityReq {
   string id = 1;
-  Identity identity = 2;
+  UpdateIdentityBody identity = 2;
 }
 
 message UpdateIdentityResp {
