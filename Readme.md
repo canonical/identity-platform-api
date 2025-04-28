@@ -39,3 +39,9 @@ make clean
 - [Buf](https://buf.build)
 - [Protocol buffers](https://protobuf.dev/)
 - [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway?tab=readme-ov-file)
+
+
+## Security
+
+Please see [SECURITY.md](https://github.com/canonical/identity-platform-api/blob/main/SECURITY.md)
+for guidelines on reporting security issues.
