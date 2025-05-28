@@ -13,7 +13,7 @@ echo "Attempting to install buf version $VERSION"
 curl -sSL "https://github.com/bufbuild/buf/releases/download/${VERSION}/buf-$(uname -s)-$(uname -m)" -o "${BIN}/buf" && chmod +x "${BIN}/buf"
 
 if [ $? ]; then
-  echo "Installation succedeed"
+  echo "Installation succeeded"
 else
   echo "Something when wrong"
   exit 1
