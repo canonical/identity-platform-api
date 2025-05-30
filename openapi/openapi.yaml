@@ -1861,7 +1861,7 @@ paths:
                         schema:
                             $ref: '#/components/schemas/idpsCreateIdpBody'
                 required: true
-                x-originalParamName: body
+                x-originalParamName: idp
             responses:
                 "200":
                     content:
@@ -2006,7 +2006,7 @@ paths:
                         schema:
                             $ref: '#/components/schemas/idpsUpdateIdpBody'
                 required: true
-                x-originalParamName: body
+                x-originalParamName: idp
             responses:
                 "200":
                     content:
