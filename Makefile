@@ -37,7 +37,7 @@ tidy:
 
 install-buf:
 	# need sudo to put executable inside /usr/local/bin
-	sudo install-buf.sh
+	sudo ./install-buf.sh
 .PHONY: install-buf
 
 build:

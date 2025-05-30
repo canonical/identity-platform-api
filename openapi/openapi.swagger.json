@@ -21,6 +21,9 @@
       "name": "IdentitiesService"
     },
     {
+      "name": "IdpsService"
+    },
+    {
       "name": "MetricsService"
     },
     {
@@ -1091,6 +1094,262 @@
         ],
         "tags": [
           "IdentitiesService"
+        ]
+      }
+    },
+    "/api/v0/idps": {
+      "get": {
+        "operationId": "IdpsService_ListIdps",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/idpsListIdpsResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "IdpsService"
+        ]
+      },
+      "post": {
+        "operationId": "IdpsService_CreateIdp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/idpsCreateIdpResp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "idp",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/idpsCreateIdpBody"
+            }
+          }
+        ],
+        "tags": [
+          "IdpsService"
+        ]
+      }
+    },
+    "/api/v0/idps/{id}": {
+      "get": {
+        "operationId": "IdpsService_GetIdp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/idpsGetIdpResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "IdpsService"
+        ]
+      },
+      "delete": {
+        "operationId": "IdpsService_RemoveIdp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/idpsRemoveIdpResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "IdpsService"
+        ]
+      },
+      "patch": {
+        "operationId": "IdpsService_UpdateIdp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/idpsUpdateIdpResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idp",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/idpsUpdateIdpBody"
+            }
+          }
+        ],
+        "tags": [
+          "IdpsService"
         ]
       }
     },
@@ -2307,6 +2566,262 @@
         "additionalProperties": {
           "type": "object",
           "additionalProperties": {}
+        }
+      }
+    },
+    "idpsCreateIdpBody": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        },
+        "issuerUrl": {
+          "type": "string"
+        },
+        "authUrl": {
+          "type": "string"
+        },
+        "tokenUrl": {
+          "type": "string"
+        },
+        "microsoftTenant": {
+          "type": "string"
+        },
+        "subjectSource": {
+          "type": "string"
+        },
+        "appleTeamId": {
+          "type": "string"
+        },
+        "applePrivateKeyId": {
+          "type": "string"
+        },
+        "applePrivateKey": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapperUrl": {
+          "type": "string"
+        },
+        "requestedClaims": {
+          "type": "object"
+        }
+      }
+    },
+    "idpsCreateIdpResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/idpsIdp"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "idpsGetIdpResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/idpsIdp"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "idpsIdp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        },
+        "issuerUrl": {
+          "type": "string"
+        },
+        "authUrl": {
+          "type": "string"
+        },
+        "tokenUrl": {
+          "type": "string"
+        },
+        "microsoftTenant": {
+          "type": "string"
+        },
+        "subjectSource": {
+          "type": "string"
+        },
+        "appleTeamId": {
+          "type": "string"
+        },
+        "applePrivateKeyId": {
+          "type": "string"
+        },
+        "applePrivateKey": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapperUrl": {
+          "type": "string"
+        },
+        "requestedClaims": {
+          "type": "object"
+        }
+      }
+    },
+    "idpsListIdpsResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/idpsIdp"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "idpsRemoveIdpResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "idpsUpdateIdpBody": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        },
+        "issuerUrl": {
+          "type": "string"
+        },
+        "authUrl": {
+          "type": "string"
+        },
+        "tokenUrl": {
+          "type": "string"
+        },
+        "microsoftTenant": {
+          "type": "string"
+        },
+        "subjectSource": {
+          "type": "string"
+        },
+        "appleTeamId": {
+          "type": "string"
+        },
+        "applePrivateKeyId": {
+          "type": "string"
+        },
+        "applePrivateKey": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapperUrl": {
+          "type": "string"
+        },
+        "requestedClaims": {
+          "type": "object"
+        }
+      }
+    },
+    "idpsUpdateIdpResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/idpsIdp"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
