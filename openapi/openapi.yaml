@@ -434,7 +434,7 @@ components:
                 provider:
                     type: string
                 requestedClaims:
-                    type: object
+                    type: string
                 scope:
                     items:
                         type: string
@@ -495,7 +495,7 @@ components:
                 provider:
                     type: string
                 requestedClaims:
-                    type: object
+                    type: string
                 scope:
                     items:
                         type: string
@@ -552,7 +552,7 @@ components:
                 provider:
                     type: string
                 requestedClaims:
-                    type: object
+                    type: string
                 scope:
                     items:
                         type: string
