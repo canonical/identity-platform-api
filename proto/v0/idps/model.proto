@@ -6,9 +6,6 @@ syntax = "proto3";
 package identity.platform.api.idps;
 option go_package = "github.com/canonical/identity-platform-api/idps";
 
-import "protoc-gen-openapiv2/options/annotations.proto";
-import "google/protobuf/struct.proto";
-
 message Idp {
   string id = 1;
   string provider = 2;
@@ -25,7 +22,7 @@ message Idp {
   optional string apple_private_key = 13;
   repeated string scope = 14;
   optional string mapper_url = 15;
-  optional google.protobuf.Struct requested_claims = 16;
+  optional string requested_claims = 16;
 }
 
 message CreateIdpBody {
@@ -44,7 +41,7 @@ message CreateIdpBody {
   optional string apple_private_key = 13;
   repeated string scope = 14;
   optional string mapper_url = 15;
-  optional google.protobuf.Struct requested_claims = 16;
+  optional string requested_claims = 16;
 }
 
 message UpdateIdpBody {
@@ -63,7 +60,7 @@ message UpdateIdpBody {
   optional string apple_private_key = 13;
   repeated string scope = 14;
   optional string mapper_url = 15;
-  optional google.protobuf.Struct requested_claims = 16;
+  optional string requested_claims = 16;
 }
 
 message ListIdpsResp {
