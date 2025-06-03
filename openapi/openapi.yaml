@@ -1,5 +1,97 @@
 components:
     schemas:
+        CreateSchemaResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/Schema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        DefaultSchema:
+            properties:
+                id:
+                    type: string
+            type: object
+        GetDefaultSchemaResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/DefaultSchema'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        GetSchemaResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/Schema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        ListSchemasResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/Schema'
+                    type: array
+                message:
+                    type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        RemoveSchemaResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        Schema:
+            properties:
+                additionalProperties:
+                    type: object
+                id:
+                    type: string
+                schema:
+                    type: object
+            type: object
+        UpdateDefaultSchemaResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/DefaultSchema'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        UpdateSchemaResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/Schema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
         apistatusStatus:
             properties:
                 buildInfo:
@@ -2497,6 +2589,321 @@ paths:
                     description: Internal server error
             tags:
                 - RolesService
+    /api/v0/schemas:
+        get:
+            operationId: SchemasService_ListSchemas
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ListSchemasResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
+        post:
+            operationId: SchemasService_CreateSchema
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Schema'
+                required: true
+                x-originalParamName: schema
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateSchemaResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
+    /api/v0/schemas/{id}:
+        delete:
+            operationId: SchemasService_RemoveSchema
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RemoveSchemaResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
+        get:
+            operationId: SchemasService_GetSchema
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetSchemaResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
+        patch:
+            operationId: SchemasService_UpdateSchema
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Schema'
+                required: true
+                x-originalParamName: schema
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateSchemaResp'
+                    description: A successful response.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
+    /api/v0/schemas/default:
+        get:
+            operationId: SchemasService_GetDefaultSchema
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetDefaultSchemaResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
+        put:
+            operationId: SchemasService_UpdateDefaultSchema
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DefaultSchema'
+                required: true
+                x-originalParamName: schema
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UpdateDefaultSchemaResp'
+                    description: A successful response.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - SchemasService
     /api/v0/status:
         get:
             operationId: StatusService_GetStatus
@@ -2581,4 +2988,5 @@ tags:
     - name: IdpsService
     - name: MetricsService
     - name: RolesService
+    - name: SchemasService
     - name: StatusService

@@ -1,0 +1,88 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+option go_package = "github.com/canonical/identity-platform-api/schemas";
+
+import "v0/http/types.proto";
+
+import "google/protobuf/struct.proto";
+
+message Schema {
+  string id = 1;
+  google.protobuf.Struct schema = 2;
+  optional google.protobuf.Struct additional_properties = 3;
+}
+
+message DefaultSchema {
+  string id = 1;
+}
+
+message ListSchemasReq {
+  optional string size = 2;
+  optional string page_token = 3;
+}
+
+message ListSchemasResp {
+  repeated Schema data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message GetSchemaReq {
+  string id = 1;
+}
+
+message GetSchemaResp {
+  repeated Schema data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message CreateSchemaReq {
+  Schema schema = 1;
+}
+
+message CreateSchemaResp {
+  repeated Schema data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message UpdateSchemaReq {
+  string id = 1;
+  Schema schema = 2;
+}
+
+message UpdateSchemaResp {
+  repeated Schema data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message RemoveSchemaReq {
+  string id = 1;
+}
+
+message RemoveSchemaResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message GetDefaultSchemaResp {
+  DefaultSchema data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message UpdateDefaultSchemaReq {
+  DefaultSchema schema = 1;
+}
+
+message UpdateDefaultSchemaResp {
+  DefaultSchema data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
