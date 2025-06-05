@@ -41,14 +41,14 @@ components:
             type: object
         ListSchemasResp:
             properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/Schema'
                     type: array
                 message:
                     type: string
-                meta:
-                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -2592,6 +2592,15 @@ paths:
     /api/v0/schemas:
         get:
             operationId: SchemasService_ListSchemas
+            parameters:
+                - in: query
+                  name: size
+                  schema:
+                    type: string
+                - in: query
+                  name: pageToken
+                  schema:
+                    type: string
             responses:
                 "200":
                     content:
@@ -2754,9 +2763,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
                 default:
                     content:
                         application/json:

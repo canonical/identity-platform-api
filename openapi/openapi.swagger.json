@@ -1900,6 +1900,20 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
           "SchemasService"
         ]
@@ -2082,10 +2096,9 @@
             }
           },
           "404": {
-            "description": "Returned when the resource does not exist.",
+            "description": "Not found",
             "schema": {
-              "type": "object",
-              "format": "object"
+              "$ref": "#/definitions/typesErrorResponse"
             }
           },
           "default": {
@@ -2381,7 +2394,7 @@
         "message": {
           "type": "string"
         },
-        "meta": {
+        "Meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }

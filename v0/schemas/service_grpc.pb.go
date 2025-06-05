@@ -36,7 +36,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SchemasServiceClient interface {
-	ListSchemas(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListSchemasResp, error)
+	ListSchemas(ctx context.Context, in *ListSchemasReq, opts ...grpc.CallOption) (*ListSchemasResp, error)
 	GetSchema(ctx context.Context, in *GetSchemaReq, opts ...grpc.CallOption) (*GetSchemaResp, error)
 	CreateSchema(ctx context.Context, in *CreateSchemaReq, opts ...grpc.CallOption) (*CreateSchemaResp, error)
 	UpdateSchema(ctx context.Context, in *UpdateSchemaReq, opts ...grpc.CallOption) (*UpdateSchemaResp, error)
@@ -53,7 +53,7 @@ func NewSchemasServiceClient(cc grpc.ClientConnInterface) SchemasServiceClient {
 	return &schemasServiceClient{cc}
 }
 
-func (c *schemasServiceClient) ListSchemas(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListSchemasResp, error) {
+func (c *schemasServiceClient) ListSchemas(ctx context.Context, in *ListSchemasReq, opts ...grpc.CallOption) (*ListSchemasResp, error) {
 	out := new(ListSchemasResp)
 	err := c.cc.Invoke(ctx, SchemasService_ListSchemas_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -120,7 +120,7 @@ func (c *schemasServiceClient) UpdateDefaultSchema(ctx context.Context, in *Upda
 // All implementations must embed UnimplementedSchemasServiceServer
 // for forward compatibility
 type SchemasServiceServer interface {
-	ListSchemas(context.Context, *emptypb.Empty) (*ListSchemasResp, error)
+	ListSchemas(context.Context, *ListSchemasReq) (*ListSchemasResp, error)
 	GetSchema(context.Context, *GetSchemaReq) (*GetSchemaResp, error)
 	CreateSchema(context.Context, *CreateSchemaReq) (*CreateSchemaResp, error)
 	UpdateSchema(context.Context, *UpdateSchemaReq) (*UpdateSchemaResp, error)
@@ -134,7 +134,7 @@ type SchemasServiceServer interface {
 type UnimplementedSchemasServiceServer struct {
 }
 
-func (UnimplementedSchemasServiceServer) ListSchemas(context.Context, *emptypb.Empty) (*ListSchemasResp, error) {
+func (UnimplementedSchemasServiceServer) ListSchemas(context.Context, *ListSchemasReq) (*ListSchemasResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSchemas not implemented")
 }
 func (UnimplementedSchemasServiceServer) GetSchema(context.Context, *GetSchemaReq) (*GetSchemaResp, error) {
@@ -169,7 +169,7 @@ func RegisterSchemasServiceServer(s grpc.ServiceRegistrar, srv SchemasServiceSer
 }
 
 func _SchemasService_ListSchemas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(ListSchemasReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -181,7 +181,7 @@ func _SchemasService_ListSchemas_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: SchemasService_ListSchemas_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchemasServiceServer).ListSchemas(ctx, req.(*emptypb.Empty))
+		return srv.(SchemasServiceServer).ListSchemas(ctx, req.(*ListSchemasReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
