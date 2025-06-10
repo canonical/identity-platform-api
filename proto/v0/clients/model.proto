@@ -1,0 +1,116 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.clients;
+option go_package = "github.com/canonical/identity-platform-api/clients";
+
+import "v0/http/types.proto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+message Client {
+  optional string access_token_strategy = 1;
+  repeated string allowed_cors_origins = 2;
+  repeated string audience = 3;
+  optional string authorization_code_grant_access_token_lifespan = 4;
+  optional string authorization_code_grant_id_token_lifespan = 5;
+  optional string authorization_code_grant_refresh_token_lifespan = 6;
+  optional bool backchannel_logout_session_required = 7;
+  optional string backchannel_logout_uri = 8;
+  optional string client_credentials_grant_access_token_lifespan = 9;
+  optional string client_id = 10;
+  optional string client_name = 11;
+  optional string client_secret = 12;
+  optional int64 client_secret_expires_at = 13;
+  optional string client_uri = 14;
+  repeated string contacts = 15;
+  google.protobuf.Timestamp created_at = 16;
+  optional bool frontchannel_logout_session_required = 17;
+  optional string frontchannel_logout_uri = 18;
+  repeated string grant_types = 19;
+  optional string implicit_grant_access_token_lifespan = 20;
+  optional string implicit_grant_id_token_lifespan = 21;
+  google.protobuf.Struct jwks = 22;
+  optional string jwks_uri = 23;
+  optional string jwt_bearer_grant_access_token_lifespan = 24;
+  optional string logo_uri = 25;
+  google.protobuf.Struct metadata = 26;
+  optional string owner = 27;
+  optional string policy_uri = 28;
+  repeated string post_logout_redirect_uris = 29;
+  repeated string redirect_uris = 30;
+  optional string refresh_token_grant_access_token_lifespan = 31;
+  optional string refresh_token_grant_id_token_lifespan = 32;
+  optional string refresh_token_grant_refresh_token_lifespan = 33;
+  optional string registration_access_token = 34;
+  optional string registration_client_uri = 35;
+  optional string request_object_signing_alg = 36;
+  repeated string request_uris = 37;
+  repeated string response_types = 38;
+  optional string scope = 39;
+  optional string sector_identifier_uri = 40;
+  optional bool skip_consent = 41;
+  optional string subject_type = 42;
+  optional string token_endpoint_auth_method = 43;
+  optional string token_endpoint_auth_signing_alg = 44;
+  optional string tos_uri = 45;
+  google.protobuf.Timestamp updated_at = 46;
+  optional string userinfo_signed_response_alg = 47;
+}
+
+message ListClientsReq {
+  string client_name = 1;
+  string owner = 2;
+  optional string size = 3;
+  string page_token = 4;
+}
+
+message ListClientsResp {
+  repeated Client data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination _meta = 4;
+}
+
+message GetClientReq {
+  string id = 1;
+}
+
+message GetClientResp {
+  Client data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message CreateClientReq {
+  Client client = 1;
+}
+
+message CreateClientResp {
+  Client data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message UpdateClientReq {
+  string id = 1;
+  Client client = 2;
+}
+
+message UpdateClientResp {
+  Client data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message RemoveClientReq {
+  string id = 1;
+}
+
+message RemoveClientResp {
+  int32 status = 2;
+  optional string message = 3;
+}
