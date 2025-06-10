@@ -15,6 +15,9 @@
   },
   "tags": [
     {
+      "name": "ClientsService"
+    },
+    {
       "name": "GroupsService"
     },
     {
@@ -46,6 +49,288 @@
     "application/json"
   ],
   "paths": {
+    "/api/v0/clients": {
+      "get": {
+        "operationId": "ClientsService_ListClients",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/clientsListClientsResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "clientName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "owner",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ClientsService"
+        ]
+      },
+      "post": {
+        "operationId": "ClientsService_CreateClient",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/clientsCreateClientResp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "client",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/clientsClient"
+            }
+          }
+        ],
+        "tags": [
+          "ClientsService"
+        ]
+      }
+    },
+    "/api/v0/clients/{id}": {
+      "get": {
+        "operationId": "ClientsService_GetClient",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/clientsGetClientResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ClientsService"
+        ]
+      },
+      "delete": {
+        "operationId": "ClientsService_RemoveClient",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/clientsRemoveClientResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ClientsService"
+        ]
+      },
+      "put": {
+        "operationId": "ClientsService_UpdateClient",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/clientsUpdateClientResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "client",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/clientsClient"
+            }
+          }
+        ],
+        "tags": [
+          "ClientsService"
+        ]
+      }
+    },
     "/api/v0/groups": {
       "get": {
         "operationId": "GroupsService_ListGroups",
@@ -2467,6 +2752,258 @@
         },
         "buildInfo": {
           "$ref": "#/definitions/statusBuildInfo"
+        }
+      }
+    },
+    "clientsClient": {
+      "type": "object",
+      "properties": {
+        "accessTokenStrategy": {
+          "type": "string"
+        },
+        "allowedCorsOrigins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "audience": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorizationCodeGrantAccessTokenLifespan": {
+          "type": "string"
+        },
+        "authorizationCodeGrantIdTokenLifespan": {
+          "type": "string"
+        },
+        "authorizationCodeGrantRefreshTokenLifespan": {
+          "type": "string"
+        },
+        "backchannelLogoutSessionRequired": {
+          "type": "boolean"
+        },
+        "backchannelLogoutUri": {
+          "type": "string"
+        },
+        "clientCredentialsGrantAccessTokenLifespan": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        },
+        "clientSecretExpiresAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "clientUri": {
+          "type": "string"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "frontchannelLogoutSessionRequired": {
+          "type": "boolean"
+        },
+        "frontchannelLogoutUri": {
+          "type": "string"
+        },
+        "grantTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "implicitGrantAccessTokenLifespan": {
+          "type": "string"
+        },
+        "implicitGrantIdTokenLifespan": {
+          "type": "string"
+        },
+        "jwks": {
+          "type": "object"
+        },
+        "jwksUri": {
+          "type": "string"
+        },
+        "jwtBearerGrantAccessTokenLifespan": {
+          "type": "string"
+        },
+        "logoUri": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "policyUri": {
+          "type": "string"
+        },
+        "postLogoutRedirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refreshTokenGrantAccessTokenLifespan": {
+          "type": "string"
+        },
+        "refreshTokenGrantIdTokenLifespan": {
+          "type": "string"
+        },
+        "refreshTokenGrantRefreshTokenLifespan": {
+          "type": "string"
+        },
+        "registrationAccessToken": {
+          "type": "string"
+        },
+        "registrationClientUri": {
+          "type": "string"
+        },
+        "requestObjectSigningAlg": {
+          "type": "string"
+        },
+        "requestUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "responseTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scope": {
+          "type": "string"
+        },
+        "sectorIdentifierUri": {
+          "type": "string"
+        },
+        "skipConsent": {
+          "type": "boolean"
+        },
+        "subjectType": {
+          "type": "string"
+        },
+        "tokenEndpointAuthMethod": {
+          "type": "string"
+        },
+        "tokenEndpointAuthSigningAlg": {
+          "type": "string"
+        },
+        "tosUri": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userinfoSignedResponseAlg": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsCreateClientResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/clientsClient"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsGetClientResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/clientsClient"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsListClientsResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/clientsClient"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "clientsRemoveClientResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsUpdateClientResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/clientsClient"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
