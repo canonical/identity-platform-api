@@ -99,6 +99,174 @@ components:
                 status:
                     type: string
             type: object
+        clientsClient:
+            properties:
+                accessTokenStrategy:
+                    type: string
+                allowedCorsOrigins:
+                    items:
+                        type: string
+                    type: array
+                audience:
+                    items:
+                        type: string
+                    type: array
+                authorizationCodeGrantAccessTokenLifespan:
+                    type: string
+                authorizationCodeGrantIdTokenLifespan:
+                    type: string
+                authorizationCodeGrantRefreshTokenLifespan:
+                    type: string
+                backchannelLogoutSessionRequired:
+                    type: boolean
+                backchannelLogoutUri:
+                    type: string
+                clientCredentialsGrantAccessTokenLifespan:
+                    type: string
+                clientId:
+                    type: string
+                clientName:
+                    type: string
+                clientSecret:
+                    type: string
+                clientSecretExpiresAt:
+                    format: int64
+                    type: string
+                clientUri:
+                    type: string
+                contacts:
+                    items:
+                        type: string
+                    type: array
+                createdAt:
+                    format: date-time
+                    type: string
+                frontchannelLogoutSessionRequired:
+                    type: boolean
+                frontchannelLogoutUri:
+                    type: string
+                grantTypes:
+                    items:
+                        type: string
+                    type: array
+                implicitGrantAccessTokenLifespan:
+                    type: string
+                implicitGrantIdTokenLifespan:
+                    type: string
+                jwks:
+                    type: object
+                jwksUri:
+                    type: string
+                jwtBearerGrantAccessTokenLifespan:
+                    type: string
+                logoUri:
+                    type: string
+                metadata:
+                    type: object
+                owner:
+                    type: string
+                policyUri:
+                    type: string
+                postLogoutRedirectUris:
+                    items:
+                        type: string
+                    type: array
+                redirectUris:
+                    items:
+                        type: string
+                    type: array
+                refreshTokenGrantAccessTokenLifespan:
+                    type: string
+                refreshTokenGrantIdTokenLifespan:
+                    type: string
+                refreshTokenGrantRefreshTokenLifespan:
+                    type: string
+                registrationAccessToken:
+                    type: string
+                registrationClientUri:
+                    type: string
+                requestObjectSigningAlg:
+                    type: string
+                requestUris:
+                    items:
+                        type: string
+                    type: array
+                responseTypes:
+                    items:
+                        type: string
+                    type: array
+                scope:
+                    type: string
+                sectorIdentifierUri:
+                    type: string
+                skipConsent:
+                    type: boolean
+                subjectType:
+                    type: string
+                tokenEndpointAuthMethod:
+                    type: string
+                tokenEndpointAuthSigningAlg:
+                    type: string
+                tosUri:
+                    type: string
+                updatedAt:
+                    format: date-time
+                    type: string
+                userinfoSignedResponseAlg:
+                    type: string
+            type: object
+        clientsCreateClientResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/clientsClient'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        clientsGetClientResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/clientsClient'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        clientsListClientsResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/clientsClient'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        clientsRemoveClientResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        clientsUpdateClientResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/clientsClient'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
         googlerpcStatus:
             properties:
                 code:
@@ -969,6 +1137,253 @@ info:
     version: "0.1"
 openapi: 3.0.3
 paths:
+    /api/v0/clients:
+        get:
+            operationId: ClientsService_ListClients
+            parameters:
+                - in: query
+                  name: clientName
+                  schema:
+                    type: string
+                - in: query
+                  name: owner
+                  schema:
+                    type: string
+                - in: query
+                  name: size
+                  schema:
+                    type: string
+                - in: query
+                  name: pageToken
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/clientsListClientsResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - ClientsService
+        post:
+            operationId: ClientsService_CreateClient
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/clientsClient'
+                required: true
+                x-originalParamName: client
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/clientsCreateClientResp'
+                    description: A successful response.
+                "201":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - ClientsService
+    /api/v0/clients/{id}:
+        delete:
+            operationId: ClientsService_RemoveClient
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/clientsRemoveClientResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - ClientsService
+        get:
+            operationId: ClientsService_GetClient
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/clientsGetClientResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - ClientsService
+        put:
+            operationId: ClientsService_UpdateClient
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/clientsClient'
+                required: true
+                x-originalParamName: client
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/clientsUpdateClientResp'
+                    description: A successful response.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - ClientsService
     /api/v0/groups:
         get:
             operationId: GroupsService_ListGroups
@@ -2991,6 +3406,7 @@ paths:
             tags:
                 - StatusService
 tags:
+    - name: ClientsService
     - name: GroupsService
     - name: IdentitiesService
     - name: IdpsService
