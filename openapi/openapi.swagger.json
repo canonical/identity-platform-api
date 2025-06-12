@@ -15,6 +15,9 @@
   },
   "tags": [
     {
+      "name": "AuthenticationService"
+    },
+    {
       "name": "ClientsService"
     },
     {
@@ -49,6 +52,240 @@
     "application/json"
   ],
   "paths": {
+    "/api/v0/auth": {
+      "get": {
+        "operationId": "AuthenticationService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "302": {
+            "description": "Redirects the client to the identity provider's authorization endpoint.\n\nThe response is a 302 Redirect with a Location header.",
+            "schema": {}
+          },
+          "401": {
+            "description": "Returned when the user is not authenticated.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "next",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthenticationService"
+        ]
+      }
+    },
+    "/api/v0/auth/callback": {
+      "get": {
+        "operationId": "AuthenticationService_Callback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "302": {
+            "description": "This endpoint redirects the client to the original location after authentication.\n\nThe response is a 302 Redirect with a Location header.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the user is not authenticated.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthenticationService"
+        ]
+      }
+    },
+    "/api/v0/auth/logout": {
+      "get": {
+        "operationId": "AuthenticationService_Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "302": {
+            "description": "This endpoint logs out the client and redirects to the requested location.\n\nThe response is a 302 Redirect with a Location header.",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Returned when the user is not authenticated.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "next",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthenticationService"
+        ]
+      }
+    },
+    "/api/v0/auth/me": {
+      "get": {
+        "operationId": "AuthenticationService_Me",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authenticationMeResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Returned when the user does not have permission to access the resource.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "object",
+              "format": "object"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AuthenticationService"
+        ]
+      }
+    },
     "/api/v0/clients": {
       "get": {
         "operationId": "ClientsService_ListClients",
@@ -2156,7 +2393,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ListSchemasResp"
+              "$ref": "#/definitions/schemasListSchemasResp"
             }
           },
           "401": {
@@ -2209,7 +2446,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CreateSchemaResp"
+              "$ref": "#/definitions/schemasCreateSchemaResp"
             }
           },
           "201": {
@@ -2254,7 +2491,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Schema"
+              "$ref": "#/definitions/apischemasSchema"
             }
           }
         ],
@@ -2270,7 +2507,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetDefaultSchemaResp"
+              "$ref": "#/definitions/schemasGetDefaultSchemaResp"
             }
           },
           "401": {
@@ -2309,7 +2546,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UpdateDefaultSchemaResp"
+              "$ref": "#/definitions/schemasUpdateDefaultSchemaResp"
             }
           },
           "400": {
@@ -2349,7 +2586,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DefaultSchema"
+              "$ref": "#/definitions/schemasDefaultSchema"
             }
           }
         ],
@@ -2365,7 +2602,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetSchemaResp"
+              "$ref": "#/definitions/schemasGetSchemaResp"
             }
           },
           "401": {
@@ -2411,7 +2648,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RemoveSchemaResp"
+              "$ref": "#/definitions/schemasRemoveSchemaResp"
             }
           },
           "401": {
@@ -2458,7 +2695,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UpdateSchemaResp"
+              "$ref": "#/definitions/schemasUpdateSchemaResp"
             }
           },
           "400": {
@@ -2504,7 +2741,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Schema"
+              "$ref": "#/definitions/apischemasSchema"
             }
           }
         ],
@@ -2601,102 +2838,7 @@
     }
   },
   "definitions": {
-    "CreateSchemaResp": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Schema"
-          }
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "DefaultSchema": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "GetDefaultSchemaResp": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/DefaultSchema"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "GetSchemaResp": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Schema"
-          }
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "ListSchemasResp": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Schema"
-          }
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "Meta": {
-          "$ref": "#/definitions/typesPagination"
-        }
-      }
-    },
-    "RemoveSchemaResp": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "Schema": {
+    "apischemasSchema": {
       "type": "object",
       "properties": {
         "id": {
@@ -2710,40 +2852,6 @@
         }
       }
     },
-    "UpdateDefaultSchemaResp": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/DefaultSchema"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "UpdateSchemaResp": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Schema"
-          }
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
     "apistatusStatus": {
       "type": "object",
       "properties": {
@@ -2752,6 +2860,26 @@
         },
         "buildInfo": {
           "$ref": "#/definitions/statusBuildInfo"
+        }
+      }
+    },
+    "authenticationMeResp": {
+      "type": "object",
+      "properties": {
+        "sub": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "sid": {
+          "type": "string"
+        },
+        "nonce": {
+          "type": "string"
         }
       }
     },
@@ -4044,6 +4172,135 @@
     },
     "rolesUpdateRoleResp": {
       "type": "object"
+    },
+    "schemasCreateSchemaResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apischemasSchema"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "schemasDefaultSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "schemasGetDefaultSchemaResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/schemasDefaultSchema"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "schemasGetSchemaResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apischemasSchema"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "schemasListSchemasResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apischemasSchema"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "Meta": {
+          "$ref": "#/definitions/typesPagination"
+        }
+      }
+    },
+    "schemasRemoveSchemaResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "schemasUpdateDefaultSchemaResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/schemasDefaultSchema"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "schemasUpdateSchemaResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apischemasSchema"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
     },
     "statusBuildInfo": {
       "type": "object",

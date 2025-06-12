@@ -1,0 +1,31 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.authentication;
+option go_package = "github.com/canonical/identity-platform-api/authentication";
+
+// ONLY for OpenAPI documentation
+
+message LoginReq {
+  string next = 1;
+}
+
+message CallbackReq {
+  string code = 1;
+  string scope = 2;
+  string state = 3;
+}
+
+message MeResp {
+  string sub = 1;
+  string name = 2;
+  string email = 3;
+  string sid = 4;
+  string nonce = 5;
+}
+
+message LogoutReq {
+  string next = 1;
+}

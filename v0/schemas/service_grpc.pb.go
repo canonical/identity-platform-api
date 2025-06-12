@@ -23,13 +23,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SchemasService_ListSchemas_FullMethodName         = "/SchemasService/ListSchemas"
-	SchemasService_GetSchema_FullMethodName           = "/SchemasService/GetSchema"
-	SchemasService_CreateSchema_FullMethodName        = "/SchemasService/CreateSchema"
-	SchemasService_UpdateSchema_FullMethodName        = "/SchemasService/UpdateSchema"
-	SchemasService_RemoveSchema_FullMethodName        = "/SchemasService/RemoveSchema"
-	SchemasService_GetDefaultSchema_FullMethodName    = "/SchemasService/GetDefaultSchema"
-	SchemasService_UpdateDefaultSchema_FullMethodName = "/SchemasService/UpdateDefaultSchema"
+	SchemasService_ListSchemas_FullMethodName         = "/identity.platform.api.schemas.SchemasService/ListSchemas"
+	SchemasService_GetSchema_FullMethodName           = "/identity.platform.api.schemas.SchemasService/GetSchema"
+	SchemasService_CreateSchema_FullMethodName        = "/identity.platform.api.schemas.SchemasService/CreateSchema"
+	SchemasService_UpdateSchema_FullMethodName        = "/identity.platform.api.schemas.SchemasService/UpdateSchema"
+	SchemasService_RemoveSchema_FullMethodName        = "/identity.platform.api.schemas.SchemasService/RemoveSchema"
+	SchemasService_GetDefaultSchema_FullMethodName    = "/identity.platform.api.schemas.SchemasService/GetDefaultSchema"
+	SchemasService_UpdateDefaultSchema_FullMethodName = "/identity.platform.api.schemas.SchemasService/UpdateDefaultSchema"
 )
 
 // SchemasServiceClient is the client API for SchemasService service.
@@ -298,7 +298,7 @@ func _SchemasService_UpdateDefaultSchema_Handler(srv interface{}, ctx context.Co
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var SchemasService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "SchemasService",
+	ServiceName: "identity.platform.api.schemas.SchemasService",
 	HandlerType: (*SchemasServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

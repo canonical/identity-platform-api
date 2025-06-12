@@ -260,7 +260,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/ListSchemas", runtime.WithHTTPPathPattern("/api/v0/schemas"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/ListSchemas", runtime.WithHTTPPathPattern("/api/v0/schemas"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -280,7 +280,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/GetSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/GetSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -300,7 +300,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/CreateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/CreateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -320,7 +320,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/UpdateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/UpdateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -340,7 +340,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/RemoveSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/RemoveSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -360,7 +360,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/GetDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/GetDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -380,7 +380,7 @@ func RegisterSchemasServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.SchemasService/UpdateDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/UpdateDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -438,7 +438,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/ListSchemas", runtime.WithHTTPPathPattern("/api/v0/schemas"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/ListSchemas", runtime.WithHTTPPathPattern("/api/v0/schemas"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -455,7 +455,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/GetSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/GetSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -472,7 +472,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/CreateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/CreateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -489,7 +489,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/UpdateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/UpdateSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -506,7 +506,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/RemoveSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/RemoveSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -523,7 +523,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/GetDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/GetDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -540,7 +540,7 @@ func RegisterSchemasServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.SchemasService/UpdateDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.schemas.SchemasService/UpdateDefaultSchema", runtime.WithHTTPPathPattern("/api/v0/schemas/default"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
