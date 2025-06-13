@@ -1,67 +1,6 @@
 components:
     schemas:
-        CreateSchemaResp:
-            properties:
-                data:
-                    items:
-                        $ref: '#/components/schemas/Schema'
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        DefaultSchema:
-            properties:
-                id:
-                    type: string
-            type: object
-        GetDefaultSchemaResp:
-            properties:
-                data:
-                    $ref: '#/components/schemas/DefaultSchema'
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        GetSchemaResp:
-            properties:
-                data:
-                    items:
-                        $ref: '#/components/schemas/Schema'
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        ListSchemasResp:
-            properties:
-                Meta:
-                    $ref: '#/components/schemas/typesPagination'
-                data:
-                    items:
-                        $ref: '#/components/schemas/Schema'
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        RemoveSchemaResp:
-            properties:
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        Schema:
+        apischemasSchema:
             properties:
                 additionalProperties:
                     type: object
@@ -70,33 +9,24 @@ components:
                 schema:
                     type: object
             type: object
-        UpdateDefaultSchemaResp:
-            properties:
-                data:
-                    $ref: '#/components/schemas/DefaultSchema'
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        UpdateSchemaResp:
-            properties:
-                data:
-                    items:
-                        $ref: '#/components/schemas/Schema'
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
         apistatusStatus:
             properties:
                 buildInfo:
                     $ref: '#/components/schemas/statusBuildInfo'
                 status:
+                    type: string
+            type: object
+        authenticationMeResp:
+            properties:
+                email:
+                    type: string
+                name:
+                    type: string
+                nonce:
+                    type: string
+                sid:
+                    type: string
+                sub:
                     type: string
             type: object
         clientsClient:
@@ -1068,6 +998,89 @@ components:
             type: object
         rolesUpdateRoleResp:
             type: object
+        schemasCreateSchemaResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/apischemasSchema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        schemasDefaultSchema:
+            properties:
+                id:
+                    type: string
+            type: object
+        schemasGetDefaultSchemaResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/schemasDefaultSchema'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        schemasGetSchemaResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/apischemasSchema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        schemasListSchemasResp:
+            properties:
+                Meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/apischemasSchema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        schemasRemoveSchemaResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        schemasUpdateDefaultSchemaResp:
+            properties:
+                data:
+                    $ref: '#/components/schemas/schemasDefaultSchema'
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        schemasUpdateSchemaResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/apischemasSchema'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
         statusBuildInfo:
             properties:
                 commitHash:
@@ -1137,6 +1150,220 @@ info:
     version: "0.1"
 openapi: 3.0.3
 paths:
+    /api/v0/auth:
+        get:
+            operationId: AuthenticationService_Login
+            parameters:
+                - in: query
+                  name: next
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                    description: A successful response.
+                "302":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: |-
+                        Redirects the client to the identity provider's authorization endpoint.
+
+                        The response is a 302 Redirect with a Location header.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user is not authenticated.
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user does not have permission to access the resource.
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/googlerpcStatus'
+                    description: An unexpected error response.
+            tags:
+                - AuthenticationService
+    /api/v0/auth/callback:
+        get:
+            operationId: AuthenticationService_Callback
+            parameters:
+                - in: query
+                  name: code
+                  schema:
+                    type: string
+                - in: query
+                  name: scope
+                  schema:
+                    type: string
+                - in: query
+                  name: state
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                    description: A successful response.
+                "302":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: |-
+                        This endpoint redirects the client to the original location after authentication.
+
+                        The response is a 302 Redirect with a Location header.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user is not authenticated.
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user does not have permission to access the resource.
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthenticationService
+    /api/v0/auth/logout:
+        get:
+            operationId: AuthenticationService_Logout
+            parameters:
+                - in: query
+                  name: next
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                    description: A successful response.
+                "302":
+                    content:
+                        application/json:
+                            schema: {}
+                    description: |-
+                        This endpoint logs out the client and redirects to the requested location.
+
+                        The response is a 302 Redirect with a Location header.
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user is not authenticated.
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user does not have permission to access the resource.
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthenticationService
+    /api/v0/auth/me:
+        get:
+            operationId: AuthenticationService_Me
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/authenticationMeResp'
+                    description: A successful response.
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the user does not have permission to access the resource.
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                format: object
+                                type: object
+                    description: Returned when the resource does not exist.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthenticationService
     /api/v0/clients:
         get:
             operationId: ClientsService_ListClients
@@ -3021,7 +3248,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/ListSchemasResp'
+                                $ref: '#/components/schemas/schemasListSchemasResp'
                     description: A successful response.
                 "401":
                     content:
@@ -3056,7 +3283,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Schema'
+                            $ref: '#/components/schemas/apischemasSchema'
                 required: true
                 x-originalParamName: schema
             responses:
@@ -3064,7 +3291,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/CreateSchemaResp'
+                                $ref: '#/components/schemas/schemasCreateSchemaResp'
                     description: A successful response.
                 "201":
                     content:
@@ -3118,7 +3345,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/RemoveSchemaResp'
+                                $ref: '#/components/schemas/schemasRemoveSchemaResp'
                     description: A successful response.
                 "401":
                     content:
@@ -3160,7 +3387,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GetSchemaResp'
+                                $ref: '#/components/schemas/schemasGetSchemaResp'
                     description: A successful response.
                 "401":
                     content:
@@ -3200,7 +3427,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Schema'
+                            $ref: '#/components/schemas/apischemasSchema'
                 required: true
                 x-originalParamName: schema
             responses:
@@ -3208,7 +3435,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/UpdateSchemaResp'
+                                $ref: '#/components/schemas/schemasUpdateSchemaResp'
                     description: A successful response.
                 "400":
                     content:
@@ -3250,7 +3477,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GetDefaultSchemaResp'
+                                $ref: '#/components/schemas/schemasGetDefaultSchemaResp'
                     description: A successful response.
                 "401":
                     content:
@@ -3285,7 +3512,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/DefaultSchema'
+                            $ref: '#/components/schemas/schemasDefaultSchema'
                 required: true
                 x-originalParamName: schema
             responses:
@@ -3293,7 +3520,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/UpdateDefaultSchemaResp'
+                                $ref: '#/components/schemas/schemasUpdateDefaultSchemaResp'
                     description: A successful response.
                 "400":
                     content:
@@ -3406,6 +3633,7 @@ paths:
             tags:
                 - StatusService
 tags:
+    - name: AuthenticationService
     - name: ClientsService
     - name: GroupsService
     - name: IdentitiesService

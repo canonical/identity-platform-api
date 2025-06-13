@@ -3,6 +3,7 @@
 
 syntax = "proto3";
 
+package identity.platform.api.schemas;
 option go_package = "github.com/canonical/identity-platform-api/schemas";
 
 import "v0/schemas/model.proto";
