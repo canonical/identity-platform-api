@@ -167,7 +167,7 @@ components:
             type: object
         clientsListClientsResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -211,7 +211,7 @@ components:
             type: object
         groupsCreateGroupResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -225,7 +225,7 @@ components:
             type: object
         groupsGetGroupIdentitiesResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -239,7 +239,7 @@ components:
             type: object
         groupsGetGroupResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -253,7 +253,7 @@ components:
             type: object
         groupsGetGroupRolesResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -293,7 +293,7 @@ components:
             type: object
         groupsListGroupsResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -397,7 +397,7 @@ components:
             type: object
         identitiesCreateIdentityResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -411,7 +411,7 @@ components:
             type: object
         identitiesGetIdentityResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -492,7 +492,7 @@ components:
             type: object
         identitiesListIdentitiesResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -560,7 +560,7 @@ components:
             type: object
         identitiesUpdateIdentityResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -899,7 +899,7 @@ components:
             type: string
         rolesCreateRoleResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -913,7 +913,7 @@ components:
             type: object
         rolesGetRoleGroupsResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -927,7 +927,7 @@ components:
             type: object
         rolesGetRoleResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -953,7 +953,7 @@ components:
             type: object
         rolesListRolesResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
@@ -1039,7 +1039,7 @@ components:
             type: object
         schemasListSchemasResp:
             properties:
-                Meta:
+                _meta:
                     $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
