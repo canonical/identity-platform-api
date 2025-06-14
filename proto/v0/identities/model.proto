@@ -99,7 +99,7 @@ message ListIdentitiesResp {
   repeated Identity data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message GetIdentityReq {
@@ -110,7 +110,7 @@ message GetIdentityResp {
   repeated Identity data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message CreateIdentityReq {
@@ -121,7 +121,7 @@ message CreateIdentityResp {
   repeated Identity data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message UpdateIdentityReq {
@@ -133,7 +133,7 @@ message UpdateIdentityResp {
   repeated Identity data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message RemoveIdentityReq {

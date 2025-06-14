@@ -18,7 +18,7 @@ message ListGroupsResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message GetGroupReq {
@@ -29,7 +29,7 @@ message GetGroupResp {
   repeated Group data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message CreateGroupReq {
@@ -40,7 +40,7 @@ message CreateGroupResp {
   repeated Group data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message UpdateGroupReq {
@@ -97,7 +97,7 @@ message GetGroupRolesResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message UpdateGroupRolesReq {
@@ -132,7 +132,7 @@ message GetGroupIdentitiesResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message UpdateGroupIdentitiesReq {
