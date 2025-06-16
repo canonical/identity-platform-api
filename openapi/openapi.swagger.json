@@ -61,9 +61,9 @@
             "schema": {}
           },
           "default": {
-            "description": "An unexpected error response.",
+            "description": "Internal server error",
             "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
+              "$ref": "#/definitions/typesErrorResponse"
             }
           }
         },

@@ -1171,8 +1171,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/googlerpcStatus'
-                    description: An unexpected error response.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
             tags:
                 - AuthenticationService
     /api/v0/auth/callback:
