@@ -18,7 +18,7 @@ message ListRolesResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message GetRoleReq {
@@ -29,7 +29,7 @@ message GetRoleResp {
   repeated Role data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message CreateRoleReq {
@@ -40,7 +40,7 @@ message CreateRoleResp {
   repeated Role data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
 
 message UpdateRoleReq {
@@ -97,5 +97,5 @@ message GetRoleGroupsResp {
   repeated string data = 1;
   int32 status = 2;
   optional string message = 3;
-  optional identity.platform.api.types.Pagination _meta = 4;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
 }
