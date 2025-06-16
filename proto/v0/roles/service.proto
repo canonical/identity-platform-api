@@ -19,7 +19,14 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.ListRolesResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -64,7 +71,14 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.GetRoleResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -121,7 +135,14 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.CreateRoleResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -220,7 +241,14 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.RemoveRoleResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -272,7 +300,14 @@ service RolesService {
       };
 
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.ListRoleEntitlementsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -318,7 +353,14 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.UpdateRoleEntitlementsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -362,7 +404,14 @@ service RolesService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.RemoveRoleEntitlementResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -407,7 +456,14 @@ service RolesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.roles.GetRoleGroupsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -445,4 +501,3 @@ service RolesService {
     };
   }
 }
-

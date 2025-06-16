@@ -20,6 +20,13 @@ service ClientsService {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
         key: "200"
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.clients.ListClientsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -65,6 +72,13 @@ service ClientsService {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
         key: "200"
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.clients.GetClientResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -110,7 +124,14 @@ service ClientsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.clients.CreateClientResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -167,7 +188,14 @@ service ClientsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.clients.UpdateClientResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -234,7 +262,14 @@ service ClientsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.clients.RemoveClientResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",

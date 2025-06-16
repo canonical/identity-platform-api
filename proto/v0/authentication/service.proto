@@ -25,6 +25,17 @@ service AuthenticationService {
           description: "Redirects the client to the identity provider's authorization endpoint.\n\nThe response is a 302 Redirect with a Location header."
         }
       };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
     };
   }
 
@@ -73,6 +84,13 @@ service AuthenticationService {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
         key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authentication.MeResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -83,6 +101,17 @@ service AuthenticationService {
             }
           }
           description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
         }
       };
       responses: {
@@ -120,6 +149,28 @@ service AuthenticationService {
             }
           }
           description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
         }
       };
       responses: {

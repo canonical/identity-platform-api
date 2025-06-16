@@ -19,7 +19,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.ListSchemasResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -64,7 +71,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.GetSchemaResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -121,7 +135,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.CreateSchemaResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -178,7 +199,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.UpdateSchemaResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -245,7 +273,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.RemoveSchemaResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -290,7 +325,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.GetDefaultSchemaResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -336,7 +378,14 @@ service SchemasService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.schemas.UpdateDefaultSchemaResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",

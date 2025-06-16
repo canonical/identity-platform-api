@@ -20,7 +20,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.ListGroupsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -65,7 +72,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.GetGroupResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -111,7 +125,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.CreateGroupResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -221,7 +242,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.RemoveGroupResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -273,7 +301,14 @@ service GroupsService {
       };
 
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.ListGroupEntitlementsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -319,7 +354,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.UpdateGroupEntitlementsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -374,7 +416,14 @@ service GroupsService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.RemoveGroupEntitlementResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -430,7 +479,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.GetGroupRolesResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -476,7 +532,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.UpdateGroupRolesResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -532,7 +595,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.RemoveGroupRoleResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -577,7 +647,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.GetGroupIdentitiesResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -623,7 +700,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.UpdateGroupIdentitiesResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -679,7 +763,14 @@ service GroupsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.groups.RemoveGroupIdentityResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -717,4 +808,3 @@ service GroupsService {
     };
   }
 }
-
