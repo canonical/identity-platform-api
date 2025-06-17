@@ -19,7 +19,14 @@ service IdpsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.idps.ListIdpsResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -64,7 +71,14 @@ service IdpsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.idps.GetIdpResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -110,7 +124,14 @@ service IdpsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.idps.CreateIdpResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -167,7 +188,14 @@ service IdpsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.idps.UpdateIdpResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -234,7 +262,14 @@ service IdpsService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.idps.RemoveIdpResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",

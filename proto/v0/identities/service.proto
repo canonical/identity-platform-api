@@ -19,7 +19,14 @@ service IdentitiesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.identities.ListIdentitiesResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -63,7 +70,14 @@ service IdentitiesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.identities.GetIdentityResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",
@@ -108,7 +122,14 @@ service IdentitiesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "201"
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.identities.CreateIdentityResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -164,7 +185,14 @@ service IdentitiesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.identities.UpdateIdentityResp"
+            }
+          }
+        }
       };
       responses: {
         key: "400",
@@ -219,7 +247,14 @@ service IdentitiesService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
-        key: "200"
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.identities.RemoveIdentityResp"
+            }
+          }
+        }
       };
       responses: {
         key: "401",

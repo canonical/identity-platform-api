@@ -56,42 +56,14 @@
       "get": {
         "operationId": "AuthenticationService_Login",
         "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
-          },
           "302": {
             "description": "Redirects the client to the identity provider's authorization endpoint.\n\nThe response is a 302 Redirect with a Location header.",
             "schema": {}
           },
-          "401": {
-            "description": "Returned when the user is not authenticated.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
           "default": {
-            "description": "An unexpected error response.",
+            "description": "Internal server error",
             "schema": {
-              "$ref": "#/definitions/googlerpcStatus"
+              "$ref": "#/definitions/typesErrorResponse"
             }
           }
         },
@@ -112,13 +84,6 @@
       "get": {
         "operationId": "AuthenticationService_Callback",
         "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
-          },
           "302": {
             "description": "This endpoint redirects the client to the original location after authentication.\n\nThe response is a 302 Redirect with a Location header.",
             "schema": {}
@@ -127,27 +92,6 @@
             "description": "Bad request",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "401": {
-            "description": "Returned when the user is not authenticated.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -182,17 +126,44 @@
         ]
       }
     },
+    "/api/v0/auth/me": {
+      "get": {
+        "operationId": "AuthenticationService_Me",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authenticationMeResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "AuthenticationService"
+        ]
+      }
+    },
     "/api/v0/auth/logout": {
       "get": {
         "operationId": "AuthenticationService_Logout",
         "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
-          },
           "302": {
             "description": "This endpoint logs out the client and redirects to the requested location.\n\nThe response is a 302 Redirect with a Location header.",
             "schema": {}
@@ -204,24 +175,15 @@
             }
           },
           "401": {
-            "description": "Returned when the user is not authenticated.",
+            "description": "Unauthorized",
             "schema": {
-              "type": "object",
-              "format": "object"
+              "$ref": "#/definitions/typesErrorResponse"
             }
           },
           "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
+            "description": "Forbidden",
             "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
+              "$ref": "#/definitions/typesErrorResponse"
             }
           },
           "default": {
@@ -244,54 +206,12 @@
         ]
       }
     },
-    "/api/v0/auth/me": {
-      "get": {
-        "operationId": "AuthenticationService_Me",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/authenticationMeResp"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "AuthenticationService"
-        ]
-      }
-    },
     "/api/v0/clients": {
       "get": {
         "operationId": "ClientsService_ListClients",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/clientsListClientsResp"
             }
@@ -306,13 +226,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -355,15 +268,11 @@
       "post": {
         "operationId": "ClientsService_CreateClient",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/clientsCreateClientResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -381,13 +290,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -417,7 +319,7 @@
         "operationId": "ClientsService_GetClient",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/clientsGetClientResp"
             }
@@ -432,13 +334,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -464,7 +359,7 @@
         "operationId": "ClientsService_RemoveClient",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/clientsRemoveClientResp"
             }
@@ -479,13 +374,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -511,7 +399,7 @@
         "operationId": "ClientsService_UpdateClient",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/clientsUpdateClientResp"
             }
@@ -573,7 +461,7 @@
         "operationId": "GroupsService_ListGroups",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsListGroupsResp"
             }
@@ -590,13 +478,6 @@
               "$ref": "#/definitions/typesErrorResponse"
             }
           },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
           "default": {
             "description": "Internal server error",
             "schema": {
@@ -611,15 +492,11 @@
       "post": {
         "operationId": "GroupsService_CreateGroup",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsCreateGroupResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -637,13 +514,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -673,7 +543,7 @@
         "operationId": "GroupsService_GetGroup",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsGetGroupResp"
             }
@@ -688,13 +558,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -720,7 +583,7 @@
         "operationId": "GroupsService_RemoveGroup",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsRemoveGroupResp"
             }
@@ -735,13 +598,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -766,12 +622,6 @@
       "patch": {
         "operationId": "GroupsService_UpdateGroup",
         "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/groupsUpdateGroupResp"
-            }
-          },
           "401": {
             "description": "Unauthorized",
             "schema": {
@@ -782,13 +632,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "501": {
@@ -830,7 +673,7 @@
         "operationId": "GroupsService_ListGroupEntitlements",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsListGroupEntitlementsResp"
             }
@@ -845,13 +688,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -883,15 +719,11 @@
       "patch": {
         "operationId": "GroupsService_UpdateGroupEntitlements",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsUpdateGroupEntitlementsResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -909,13 +741,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -951,7 +776,7 @@
         "operationId": "GroupsService_RemoveGroupEntitlement",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsRemoveGroupEntitlementResp"
             }
@@ -972,13 +797,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1007,181 +825,12 @@
         ]
       }
     },
-    "/api/v0/groups/{id}/identities": {
-      "get": {
-        "operationId": "GroupsService_GetGroupIdentities",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/groupsGetGroupIdentitiesResp"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "GroupsService"
-        ]
-      },
-      "patch": {
-        "operationId": "GroupsService_UpdateGroupIdentities",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/groupsUpdateGroupIdentitiesResp"
-            }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
-          },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "identities",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/groupsIdentities"
-            }
-          }
-        ],
-        "tags": [
-          "GroupsService"
-        ]
-      }
-    },
-    "/api/v0/groups/{id}/identities/{identityId}": {
-      "delete": {
-        "operationId": "GroupsService_RemoveGroupIdentity",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/groupsRemoveGroupIdentityResp"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "identityId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "GroupsService"
-        ]
-      }
-    },
     "/api/v0/groups/{id}/roles": {
       "get": {
         "operationId": "GroupsService_GetGroupRoles",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsGetGroupRolesResp"
             }
@@ -1196,13 +845,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1227,15 +869,11 @@
       "post": {
         "operationId": "GroupsService_UpdateGroupRoles",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsUpdateGroupRolesResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -1253,13 +891,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1295,7 +926,7 @@
         "operationId": "GroupsService_RemoveGroupRole",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/groupsRemoveGroupRoleResp"
             }
@@ -1310,13 +941,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1345,14 +969,14 @@
         ]
       }
     },
-    "/api/v0/identities": {
+    "/api/v0/groups/{id}/identities": {
       "get": {
-        "operationId": "IdentitiesService_ListIdentities",
+        "operationId": "GroupsService_GetGroupIdentities",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
-              "$ref": "#/definitions/identitiesListIdentitiesResp"
+              "$ref": "#/definitions/groupsGetGroupIdentitiesResp"
             }
           },
           "401": {
@@ -1367,11 +991,148 @@
               "$ref": "#/definitions/typesErrorResponse"
             }
           },
-          "404": {
-            "description": "Returned when the resource does not exist.",
+          "default": {
+            "description": "Internal server error",
             "schema": {
-              "type": "object",
-              "format": "object"
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      },
+      "patch": {
+        "operationId": "GroupsService_UpdateGroupIdentities",
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/groupsUpdateGroupIdentitiesResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identities",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupsIdentities"
+            }
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/groups/{id}/identities/{identityId}": {
+      "delete": {
+        "operationId": "GroupsService_RemoveGroupIdentity",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/groupsRemoveGroupIdentityResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupsService"
+        ]
+      }
+    },
+    "/api/v0/identities": {
+      "get": {
+        "operationId": "IdentitiesService_ListIdentities",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/identitiesListIdentitiesResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
             }
           },
           "default": {
@@ -1408,15 +1169,11 @@
       "post": {
         "operationId": "IdentitiesService_CreateIdentity",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/identitiesCreateIdentityResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -1434,13 +1191,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1470,7 +1220,7 @@
         "operationId": "IdentitiesService_GetIdentity",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/identitiesGetIdentityResp"
             }
@@ -1485,13 +1235,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1517,7 +1260,7 @@
         "operationId": "IdentitiesService_RemoveIdentity",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/identitiesRemoveIdentityResp"
             }
@@ -1532,13 +1275,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1564,7 +1300,7 @@
         "operationId": "IdentitiesService_UpdateIdentity",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/identitiesUpdateIdentityResp"
             }
@@ -1585,13 +1321,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1627,7 +1356,7 @@
         "operationId": "IdpsService_ListIdps",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/idpsListIdpsResp"
             }
@@ -1644,13 +1373,6 @@
               "$ref": "#/definitions/typesErrorResponse"
             }
           },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
           "default": {
             "description": "Internal server error",
             "schema": {
@@ -1665,15 +1387,11 @@
       "post": {
         "operationId": "IdpsService_CreateIdp",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/idpsCreateIdpResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -1691,13 +1409,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1727,7 +1438,7 @@
         "operationId": "IdpsService_GetIdp",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/idpsGetIdpResp"
             }
@@ -1742,13 +1453,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1774,7 +1478,7 @@
         "operationId": "IdpsService_RemoveIdp",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/idpsRemoveIdpResp"
             }
@@ -1789,13 +1493,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -1821,7 +1518,7 @@
         "operationId": "IdpsService_UpdateIdp",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/idpsUpdateIdpResp"
             }
@@ -1883,31 +1580,8 @@
         "operationId": "MetricsService_ListMetrics",
         "responses": {
           "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/protobufAny"
-            }
-          },
-          "401": {
-            "description": "Returned when the user is not authenticated.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
+            "description": "",
+            "schema": {}
           },
           "default": {
             "description": "Internal server error",
@@ -1926,7 +1600,7 @@
         "operationId": "RolesService_ListRoles",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesListRolesResp"
             }
@@ -1943,13 +1617,6 @@
               "$ref": "#/definitions/typesErrorResponse"
             }
           },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
           "default": {
             "description": "Internal server error",
             "schema": {
@@ -1964,15 +1631,11 @@
       "post": {
         "operationId": "RolesService_CreateRole",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesCreateRoleResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "401": {
             "description": "Unauthorized",
@@ -1984,13 +1647,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2020,7 +1676,7 @@
         "operationId": "RolesService_GetRole",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesGetRoleResp"
             }
@@ -2066,7 +1722,7 @@
         "operationId": "RolesService_RemoveRole",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesRemoveRoleResp"
             }
@@ -2081,13 +1737,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2112,12 +1761,6 @@
       "patch": {
         "operationId": "RolesService_UpdateRole",
         "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/rolesUpdateRoleResp"
-            }
-          },
           "401": {
             "description": "Unauthorized",
             "schema": {
@@ -2128,13 +1771,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "501": {
@@ -2176,7 +1812,7 @@
         "operationId": "RolesService_ListRoleEntitlements",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesListRoleEntitlementsResp"
             }
@@ -2191,13 +1827,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2230,7 +1859,7 @@
         "operationId": "RolesService_UpdateRoleEntitlements",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesUpdateRoleEntitlementsResp"
             }
@@ -2245,13 +1874,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2287,7 +1909,7 @@
         "operationId": "RolesService_RemoveRoleEntitlement",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesRemoveRoleEntitlementResp"
             }
@@ -2302,13 +1924,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2342,7 +1957,7 @@
         "operationId": "RolesService_GetRoleGroups",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/rolesGetRoleGroupsResp"
             }
@@ -2357,13 +1972,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2391,7 +1999,7 @@
         "operationId": "SchemasService_ListSchemas",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/schemasListSchemasResp"
             }
@@ -2406,13 +2014,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2443,15 +2044,11 @@
       "post": {
         "operationId": "SchemasService_CreateSchema",
         "responses": {
-          "200": {
-            "description": "A successful response.",
+          "201": {
+            "description": "",
             "schema": {
               "$ref": "#/definitions/schemasCreateSchemaResp"
             }
-          },
-          "201": {
-            "description": "",
-            "schema": {}
           },
           "400": {
             "description": "Bad request",
@@ -2469,13 +2066,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2500,107 +2090,12 @@
         ]
       }
     },
-    "/api/v0/schemas/default": {
-      "get": {
-        "operationId": "SchemasService_GetDefaultSchema",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/schemasGetDefaultSchemaResp"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "tags": [
-          "SchemasService"
-        ]
-      },
-      "put": {
-        "operationId": "SchemasService_UpdateDefaultSchema",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/schemasUpdateDefaultSchemaResp"
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "schema",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/schemasDefaultSchema"
-            }
-          }
-        ],
-        "tags": [
-          "SchemasService"
-        ]
-      }
-    },
     "/api/v0/schemas/{id}": {
       "get": {
         "operationId": "SchemasService_GetSchema",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/schemasGetSchemaResp"
             }
@@ -2646,7 +2141,7 @@
         "operationId": "SchemasService_RemoveSchema",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/schemasRemoveSchemaResp"
             }
@@ -2661,13 +2156,6 @@
             "description": "Forbidden",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2693,7 +2181,7 @@
         "operationId": "SchemasService_UpdateSchema",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/schemasUpdateSchemaResp"
             }
@@ -2750,35 +2238,102 @@
         ]
       }
     },
+    "/api/v0/schemas/default": {
+      "get": {
+        "operationId": "SchemasService_GetDefaultSchema",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/schemasGetDefaultSchemaResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "SchemasService"
+        ]
+      },
+      "put": {
+        "operationId": "SchemasService_UpdateDefaultSchema",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/schemasUpdateDefaultSchemaResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/schemasDefaultSchema"
+            }
+          }
+        ],
+        "tags": [
+          "SchemasService"
+        ]
+      }
+    },
     "/api/v0/status": {
       "get": {
         "operationId": "StatusService_GetStatus",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/apistatusStatus"
-            }
-          },
-          "401": {
-            "description": "Returned when the user is not authenticated.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {
@@ -2798,30 +2353,9 @@
         "operationId": "StatusService_GetVersion",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/statusBuildInfo"
-            }
-          },
-          "401": {
-            "description": "Returned when the user is not authenticated.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "403": {
-            "description": "Returned when the user does not have permission to access the resource.",
-            "schema": {
-              "type": "object",
-              "format": "object"
-            }
-          },
-          "404": {
-            "description": "Returned when the resource does not exist.",
-            "schema": {
-              "type": "object",
-              "format": "object"
             }
           },
           "default": {

@@ -1159,12 +1159,6 @@ paths:
                   schema:
                     type: string
             responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                    description: A successful response.
                 "302":
                     content:
                         application/json:
@@ -1173,33 +1167,12 @@ paths:
                         Redirects the client to the identity provider's authorization endpoint.
 
                         The response is a 302 Redirect with a Location header.
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user is not authenticated.
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/googlerpcStatus'
-                    description: An unexpected error response.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
             tags:
                 - AuthenticationService
     /api/v0/auth/callback:
@@ -1219,12 +1192,6 @@ paths:
                   schema:
                     type: string
             responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                    description: A successful response.
                 "302":
                     content:
                         application/json:
@@ -1239,27 +1206,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Bad request
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user is not authenticated.
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1277,12 +1223,6 @@ paths:
                   schema:
                     type: string
             responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                    description: A successful response.
                 "302":
                     content:
                         application/json:
@@ -1301,23 +1241,14 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: object
-                                type: object
-                    description: Returned when the user is not authenticated.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
                 "403":
                     content:
                         application/json:
                             schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
                 default:
                     content:
                         application/json:
@@ -1335,7 +1266,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/authenticationMeResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1346,16 +1277,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
                 default:
                     content:
                         application/json:
@@ -1390,7 +1313,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/clientsListClientsResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1403,13 +1326,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1428,16 +1344,11 @@ paths:
                 required: true
                 x-originalParamName: client
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/clientsCreateClientResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -1457,13 +1368,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1487,7 +1391,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/clientsRemoveClientResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1500,13 +1404,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1529,7 +1426,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/clientsGetClientResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1542,13 +1439,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1578,7 +1468,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/clientsUpdateClientResp'
-                    description: A successful response.
+                    description: ""
                 "400":
                     content:
                         application/json:
@@ -1620,7 +1510,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsListGroupsResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1633,13 +1523,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1658,16 +1541,11 @@ paths:
                 required: true
                 x-originalParamName: group
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsCreateGroupResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -1687,13 +1565,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1717,7 +1588,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsRemoveGroupResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1730,13 +1601,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1759,7 +1623,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsGetGroupResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1772,13 +1636,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1803,12 +1660,6 @@ paths:
                 required: true
                 x-originalParamName: group
             responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/groupsUpdateGroupResp'
-                    description: A successful response.
                 "401":
                     content:
                         application/json:
@@ -1821,13 +1672,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 "501":
                     content:
                         application/json:
@@ -1862,7 +1706,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsListGroupEntitlementsResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -1875,13 +1719,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1906,16 +1743,11 @@ paths:
                 required: true
                 x-originalParamName: entitlementsPatchReq
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsUpdateGroupEntitlementsResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -1935,13 +1767,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -1970,7 +1795,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsRemoveGroupEntitlementResp'
-                    description: A successful response.
+                    description: ""
                 "400":
                     content:
                         application/json:
@@ -1989,13 +1814,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2019,7 +1837,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsGetGroupIdentitiesResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2032,13 +1850,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2063,16 +1874,11 @@ paths:
                 required: true
                 x-originalParamName: identities
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsUpdateGroupIdentitiesResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -2092,13 +1898,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2127,7 +1926,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsRemoveGroupIdentityResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2140,13 +1939,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2170,7 +1962,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsGetGroupRolesResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2183,13 +1975,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2214,16 +1999,11 @@ paths:
                 required: true
                 x-originalParamName: roles
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsUpdateGroupRolesResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -2243,13 +2023,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2278,7 +2051,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/groupsRemoveGroupRoleResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2291,13 +2064,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2328,7 +2094,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/identitiesListIdentitiesResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2341,13 +2107,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2366,16 +2125,11 @@ paths:
                 required: true
                 x-originalParamName: identity
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/identitiesCreateIdentityResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -2395,13 +2149,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2425,7 +2172,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/identitiesRemoveIdentityResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2438,13 +2185,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2467,7 +2207,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/identitiesGetIdentityResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2480,13 +2220,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2516,97 +2249,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/identitiesUpdateIdentityResp'
-                    description: A successful response.
-                "400":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Bad request
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Unauthorized
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
-                default:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Internal server error
-            tags:
-                - IdentitiesService
-    /api/v0/idps:
-        get:
-            operationId: IdpsService_ListIdps
-            responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/idpsListIdpsResp'
-                    description: A successful response.
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Unauthorized
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
-                default:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Internal server error
-            tags:
-                - IdpsService
-        post:
-            operationId: IdpsService_CreateIdp
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/idpsCreateIdpBody'
-                required: true
-                x-originalParamName: idp
-            responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/idpsCreateIdpResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -2626,13 +2268,78 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
+                default:
                     content:
                         application/json:
                             schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdentitiesService
+    /api/v0/idps:
+        get:
+            operationId: IdpsService_ListIdps
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/idpsListIdpsResp'
+                    description: ""
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - IdpsService
+        post:
+            operationId: IdpsService_CreateIdp
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/idpsCreateIdpBody'
+                required: true
+                x-originalParamName: idp
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/idpsCreateIdpResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
                 default:
                     content:
                         application/json:
@@ -2656,7 +2363,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/idpsRemoveIdpResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2669,13 +2376,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2698,7 +2398,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/idpsGetIdpResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2711,13 +2411,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2747,7 +2440,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/idpsUpdateIdpResp'
-                    description: A successful response.
+                    description: ""
                 "400":
                     content:
                         application/json:
@@ -2787,30 +2480,8 @@ paths:
                 "200":
                     content:
                         application/json:
-                            schema:
-                                $ref: '#/components/schemas/protobufAny'
-                    description: A successful response.
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user is not authenticated.
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                            schema: {}
+                    description: ""
                 default:
                     content:
                         application/json:
@@ -2828,7 +2499,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesListRolesResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2841,13 +2512,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2866,16 +2530,11 @@ paths:
                 required: true
                 x-originalParamName: role
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesCreateRoleResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "401":
                     content:
@@ -2889,13 +2548,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2919,7 +2571,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesRemoveRoleResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -2932,13 +2584,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -2961,7 +2606,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesGetRoleResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3004,12 +2649,6 @@ paths:
                 required: true
                 x-originalParamName: role
             responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/rolesUpdateRoleResp'
-                    description: A successful response.
                 "401":
                     content:
                         application/json:
@@ -3022,13 +2661,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 "501":
                     content:
                         application/json:
@@ -3063,7 +2695,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesListRoleEntitlementsResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3076,13 +2708,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3112,7 +2737,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesUpdateRoleEntitlementsResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3125,13 +2750,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3160,7 +2778,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesRemoveRoleEntitlementResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3173,13 +2791,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3203,7 +2814,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/rolesGetRoleGroupsResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3216,13 +2827,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3249,7 +2853,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasListSchemasResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3262,13 +2866,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3287,16 +2884,11 @@ paths:
                 required: true
                 x-originalParamName: schema
             responses:
-                "200":
+                "201":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasCreateSchemaResp'
-                    description: A successful response.
-                "201":
-                    content:
-                        application/json:
-                            schema: {}
                     description: ""
                 "400":
                     content:
@@ -3316,13 +2908,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3346,7 +2931,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasRemoveSchemaResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3359,13 +2944,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3388,7 +2966,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasGetSchemaResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3436,7 +3014,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasUpdateSchemaResp'
-                    description: A successful response.
+                    description: ""
                 "400":
                     content:
                         application/json:
@@ -3478,7 +3056,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasGetDefaultSchemaResp'
-                    description: A successful response.
+                    description: ""
                 "401":
                     content:
                         application/json:
@@ -3491,13 +3069,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
                 default:
                     content:
                         application/json:
@@ -3521,7 +3092,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/schemasUpdateDefaultSchemaResp'
-                    description: A successful response.
+                    description: ""
                 "400":
                     content:
                         application/json:
@@ -3563,28 +3134,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/apistatusStatus'
-                    description: A successful response.
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user is not authenticated.
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                    description: ""
                 default:
                     content:
                         application/json:
@@ -3602,28 +3152,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/statusBuildInfo'
-                    description: A successful response.
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user is not authenticated.
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the user does not have permission to access the resource.
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                format: object
-                                type: object
-                    description: Returned when the resource does not exist.
+                    description: ""
                 default:
                     content:
                         application/json:
