@@ -6,7 +6,7 @@ module github.com/canonical/identity-platform-api/convert
 go 1.23.3
 
 require (
-	github.com/getkin/kin-openapi v0.129.0
+	github.com/getkin/kin-openapi v0.131.0
 	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037
 )
 
