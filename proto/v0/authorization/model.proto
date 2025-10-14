@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package identity.platform.api.authorization;
+option go_package = "github.com/canonical/identity-platform-api/authorization";
+
+message App {
+  string client_id = 1;
+}
+
+message Group {
+  string group_id = 1;
+}
+
+message GetAllowedAppsInGroupReq {
+  string group_id = 1;
+}
+
+message GetAllowedAppsInGroupResp {
+  repeated App data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message AddAllowedAppToGroupReq {
+  string group_id = 1;
+  App app = 2;
+}
+
+message AddAllowedAppToGroupResp{
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message RemoveAllowedAppFromGroupReq {
+  string group_id = 1;
+  string app_id = 2;
+}
+
+message RemoveAllowedAppFromGroupResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message RemoveAllowedAppsFromGroupReq {
+  string group_id = 1;
+}
+
+message RemoveAllowedAppsFromGroupResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message GetAllowedGroupsForAppReq {
+  string app_id = 1;
+}
+
+message GetAllowedGroupsForAppResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message RemoveAllowedGroupsForAppReq {
+  string app_id = 1;
+}
+
+message RemoveAllowedGroupsForAppResp {
+  int32 status = 1;
+  optional string message = 2;
+}

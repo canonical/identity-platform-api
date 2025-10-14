@@ -1,0 +1,372 @@
+syntax = "proto3";
+
+package identity.platform.api.authorization;
+option go_package = "github.com/canonical/identity-platform-api/authorization";
+
+import "v0/authorization/model.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+// AppAuthorizationService defines the gRPC service for authorization management.
+service AppAuthorizationService {
+  // GetAllowedAppsInGroup retrieves the list of apps allowed in a specific group.
+  rpc GetAllowedAppsInGroup(GetAllowedAppsInGroupReq) returns (GetAllowedAppsInGroupResp) {
+    option (google.api.http) = {
+      get: "/api/v0/groups/{group_id}/apps"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authorization.GetAllowedAppsInGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // AddAllowedAppToGroup adds an app to the allowed list of a group.
+  rpc AddAllowedAppToGroup(AddAllowedAppToGroupReq) returns (AddAllowedAppToGroupResp) {
+    option (google.api.http) = {
+      post: "/api/v0/groups/{group_id}/apps"
+      body: "app"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authorization.AddAllowedAppToGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // RemoveAllowedAppFromGroup removes a specific app from the allowed list of a group.
+  rpc RemoveAllowedAppFromGroup(RemoveAllowedAppFromGroupReq) returns (RemoveAllowedAppFromGroupResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/groups/{group_id}/apps/{app_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authorization.RemoveAllowedAppFromGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // RemoveAllowedAppsFromGroup removes all apps from the allowed list of a group.
+  rpc RemoveAllowedAppsFromGroup(RemoveAllowedAppsFromGroupReq) returns (RemoveAllowedAppsFromGroupResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/groups/{group_id}/apps"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authorization.RemoveAllowedAppsFromGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // GetAllowedGroupsForApp retrieves the list of groups an app is allowed in.
+  rpc GetAllowedGroupsForApp(GetAllowedGroupsForAppReq) returns (GetAllowedGroupsForAppResp) {
+    option (google.api.http) = {
+      get: "/api/v0/apps/{app_id}/groups"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authorization.GetAllowedGroupsForAppResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // RemoveAllowedGroupsForApp removes an app from all groups it is allowed in.
+  rpc RemoveAllowedGroupsForApp(RemoveAllowedGroupsForAppReq) returns (RemoveAllowedGroupsForAppResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/apps/{app_id}/groups"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authorization.RemoveAllowedGroupsForAppResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+}
