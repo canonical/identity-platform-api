@@ -18,6 +18,9 @@
       "name": "AuthenticationService"
     },
     {
+      "name": "AppAuthorizationService"
+    },
+    {
       "name": "ClientsService"
     },
     {
@@ -203,6 +206,296 @@
         ],
         "tags": [
           "AuthenticationService"
+        ]
+      }
+    },
+    "/api/v0/groups/{groupId}/apps": {
+      "get": {
+        "summary": "GetAllowedAppsInGroup retrieves the list of apps allowed in a specific group.",
+        "operationId": "AppAuthorizationService_GetAllowedAppsInGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authorizationGetAllowedAppsInGroupResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppAuthorizationService"
+        ]
+      },
+      "delete": {
+        "summary": "RemoveAllowedAppsFromGroup removes all apps from the allowed list of a group.",
+        "operationId": "AppAuthorizationService_RemoveAllowedAppsFromGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authorizationRemoveAllowedAppsFromGroupResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppAuthorizationService"
+        ]
+      },
+      "post": {
+        "summary": "AddAllowedAppToGroup adds an app to the allowed list of a group.",
+        "operationId": "AppAuthorizationService_AddAllowedAppToGroup",
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authorizationAddAllowedAppToGroupResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "app",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authorizationApp"
+            }
+          }
+        ],
+        "tags": [
+          "AppAuthorizationService"
+        ]
+      }
+    },
+    "/api/v0/groups/{groupId}/apps/{appId}": {
+      "delete": {
+        "summary": "RemoveAllowedAppFromGroup removes a specific app from the allowed list of a group.",
+        "operationId": "AppAuthorizationService_RemoveAllowedAppFromGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authorizationRemoveAllowedAppFromGroupResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppAuthorizationService"
+        ]
+      }
+    },
+    "/api/v0/apps/{appId}/groups": {
+      "get": {
+        "summary": "GetAllowedGroupsForApp retrieves the list of groups an app is allowed in.",
+        "operationId": "AppAuthorizationService_GetAllowedGroupsForApp",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authorizationGetAllowedGroupsForAppResp"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppAuthorizationService"
+        ]
+      },
+      "delete": {
+        "summary": "RemoveAllowedGroupsForApp removes an app from all groups it is allowed in.",
+        "operationId": "AppAuthorizationService_RemoveAllowedGroupsForApp",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/authorizationRemoveAllowedGroupsForAppResp"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AppAuthorizationService"
         ]
       }
     },
@@ -529,7 +822,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/groupsGroup"
+              "$ref": "#/definitions/apigroupsGroup"
             }
           }
         ],
@@ -659,7 +952,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/groupsGroup"
+              "$ref": "#/definitions/apigroupsGroup"
             }
           }
         ],
@@ -2372,6 +2665,25 @@
     }
   },
   "definitions": {
+    "apiauthorizationGroup": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": "string"
+        }
+      }
+    },
+    "apigroupsGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "apischemasSchema": {
       "type": "object",
       "properties": {
@@ -2413,6 +2725,100 @@
           "type": "string"
         },
         "nonce": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationAddAllowedAppToGroupResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationApp": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationGetAllowedAppsInGroupResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/authorizationApp"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationGetAllowedGroupsForAppResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiauthorizationGroup"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationRemoveAllowedAppFromGroupResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationRemoveAllowedAppsFromGroupResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "authorizationRemoveAllowedGroupsForAppResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
           "type": "string"
         }
       }
@@ -2695,7 +3101,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/groupsGroup"
+            "$ref": "#/definitions/apigroupsGroup"
           }
         },
         "status": {
@@ -2738,7 +3144,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/groupsGroup"
+            "$ref": "#/definitions/apigroupsGroup"
           }
         },
         "status": {
@@ -2771,17 +3177,6 @@
         },
         "_meta": {
           "$ref": "#/definitions/typesPagination"
-        }
-      }
-    },
-    "groupsGroup": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
         }
       }
     },
