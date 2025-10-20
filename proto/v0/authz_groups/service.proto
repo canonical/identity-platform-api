@@ -1,0 +1,622 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.authz_groups;
+option go_package = "github.com/canonical/identity-platform-api/authz_groups";
+
+import "v0/authz_groups/model.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+service AuthzGroupsService {
+  rpc ListGroups (ListGroupsReq) returns (ListGroupsResp) {
+    option (google.api.http) = {
+      get: "/api/v0/authz/groups"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.ListGroupsResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+
+  rpc CreateGroup (CreateGroupReq) returns (CreateGroupResp) {
+    option (google.api.http) = {
+      post: "/api/v0/authz/groups"
+      body: "group"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "201",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.CreateGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+
+  rpc GetGroup (GetGroupReq) returns (GetGroupResp) {
+    option (google.api.http) = {
+      get: "/api/v0/authz/groups/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.GetGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+
+  rpc RemoveGroup (RemoveGroupReq) returns (RemoveGroupResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/authz/groups/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.RemoveGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+
+  rpc UpdateGroup (UpdateGroupReq) returns (UpdateGroupResp) {
+    option (google.api.http) = {
+      put: "/api/v0/authz/groups/{id}"
+      body: "group"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.UpdateGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+  rpc ListUsersInGroup (ListUsersInGroupReq) returns (ListUsersInGroupResp) {
+    option (google.api.http) = {
+      get: "/api/v0/authz/groups/{id}/users"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.ListUsersInGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+  rpc AddUsersToGroup (AddUsersToGroupReq) returns (AddUsersToGroupResp) {
+    option (google.api.http) = {
+      post: "/api/v0/authz/groups/{id}/users"
+      body: "user_ids"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.AddUsersToGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+  rpc RemoveUserFromGroup (RemoveUserFromGroupReq) returns (RemoveUserFromGroupResp) {
+    option (google.api.http) = {
+      delete: "/api/v0/authz/groups/{id}/users/{user_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.RemoveUserFromGroupResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+  rpc ListUserGroups (ListUserGroupsReq) returns (ListUserGroupsResp) {
+    option (google.api.http) = {
+      get: "/api/v0/authz/users/{id}/groups"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.ListUserGroupsResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          description: "Bad request";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+  rpc AddUserToGroups (AddUserToGroupsReq) returns (AddUserToGroupsResp) {
+    option (google.api.http) = {
+      put: "/api/v0/authz/users/{id}/groups"
+      body: "group_ids"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.authz_groups.AddUserToGroupsResp"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          description: "Unauthorized";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          description: "Forbidden";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          description: "Internal server error";
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+        }
+      };
+    };
+  }
+}

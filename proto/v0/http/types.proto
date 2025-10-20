@@ -11,6 +11,11 @@ message ErrorResponse {
   string message = 2;
 }
 
+message PaginationInput {
+  int32 size = 1;
+  optional string pageToken = 2;
+}
+
 message Pagination {
   int32 size = 1;
   optional string pageToken = 2;
