@@ -652,6 +652,8 @@ components:
             type: object
         typesErrorResponse:
             properties:
+                code:
+                    type: string
                 message:
                     type: string
                 status:
