@@ -5,12 +5,141 @@ components:
                 groupId:
                     type: string
             type: object
+        apiauthz_groupsCreateGroupResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/apiauthz_groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apiauthz_groupsGetGroupResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/apiauthz_groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apiauthz_groupsGroup:
+            properties:
+                createdAt:
+                    format: date-time
+                    type: string
+                description:
+                    type: string
+                id:
+                    type: string
+                name:
+                    type: string
+                organization:
+                    type: string
+                type:
+                    type: string
+                updatedAt:
+                    format: date-time
+                    type: string
+            type: object
+        apiauthz_groupsListGroupsResp:
+            properties:
+                _meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/apiauthz_groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apiauthz_groupsRemoveGroupResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apiauthz_groupsUpdateGroupResp:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/apiauthz_groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apigroupsCreateGroupResp:
+            properties:
+                _meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/apigroupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apigroupsGetGroupResp:
+            properties:
+                _meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/apigroupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
         apigroupsGroup:
             properties:
                 id:
                     type: string
                 name:
                     type: string
+            type: object
+        apigroupsListGroupsResp:
+            properties:
+                _meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        type: string
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apigroupsRemoveGroupResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        apigroupsUpdateGroupResp:
             type: object
         apischemasSchema:
             properties:
@@ -101,6 +230,80 @@ components:
                 status:
                     format: int32
                     type: integer
+            type: object
+        authz_groupsAddUserToGroupsResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        authz_groupsAddUsersToGroupResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        authz_groupsGroupInput:
+            properties:
+                description:
+                    type: string
+                name:
+                    type: string
+                type:
+                    type: string
+            type: object
+        authz_groupsListUserGroupsResp:
+            properties:
+                _meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/apiauthz_groupsGroup'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        authz_groupsListUsersInGroupResp:
+            properties:
+                _meta:
+                    $ref: '#/components/schemas/typesPagination'
+                data:
+                    items:
+                        $ref: '#/components/schemas/authz_groupsUser'
+                    type: array
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        authz_groupsRemoveUserFromGroupResp:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        authz_groupsUser:
+            properties:
+                createdAt:
+                    format: date-time
+                    type: string
+                id:
+                    type: string
+                role:
+                    type: string
+                updatedAt:
+                    format: date-time
+                    type: string
             type: object
         clientsClient:
             properties:
@@ -282,20 +485,6 @@ components:
                 message:
                     type: string
             type: object
-        groupsCreateGroupResp:
-            properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
-                data:
-                    items:
-                        $ref: '#/components/schemas/apigroupsGroup'
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
         groupsGetGroupIdentitiesResp:
             properties:
                 _meta:
@@ -303,20 +492,6 @@ components:
                 data:
                     items:
                         type: string
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        groupsGetGroupResp:
-            properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
-                data:
-                    items:
-                        $ref: '#/components/schemas/apigroupsGroup'
                     type: array
                 message:
                     type: string
@@ -357,20 +532,6 @@ components:
                     format: int32
                     type: integer
             type: object
-        groupsListGroupsResp:
-            properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
-                data:
-                    items:
-                        type: string
-                    type: array
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
         groupsRemoveGroupEntitlementResp:
             properties:
                 message:
@@ -380,14 +541,6 @@ components:
                     type: integer
             type: object
         groupsRemoveGroupIdentityResp:
-            properties:
-                message:
-                    type: string
-                status:
-                    format: int32
-                    type: integer
-            type: object
-        groupsRemoveGroupResp:
             properties:
                 message:
                     type: string
@@ -425,8 +578,6 @@ components:
                 status:
                     format: int32
                     type: integer
-            type: object
-        groupsUpdateGroupResp:
             type: object
         groupsUpdateGroupRolesResp:
             properties:
@@ -1176,6 +1327,14 @@ components:
                     format: int32
                     type: integer
             type: object
+        typesPaginationInput:
+            properties:
+                pageToken:
+                    type: string
+                size:
+                    format: int32
+                    type: integer
+            type: object
         typesPermission:
             properties:
                 object:
@@ -1432,6 +1591,468 @@ paths:
                     description: Internal server error
             tags:
                 - AuthenticationService
+    /api/v0/authz/groups:
+        get:
+            operationId: AuthzGroupsService_ListGroups
+            parameters:
+                - in: query
+                  name: pagination.size
+                  schema:
+                    format: int32
+                    type: integer
+                - in: query
+                  name: pagination.pageToken
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apiauthz_groupsListGroupsResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+        post:
+            operationId: AuthzGroupsService_CreateGroup
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/authz_groupsGroupInput'
+                required: true
+                x-originalParamName: group
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apiauthz_groupsCreateGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+    /api/v0/authz/groups/{id}:
+        delete:
+            operationId: AuthzGroupsService_RemoveGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apiauthz_groupsRemoveGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+        get:
+            operationId: AuthzGroupsService_GetGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apiauthz_groupsGetGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+        put:
+            operationId: AuthzGroupsService_UpdateGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/authz_groupsGroupInput'
+                required: true
+                x-originalParamName: group
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apiauthz_groupsUpdateGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+    /api/v0/authz/groups/{id}/users:
+        get:
+            operationId: AuthzGroupsService_ListUsersInGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: query
+                  name: pagination.size
+                  schema:
+                    format: int32
+                    type: integer
+                - in: query
+                  name: pagination.pageToken
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/authz_groupsListUsersInGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+        post:
+            operationId: AuthzGroupsService_AddUsersToGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            items:
+                                type: string
+                            type: array
+                required: true
+                x-originalParamName: userIds
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/authz_groupsAddUsersToGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+    /api/v0/authz/groups/{id}/users/{userId}:
+        delete:
+            operationId: AuthzGroupsService_RemoveUserFromGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: userId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/authz_groupsRemoveUserFromGroupResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+    /api/v0/authz/users/{id}/groups:
+        get:
+            operationId: AuthzGroupsService_ListUserGroups
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+                - in: query
+                  name: pagination.size
+                  schema:
+                    format: int32
+                    type: integer
+                - in: query
+                  name: pagination.pageToken
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/authz_groupsListUserGroupsResp'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
+        put:
+            operationId: AuthzGroupsService_AddUserToGroups
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            items:
+                                type: string
+                            type: array
+                required: true
+                x-originalParamName: groupIds
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/authz_groupsAddUserToGroupsResp'
+                    description: ""
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - AuthzGroupsService
     /api/v0/clients:
         get:
             operationId: ClientsService_ListClients
@@ -1654,7 +2275,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/groupsListGroupsResp'
+                                $ref: '#/components/schemas/apigroupsListGroupsResp'
                     description: ""
                 "401":
                     content:
@@ -1690,7 +2311,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/groupsCreateGroupResp'
+                                $ref: '#/components/schemas/apigroupsCreateGroupResp'
                     description: ""
                 "400":
                     content:
@@ -1908,7 +2529,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/groupsRemoveGroupResp'
+                                $ref: '#/components/schemas/apigroupsRemoveGroupResp'
                     description: ""
                 "401":
                     content:
@@ -1943,7 +2564,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/groupsGetGroupResp'
+                                $ref: '#/components/schemas/apigroupsGetGroupResp'
                     description: ""
                 "401":
                     content:
@@ -3485,6 +4106,7 @@ paths:
 tags:
     - name: AuthenticationService
     - name: AppAuthorizationService
+    - name: AuthzGroupsService
     - name: ClientsService
     - name: GroupsService
     - name: IdentitiesService

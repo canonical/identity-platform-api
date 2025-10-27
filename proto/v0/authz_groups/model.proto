@@ -1,0 +1,141 @@
+// Copyright 2025 Canonical Ltd.
+// SPDX-License-Identifier: AGPL-3.0
+
+syntax = "proto3";
+
+package identity.platform.api.authz_groups;
+option go_package = "github.com/canonical/identity-platform-api/authz_groups";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "v0/http/types.proto";
+
+
+message Group {
+  string id = 1;
+  string name = 2;
+  string organization = 3;
+  string description = 4;
+  string type = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message GroupInput {
+  string name = 1;
+  optional string description = 2;
+  optional string type = 3;
+}
+
+message User {
+  string id = 1;
+  string role = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+
+message ListGroupsReq {
+  optional identity.platform.api.types.PaginationInput pagination = 1;
+}
+
+message ListGroupsResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
+}
+
+message CreateGroupReq {
+  GroupInput group = 1;
+}
+
+message CreateGroupResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message GetGroupReq {
+  string id = 1;
+}
+
+message GetGroupResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message RemoveGroupReq {
+  string id = 1;
+}
+
+message RemoveGroupResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message UpdateGroupReq {
+  string id = 1;
+  GroupInput group = 2;
+}
+
+message UpdateGroupResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+}
+
+message ListUsersInGroupReq {
+  string id = 1;
+  optional identity.platform.api.types.PaginationInput pagination = 2;
+}
+
+message ListUsersInGroupResp {
+  repeated User data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
+}
+
+message AddUsersToGroupReq {
+  string id = 1;
+  repeated string user_ids = 2;
+}
+
+message AddUsersToGroupResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message RemoveUserFromGroupReq {
+  string id = 1;
+  string user_id = 2;
+}
+
+message RemoveUserFromGroupResp {
+  int32 status = 1;
+  optional string message = 2;
+}
+
+message ListUserGroupsReq {
+  string id = 1;
+  optional identity.platform.api.types.PaginationInput pagination = 2;
+}
+
+message ListUserGroupsResp {
+  repeated Group data = 1;
+  int32 status = 2;
+  optional string message = 3;
+  optional identity.platform.api.types.Pagination meta = 4 [json_name = "_meta"];
+}
+
+message AddUserToGroupsReq {
+  string id = 1;
+  repeated string group_ids = 2;
+}
+
+message AddUserToGroupsResp {
+  int32 status = 1;
+  optional string message = 2;
+}
