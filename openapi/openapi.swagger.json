@@ -212,7 +212,7 @@
         ]
       }
     },
-    "/api/v0/groups/{groupId}/apps": {
+    "/api/v0/authz/groups/{groupId}/apps": {
       "get": {
         "summary": "GetAllowedAppsInGroup retrieves the list of apps allowed in a specific group.",
         "operationId": "AppAuthorizationService_GetAllowedAppsInGroup",
@@ -357,7 +357,7 @@
         ]
       }
     },
-    "/api/v0/groups/{groupId}/apps/{appId}": {
+    "/api/v0/authz/groups/{groupId}/apps/{appId}": {
       "delete": {
         "summary": "RemoveAllowedAppFromGroup removes a specific app from the allowed list of a group.",
         "operationId": "AppAuthorizationService_RemoveAllowedAppFromGroup",
@@ -412,7 +412,7 @@
         ]
       }
     },
-    "/api/v0/apps/{appId}/groups": {
+    "/api/v0/authz/apps/{appId}/groups": {
       "get": {
         "summary": "GetAllowedGroupsForApp retrieves the list of groups an app is allowed in.",
         "operationId": "AppAuthorizationService_GetAllowedGroupsForApp",
