@@ -14,7 +14,7 @@ service AppAuthorizationService {
   // GetAllowedAppsInGroup retrieves the list of apps allowed in a specific group.
   rpc GetAllowedAppsInGroup(GetAllowedAppsInGroupReq) returns (GetAllowedAppsInGroupResp) {
     option (google.api.http) = {
-      get: "/api/v0/groups/{group_id}/apps"
+      get: "/api/v0/authz/groups/{group_id}/apps"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -67,7 +67,7 @@ service AppAuthorizationService {
   // AddAllowedAppToGroup adds an app to the allowed list of a group.
   rpc AddAllowedAppToGroup(AddAllowedAppToGroupReq) returns (AddAllowedAppToGroupResp) {
     option (google.api.http) = {
-      post: "/api/v0/groups/{group_id}/apps"
+      post: "/api/v0/authz/groups/{group_id}/apps"
       body: "app"
     };
 
@@ -132,7 +132,7 @@ service AppAuthorizationService {
   // RemoveAllowedAppFromGroup removes a specific app from the allowed list of a group.
   rpc RemoveAllowedAppFromGroup(RemoveAllowedAppFromGroupReq) returns (RemoveAllowedAppFromGroupResp) {
     option (google.api.http) = {
-      delete: "/api/v0/groups/{group_id}/apps/{app_id}"
+      delete: "/api/v0/authz/groups/{group_id}/apps/{app_id}"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
@@ -195,7 +195,7 @@ service AppAuthorizationService {
   // RemoveAllowedAppsFromGroup removes all apps from the allowed list of a group.
   rpc RemoveAllowedAppsFromGroup(RemoveAllowedAppsFromGroupReq) returns (RemoveAllowedAppsFromGroupResp) {
     option (google.api.http) = {
-      delete: "/api/v0/groups/{group_id}/apps"
+      delete: "/api/v0/authz/groups/{group_id}/apps"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
@@ -258,7 +258,7 @@ service AppAuthorizationService {
   // GetAllowedGroupsForApp retrieves the list of groups an app is allowed in.
   rpc GetAllowedGroupsForApp(GetAllowedGroupsForAppReq) returns (GetAllowedGroupsForAppResp) {
     option (google.api.http) = {
-      get: "/api/v0/apps/{app_id}/groups"
+      get: "/api/v0/authz/apps/{app_id}/groups"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
@@ -310,7 +310,7 @@ service AppAuthorizationService {
   // RemoveAllowedGroupsForApp removes an app from all groups it is allowed in.
   rpc RemoveAllowedGroupsForApp(RemoveAllowedGroupsForAppReq) returns (RemoveAllowedGroupsForAppResp) {
     option (google.api.http) = {
-      delete: "/api/v0/apps/{app_id}/groups"
+      delete: "/api/v0/authz/apps/{app_id}/groups"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       responses: {
