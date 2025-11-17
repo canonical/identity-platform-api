@@ -285,7 +285,7 @@ func RegisterAppAuthorizationServiceHandlerServer(ctx context.Context, mux *runt
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedAppsInGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedAppsInGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -305,7 +305,7 @@ func RegisterAppAuthorizationServiceHandlerServer(ctx context.Context, mux *runt
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/AddAllowedAppToGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/AddAllowedAppToGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -325,7 +325,7 @@ func RegisterAppAuthorizationServiceHandlerServer(ctx context.Context, mux *runt
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppFromGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps/{app_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppFromGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps/{app_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -345,7 +345,7 @@ func RegisterAppAuthorizationServiceHandlerServer(ctx context.Context, mux *runt
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppsFromGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppsFromGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -365,7 +365,7 @@ func RegisterAppAuthorizationServiceHandlerServer(ctx context.Context, mux *runt
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/apps/{app_id}/groups"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/authz/apps/{app_id}/groups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -385,7 +385,7 @@ func RegisterAppAuthorizationServiceHandlerServer(ctx context.Context, mux *runt
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/apps/{app_id}/groups"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/authz/apps/{app_id}/groups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -443,7 +443,7 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedAppsInGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedAppsInGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -460,7 +460,7 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/AddAllowedAppToGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/AddAllowedAppToGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -477,7 +477,7 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppFromGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps/{app_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppFromGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps/{app_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -494,7 +494,7 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppsFromGroup", runtime.WithHTTPPathPattern("/api/v0/groups/{group_id}/apps"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedAppsFromGroup", runtime.WithHTTPPathPattern("/api/v0/authz/groups/{group_id}/apps"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -511,7 +511,7 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/apps/{app_id}/groups"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/GetAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/authz/apps/{app_id}/groups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -528,7 +528,7 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/apps/{app_id}/groups"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.authorization.AppAuthorizationService/RemoveAllowedGroupsForApp", runtime.WithHTTPPathPattern("/api/v0/authz/apps/{app_id}/groups"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -545,12 +545,12 @@ func RegisterAppAuthorizationServiceHandlerClient(ctx context.Context, mux *runt
 }
 
 var (
-	pattern_AppAuthorizationService_GetAllowedAppsInGroup_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "groups", "group_id", "apps"}, ""))
-	pattern_AppAuthorizationService_AddAllowedAppToGroup_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "groups", "group_id", "apps"}, ""))
-	pattern_AppAuthorizationService_RemoveAllowedAppFromGroup_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v0", "groups", "group_id", "apps", "app_id"}, ""))
-	pattern_AppAuthorizationService_RemoveAllowedAppsFromGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "groups", "group_id", "apps"}, ""))
-	pattern_AppAuthorizationService_GetAllowedGroupsForApp_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "apps", "app_id", "groups"}, ""))
-	pattern_AppAuthorizationService_RemoveAllowedGroupsForApp_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "apps", "app_id", "groups"}, ""))
+	pattern_AppAuthorizationService_GetAllowedAppsInGroup_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "authz", "groups", "group_id", "apps"}, ""))
+	pattern_AppAuthorizationService_AddAllowedAppToGroup_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "authz", "groups", "group_id", "apps"}, ""))
+	pattern_AppAuthorizationService_RemoveAllowedAppFromGroup_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v0", "authz", "groups", "group_id", "apps", "app_id"}, ""))
+	pattern_AppAuthorizationService_RemoveAllowedAppsFromGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "authz", "groups", "group_id", "apps"}, ""))
+	pattern_AppAuthorizationService_GetAllowedGroupsForApp_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "authz", "apps", "app_id", "groups"}, ""))
+	pattern_AppAuthorizationService_RemoveAllowedGroupsForApp_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "authz", "apps", "app_id", "groups"}, ""))
 )
 
 var (
