@@ -14,7 +14,7 @@ import "v0/http/types.proto";
 message Group {
   string id = 1;
   string name = 2;
-  string organization = 3;
+  string tenant_id = 3;
   string description = 4;
   string type = 5;
   google.protobuf.Timestamp created_at = 6;

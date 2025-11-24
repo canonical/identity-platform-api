@@ -3258,7 +3258,7 @@
         "name": {
           "type": "string"
         },
-        "organization": {
+        "tenantId": {
           "type": "string"
         },
         "description": {

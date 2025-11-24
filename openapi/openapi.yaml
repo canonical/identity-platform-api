@@ -40,7 +40,7 @@ components:
                     type: string
                 name:
                     type: string
-                organization:
+                tenantId:
                     type: string
                 type:
                     type: string
