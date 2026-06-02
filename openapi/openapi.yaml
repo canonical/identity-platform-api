@@ -1,5 +1,31 @@
 components:
     schemas:
+        TenantServiceInviteMemberBody:
+            properties:
+                email:
+                    type: string
+                role:
+                    type: string
+            type: object
+        TenantServiceProvisionUserBody:
+            properties:
+                email:
+                    type: string
+                role:
+                    type: string
+            type: object
+        TenantServiceUpdateTenantBody:
+            properties:
+                tenant:
+                    $ref: '#/components/schemas/tenantTenantInput'
+                updateMask:
+                    type: string
+            type: object
+        TenantServiceUpdateTenantUserBody:
+            properties:
+                role:
+                    type: string
+            type: object
         apiauthorizationGroup:
             properties:
                 groupId:
@@ -1306,6 +1332,116 @@ components:
                     type: string
                 version:
                     type: string
+            type: object
+        tenantCreateTenantRequest:
+            properties:
+                name:
+                    type: string
+            type: object
+        tenantCreateTenantResponse:
+            properties:
+                tenant:
+                    $ref: '#/components/schemas/tenantTenant'
+            type: object
+        tenantDeleteTenantResponse:
+            properties:
+                message:
+                    type: string
+                status:
+                    format: int32
+                    type: integer
+            type: object
+        tenantInviteMemberResponse:
+            properties:
+                code:
+                    type: string
+                link:
+                    type: string
+                status:
+                    type: string
+            type: object
+        tenantListMyTenantsResponse:
+            properties:
+                tenants:
+                    items:
+                        $ref: '#/components/schemas/tenantTenant'
+                    type: array
+            type: object
+        tenantListTenantUsersResponse:
+            properties:
+                nextPageToken:
+                    type: string
+                users:
+                    items:
+                        $ref: '#/components/schemas/tenantTenantUser'
+                    type: array
+            type: object
+        tenantListTenantsResponse:
+            properties:
+                nextPageToken:
+                    type: string
+                tenants:
+                    items:
+                        $ref: '#/components/schemas/tenantTenant'
+                    type: array
+            type: object
+        tenantListUserTenantsResponse:
+            properties:
+                nextPageToken:
+                    type: string
+                tenants:
+                    items:
+                        $ref: '#/components/schemas/tenantTenant'
+                    type: array
+            type: object
+        tenantLookupTenantsResponse:
+            properties:
+                tenants:
+                    items:
+                        $ref: '#/components/schemas/tenantTenant'
+                    type: array
+            type: object
+        tenantProvisionUserResponse:
+            properties:
+                status:
+                    type: string
+            type: object
+        tenantTenant:
+            properties:
+                createdAt:
+                    type: string
+                enabled:
+                    type: boolean
+                id:
+                    type: string
+                name:
+                    type: string
+            type: object
+        tenantTenantInput:
+            properties:
+                enabled:
+                    type: boolean
+                name:
+                    type: string
+            type: object
+        tenantTenantUser:
+            properties:
+                email:
+                    type: string
+                role:
+                    type: string
+                userId:
+                    type: string
+            type: object
+        tenantUpdateTenantResponse:
+            properties:
+                tenant:
+                    $ref: '#/components/schemas/tenantTenant'
+            type: object
+        tenantUpdateTenantUserResponse:
+            properties:
+                user:
+                    $ref: '#/components/schemas/tenantTenantUser'
             type: object
         typesErrorResponse:
             properties:
@@ -3415,6 +3551,37 @@ paths:
                     description: Internal server error
             tags:
                 - IdpsService
+    /api/v0/me/tenants:
+        get:
+            operationId: TenantService_ListMyTenants
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantListMyTenantsResponse'
+                    description: ""
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Public Endpoints
+            tags:
+                - TenantService
     /api/v0/metrics:
         get:
             operationId: MetricsService_ListMetrics
@@ -4085,6 +4252,498 @@ paths:
                     description: Internal server error
             tags:
                 - StatusService
+    /api/v0/tenants:
+        get:
+            operationId: TenantService_ListTenants
+            parameters:
+                - in: query
+                  name: pageToken
+                  schema:
+                    type: string
+                - in: query
+                  name: pageSize
+                  schema:
+                    format: int32
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantListTenantsResponse'
+                    description: ""
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Internal Admin Endpoints
+            tags:
+                - TenantService
+        post:
+            operationId: TenantService_CreateTenant
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/tenantCreateTenantRequest'
+                required: true
+                x-originalParamName: body
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantCreateTenantResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/tenants/{tenantId}:
+        delete:
+            operationId: TenantService_DeleteTenant
+            parameters:
+                - in: path
+                  name: tenantId
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantDeleteTenantResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+        patch:
+            operationId: TenantService_UpdateTenant
+            parameters:
+                - in: path
+                  name: tenantId
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TenantServiceUpdateTenantBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantUpdateTenantResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/tenants/{tenantId}/invites:
+        post:
+            operationId: TenantService_InviteMember
+            parameters:
+                - in: path
+                  name: tenantId
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TenantServiceInviteMemberBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantInviteMemberResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/tenants/{tenantId}/users:
+        get:
+            operationId: TenantService_ListTenantUsers
+            parameters:
+                - in: path
+                  name: tenantId
+                  required: true
+                  schema:
+                    type: string
+                - in: query
+                  name: pageToken
+                  schema:
+                    type: string
+                - in: query
+                  name: pageSize
+                  schema:
+                    format: int32
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantListTenantUsersResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+        post:
+            operationId: TenantService_ProvisionUser
+            parameters:
+                - in: path
+                  name: tenantId
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TenantServiceProvisionUserBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantProvisionUserResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/tenants/{tenantId}/users/{userId}:
+        patch:
+            operationId: TenantService_UpdateTenantUser
+            parameters:
+                - in: path
+                  name: tenantId
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: userId
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TenantServiceUpdateTenantUserBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantUpdateTenantUserResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/tenants/lookup:
+        get:
+            operationId: TenantService_LookupTenants
+            parameters:
+                - description: |-
+                    Exactly one of email or identity_id must be provided.
+                    When identity_id is set, the Kratos email-to-identity lookup is skipped.
+                  in: query
+                  name: email
+                  schema:
+                    type: string
+                - in: query
+                  name: identityId
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantLookupTenantsResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/users/{userId}/tenants:
+        get:
+            operationId: TenantService_ListUserTenants
+            parameters:
+                - in: path
+                  name: userId
+                  required: true
+                  schema:
+                    type: string
+                - in: query
+                  name: pageToken
+                  schema:
+                    type: string
+                - in: query
+                  name: pageSize
+                  schema:
+                    format: int32
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantListUserTenantsResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
     /api/v0/version:
         get:
             operationId: StatusService_GetVersion
@@ -4115,3 +4774,4 @@ tags:
     - name: RolesService
     - name: SchemasService
     - name: StatusService
+    - name: TenantService
