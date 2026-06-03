@@ -4647,6 +4647,7 @@ paths:
                 - TenantService
     /api/v0/tenants/lookup:
         get:
+            description: Internal endpoint. Not intended for public API consumers.
             operationId: TenantService_LookupTenants
             parameters:
                 - description: |-
@@ -4691,8 +4692,10 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Internal server error
+            summary: Lookup tenants (internal)
             tags:
-                - TenantService
+                - internal
+            x-internal: true
     /api/v0/users/{userId}/tenants:
         get:
             operationId: TenantService_ListUserTenants

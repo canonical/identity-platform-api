@@ -3753,6 +3753,8 @@
     },
     "/api/v0/tenants/lookup": {
       "get": {
+        "summary": "Lookup tenants (internal)",
+        "description": "Internal endpoint. Not intended for public API consumers.",
         "operationId": "TenantService_LookupTenants",
         "responses": {
           "200": {
@@ -3802,8 +3804,9 @@
           }
         ],
         "tags": [
-          "TenantService"
-        ]
+          "internal"
+        ],
+        "x-internal": true
       }
     }
   },

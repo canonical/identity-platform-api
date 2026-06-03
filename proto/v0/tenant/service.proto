@@ -662,6 +662,13 @@ service TenantService {
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Lookup tenants (internal)";
+      description: "Internal endpoint. Not intended for public API consumers.";
+      tags: "internal";
+      extensions: {
+        key: "x-internal";
+        value: { bool_value: true; }
+      };
       responses: {
         key: "200",
         value: {
