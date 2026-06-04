@@ -1387,8 +1387,6 @@ components:
             type: object
         tenantListUserTenantsResponse:
             properties:
-                nextPageToken:
-                    type: string
                 tenants:
                     items:
                         $ref: '#/components/schemas/tenantTenant'
@@ -4739,15 +4737,6 @@ paths:
                   required: true
                   schema:
                     type: string
-                - in: query
-                  name: pageToken
-                  schema:
-                    type: string
-                - in: query
-                  name: pageSize
-                  schema:
-                    format: int32
-                    type: integer
                 - description: If set, only return tenants whose enabled status matches this value.
                   in: query
                   name: enabled

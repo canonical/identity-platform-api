@@ -3451,19 +3451,6 @@
             "type": "string"
           },
           {
-            "name": "pageToken",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
             "name": "enabled",
             "description": "If set, only return tenants whose enabled status matches this value.",
             "in": "query",
@@ -5807,9 +5794,6 @@
             "type": "object",
             "$ref": "#/definitions/tenantTenant"
           }
-        },
-        "nextPageToken": {
-          "type": "string"
         }
       }
     },
