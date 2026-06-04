@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package identity.platform.api.tenant;
+option go_package = "github.com/canonical/identity-platform-api/tenant";
+
+import "google/protobuf/field_mask.proto";
+
+message UpdateTenantUserRequest {
+	string tenant_id = 1;
+	string user_id = 2;
+	string role = 3;
+}
+
+message UpdateTenantUserResponse {
+	TenantUser user = 1;
+}
+
+message ListMyTenantsRequest {
+}
+
+message ListMyTenantsResponse {
+	repeated Tenant tenants = 1;
+}
+
+message ListTenantsRequest {
+	string page_token = 1;
+	int32 page_size = 2;
+}
+
+message ListTenantsResponse {
+	repeated Tenant tenants = 1;
+	string next_page_token = 2;
+}
+
+message Tenant {
+	string id = 1;
+	string name = 2;
+	string created_at = 3;
+	bool enabled = 4;
+}
+
+message TenantInput {
+	string name = 1;
+	bool enabled = 2;
+}
+
+message InviteMemberRequest {
+	string tenant_id = 1;
+	string email = 2;
+	string role = 3;
+}
+
+message InviteMemberResponse {
+	string status = 1;
+	string link = 2;
+	string code = 3;
+}
+
+message ListUserTenantsRequest {
+	string user_id = 1;
+	string page_token = 2;
+	int32 page_size = 3;
+}
+
+message ListUserTenantsResponse {
+	repeated Tenant tenants = 1;
+	string next_page_token = 2;
+}
+
+message CreateTenantRequest {
+	string name = 1;
+}
+
+message CreateTenantResponse {
+	Tenant tenant = 1;
+}
+
+message UpdateTenantRequest {
+	string tenant_id = 1;
+	TenantInput tenant = 2;
+	google.protobuf.FieldMask update_mask = 3;
+}
+
+message UpdateTenantResponse {
+	Tenant tenant = 1;
+}
+
+message DeleteTenantRequest {
+	string tenant_id = 1;
+}
+
+message DeleteTenantResponse {
+	int32 status = 1;
+	optional string message = 2;
+}
+
+message ProvisionUserRequest {
+	string tenant_id = 1;
+	string email = 2;
+	string role = 3;
+}
+
+message ProvisionUserResponse {
+	string status = 1;
+}
+
+message ListTenantUsersRequest {
+	string tenant_id = 1;
+	string page_token = 2;
+	int32 page_size = 3;
+}
+
+message ListTenantUsersResponse {
+	repeated TenantUser users = 1;
+	string next_page_token = 2;
+}
+
+message TenantUser {
+	string user_id = 1;
+	string email = 2;
+	string role = 3;
+}
+
+message LookupTenantsRequest {
+	// Exactly one of email or identity_id must be provided.
+	// When identity_id is set, the Kratos email-to-identity lookup is skipped.
+	string email = 1;
+	string identity_id = 2;
+}
+
+message LookupTenantsResponse {
+	repeated Tenant tenants = 1;
+}
