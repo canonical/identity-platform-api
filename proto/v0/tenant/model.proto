@@ -62,15 +62,12 @@ message InviteMemberResponse {
 
 message ListUserTenantsRequest {
 	string user_id = 1 [(buf.validate.field).string.uuid = true];
-	string page_token = 2;
-	int32 page_size = 3 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
 	// If set, only return tenants whose enabled status matches this value.
-	optional bool enabled = 4;
+	optional bool enabled = 2;
 }
 
 message ListUserTenantsResponse {
 	repeated Tenant tenants = 1;
-	string next_page_token = 2;
 }
 
 message CreateTenantRequest {
