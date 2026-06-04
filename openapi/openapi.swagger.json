@@ -3234,6 +3234,14 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "enabled",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
         "tags": [
           "TenantService"
         ]
@@ -3338,6 +3346,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "enabled",
+            "description": "If set, only return tenants whose enabled status matches this value.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -3447,6 +3462,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "enabled",
+            "description": "If set, only return tenants whose enabled status matches this value.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -3508,6 +3530,34 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "role",
+            "description": "Exact match on membership role.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "Exact match on user email. Resolved to identity_id in the service layer.\nUse identity_id instead when the caller already knows it, to skip the Kratos lookup.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "identityId",
+            "description": "Exact match on Kratos identity ID. Takes precedence over email when both are set.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "includeEmails",
+            "description": "When true, the response includes email addresses fetched from Kratos.\nWhen false (default), the email field is omitted and the Kratos call is skipped.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
