@@ -17,7 +17,7 @@ components:
         TenantServiceUpdateTenantBody:
             properties:
                 tenant:
-                    $ref: '#/components/schemas/tenantTenant'
+                    $ref: '#/components/schemas/tenantTenantInput'
                 updateMask:
                     type: string
             type: object
@@ -1414,6 +1414,13 @@ components:
                     type: boolean
                 id:
                     type: string
+                name:
+                    type: string
+            type: object
+        tenantTenantInput:
+            properties:
+                enabled:
+                    type: boolean
                 name:
                     type: string
             type: object
