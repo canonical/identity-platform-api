@@ -6,6 +6,8 @@ on:
       - "main"
       - "release-**"
 
+permissions:
+  contents: write
 
 jobs:
   generate-go:
