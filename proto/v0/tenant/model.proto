@@ -3,12 +3,13 @@ syntax = "proto3";
 package identity.platform.api.tenant;
 option go_package = "github.com/canonical/identity-platform-api/tenant";
 
+import "buf/validate/validate.proto";
 import "google/protobuf/field_mask.proto";
 
 message UpdateTenantUserRequest {
-	string tenant_id = 1;
-	string user_id = 2;
-	string role = 3;
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string user_id = 2 [(buf.validate.field).string.uuid = true];
+	string role = 3 [(buf.validate.field).string.min_len = 1];
 }
 
 message UpdateTenantUserResponse {
@@ -16,6 +17,7 @@ message UpdateTenantUserResponse {
 }
 
 message ListMyTenantsRequest {
+	optional bool enabled = 1;
 }
 
 message ListMyTenantsResponse {
@@ -24,7 +26,9 @@ message ListMyTenantsResponse {
 
 message ListTenantsRequest {
 	string page_token = 1;
-	int32 page_size = 2;
+	int32 page_size = 2 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
+	// If set, only return tenants whose enabled status matches this value.
+	optional bool enabled = 3;
 }
 
 message ListTenantsResponse {
@@ -33,21 +37,21 @@ message ListTenantsResponse {
 }
 
 message Tenant {
-	string id = 1;
+	string id = 1 [(buf.validate.field).string.uuid = true];
 	string name = 2;
 	string created_at = 3;
 	bool enabled = 4;
 }
 
 message TenantInput {
-	string name = 1;
-	bool enabled = 2;
+	string name = 1 [(buf.validate.field).string.min_len = 1];
+	optional bool enabled = 2 [(buf.validate.field).required = true];
 }
 
 message InviteMemberRequest {
-	string tenant_id = 1;
-	string email = 2;
-	string role = 3;
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string email = 2 [(buf.validate.field).string.email = true];
+	string role = 3 [(buf.validate.field).string.min_len = 1];
 }
 
 message InviteMemberResponse {
@@ -57,9 +61,11 @@ message InviteMemberResponse {
 }
 
 message ListUserTenantsRequest {
-	string user_id = 1;
+	string user_id = 1 [(buf.validate.field).string.uuid = true];
 	string page_token = 2;
-	int32 page_size = 3;
+	int32 page_size = 3 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
+	// If set, only return tenants whose enabled status matches this value.
+	optional bool enabled = 4;
 }
 
 message ListUserTenantsResponse {
@@ -68,7 +74,7 @@ message ListUserTenantsResponse {
 }
 
 message CreateTenantRequest {
-	string name = 1;
+	string name = 1 [(buf.validate.field).string.min_len = 1];
 }
 
 message CreateTenantResponse {
@@ -76,8 +82,8 @@ message CreateTenantResponse {
 }
 
 message UpdateTenantRequest {
-	string tenant_id = 1;
-	TenantInput tenant = 2;
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	TenantInput tenant = 2 [(buf.validate.field).required = true];
 	google.protobuf.FieldMask update_mask = 3;
 }
 
@@ -86,7 +92,7 @@ message UpdateTenantResponse {
 }
 
 message DeleteTenantRequest {
-	string tenant_id = 1;
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 }
 
 message DeleteTenantResponse {
@@ -95,9 +101,9 @@ message DeleteTenantResponse {
 }
 
 message ProvisionUserRequest {
-	string tenant_id = 1;
-	string email = 2;
-	string role = 3;
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string email = 2 [(buf.validate.field).string.email = true];
+	string role = 3 [(buf.validate.field).string.min_len = 1];
 }
 
 message ProvisionUserResponse {
@@ -105,9 +111,19 @@ message ProvisionUserResponse {
 }
 
 message ListTenantUsersRequest {
-	string tenant_id = 1;
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	string page_token = 2;
-	int32 page_size = 3;
+	int32 page_size = 3 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
+	// Exact match on membership role.
+	optional string role = 4 [(buf.validate.field).string.min_len = 1];
+	// Exact match on user email. Resolved to identity_id in the service layer.
+	// Use identity_id instead when the caller already knows it, to skip the Kratos lookup.
+	optional string email = 5 [(buf.validate.field).string.email = true];
+	// Exact match on Kratos identity ID. Takes precedence over email when both are set.
+	optional string identity_id = 6 [(buf.validate.field).string.uuid = true];
+	// When true, the response includes email addresses fetched from Kratos.
+	// When false (default), the email field is omitted and the Kratos call is skipped.
+	bool include_emails = 7;
 }
 
 message ListTenantUsersResponse {
