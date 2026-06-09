@@ -4726,6 +4726,7 @@ paths:
                     description: Internal server error
             summary: Lookup tenants (internal)
             tags:
+                - TenantService
                 - internal
             x-internal: true
     /api/v0/users/{userId}/tenants:
