@@ -44,8 +44,8 @@ message Tenant {
 }
 
 message TenantInput {
-	string name = 1 [(buf.validate.field).string.min_len = 1];
-	optional bool enabled = 2 [(buf.validate.field).required = true];
+	string name = 1;
+	optional bool enabled = 2;
 }
 
 message InviteMemberRequest {
@@ -81,7 +81,7 @@ message CreateTenantResponse {
 message UpdateTenantRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	TenantInput tenant = 2 [(buf.validate.field).required = true];
-	google.protobuf.FieldMask update_mask = 3;
+	google.protobuf.FieldMask update_mask = 3 [(buf.validate.field).required = true];
 }
 
 message UpdateTenantResponse {
