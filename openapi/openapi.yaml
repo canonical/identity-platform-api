@@ -18,7 +18,7 @@ components:
             properties:
                 tenant:
                     $ref: '#/components/schemas/tenantTenantInput'
-                updateMask:
+                update_mask:
                     type: string
             type: object
         TenantServiceUpdateTenantUserBody:
@@ -28,7 +28,7 @@ components:
             type: object
         apiauthorizationGroup:
             properties:
-                groupId:
+                group_id:
                     type: string
             type: object
         apiauthz_groupsCreateGroupResp:
@@ -57,7 +57,7 @@ components:
             type: object
         apiauthz_groupsGroup:
             properties:
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
                 description:
@@ -66,24 +66,24 @@ components:
                     type: string
                 name:
                     type: string
-                tenantId:
+                tenant_id:
                     type: string
                 type:
                     type: string
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
             type: object
         apiauthz_groupsListGroupsResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/apiauthz_groupsGroup'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -110,28 +110,28 @@ components:
             type: object
         apigroupsCreateGroupResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/apigroupsGroup'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         apigroupsGetGroupResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/apigroupsGroup'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -145,14 +145,14 @@ components:
             type: object
         apigroupsListGroupsResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -169,7 +169,7 @@ components:
             type: object
         apischemasSchema:
             properties:
-                additionalProperties:
+                additional_properties:
                     type: object
                 id:
                     type: string
@@ -206,7 +206,7 @@ components:
             type: object
         authorizationApp:
             properties:
-                clientId:
+                client_id:
                     type: string
             type: object
         authorizationGetAllowedAppsInGroupResp:
@@ -284,28 +284,28 @@ components:
             type: object
         authz_groupsListUserGroupsResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/apiauthz_groupsGroup'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         authz_groupsListUsersInGroupResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/authz_groupsUser'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -320,22 +320,22 @@ components:
             type: object
         authz_groupsUser:
             properties:
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
                 id:
                     type: string
                 role:
                     type: string
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
             type: object
         clientsClient:
             properties:
-                accessTokenStrategy:
+                access_token_strategy:
                     type: string
-                allowedCorsOrigins:
+                allowed_cors_origins:
                     items:
                         type: string
                     type: array
@@ -343,108 +343,108 @@ components:
                     items:
                         type: string
                     type: array
-                authorizationCodeGrantAccessTokenLifespan:
+                authorization_code_grant_access_token_lifespan:
                     type: string
-                authorizationCodeGrantIdTokenLifespan:
+                authorization_code_grant_id_token_lifespan:
                     type: string
-                authorizationCodeGrantRefreshTokenLifespan:
+                authorization_code_grant_refresh_token_lifespan:
                     type: string
-                backchannelLogoutSessionRequired:
+                backchannel_logout_session_required:
                     type: boolean
-                backchannelLogoutUri:
+                backchannel_logout_uri:
                     type: string
-                clientCredentialsGrantAccessTokenLifespan:
+                client_credentials_grant_access_token_lifespan:
                     type: string
-                clientId:
+                client_id:
                     type: string
-                clientName:
+                client_name:
                     type: string
-                clientSecret:
+                client_secret:
                     type: string
-                clientSecretExpiresAt:
+                client_secret_expires_at:
                     format: int64
                     type: string
-                clientUri:
+                client_uri:
                     type: string
                 contacts:
                     items:
                         type: string
                     type: array
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
-                frontchannelLogoutSessionRequired:
+                frontchannel_logout_session_required:
                     type: boolean
-                frontchannelLogoutUri:
+                frontchannel_logout_uri:
                     type: string
-                grantTypes:
+                grant_types:
                     items:
                         type: string
                     type: array
-                implicitGrantAccessTokenLifespan:
+                implicit_grant_access_token_lifespan:
                     type: string
-                implicitGrantIdTokenLifespan:
+                implicit_grant_id_token_lifespan:
                     type: string
                 jwks:
                     type: object
-                jwksUri:
+                jwks_uri:
                     type: string
-                jwtBearerGrantAccessTokenLifespan:
+                jwt_bearer_grant_access_token_lifespan:
                     type: string
-                logoUri:
+                logo_uri:
                     type: string
                 metadata:
                     type: object
                 owner:
                     type: string
-                policyUri:
+                policy_uri:
                     type: string
-                postLogoutRedirectUris:
+                post_logout_redirect_uris:
                     items:
                         type: string
                     type: array
-                redirectUris:
+                redirect_uris:
                     items:
                         type: string
                     type: array
-                refreshTokenGrantAccessTokenLifespan:
+                refresh_token_grant_access_token_lifespan:
                     type: string
-                refreshTokenGrantIdTokenLifespan:
+                refresh_token_grant_id_token_lifespan:
                     type: string
-                refreshTokenGrantRefreshTokenLifespan:
+                refresh_token_grant_refresh_token_lifespan:
                     type: string
-                registrationAccessToken:
+                registration_access_token:
                     type: string
-                registrationClientUri:
+                registration_client_uri:
                     type: string
-                requestObjectSigningAlg:
+                request_object_signing_alg:
                     type: string
-                requestUris:
+                request_uris:
                     items:
                         type: string
                     type: array
-                responseTypes:
+                response_types:
                     items:
                         type: string
                     type: array
                 scope:
                     type: string
-                sectorIdentifierUri:
+                sector_identifier_uri:
                     type: string
-                skipConsent:
+                skip_consent:
                     type: boolean
-                subjectType:
+                subject_type:
                     type: string
-                tokenEndpointAuthMethod:
+                token_endpoint_auth_method:
                     type: string
-                tokenEndpointAuthSigningAlg:
+                token_endpoint_auth_signing_alg:
                     type: string
-                tosUri:
+                tos_uri:
                     type: string
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
-                userinfoSignedResponseAlg:
+                userinfo_signed_response_alg:
                     type: string
             type: object
         clientsCreateClientResp:
@@ -469,14 +469,14 @@ components:
             type: object
         clientsListClientsResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/clientsClient'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -513,28 +513,28 @@ components:
             type: object
         groupsGetGroupIdentitiesResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         groupsGetGroupRolesResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -615,63 +615,63 @@ components:
             type: object
         identitiesCreateIdentityBody:
             properties:
-                additionalProperties:
+                additional_properties:
                     type: object
                 credentials:
                     type: object
-                metadataAdmin:
+                metadata_admin:
                     type: object
-                metadataPublic:
+                metadata_public:
                     type: object
-                recoveryAddresses:
+                recovery_addresses:
                     items:
                         $ref: '#/components/schemas/identitiesRecoveryIdentityAddress'
                     type: array
-                schemaId:
+                schema_id:
                     type: string
                 state:
                     type: string
                 traits:
                     type: object
-                verifiableAddresses:
+                verifiable_addresses:
                     items:
                         $ref: '#/components/schemas/identitiesVerifiableIdentityAddress'
                     type: array
             type: object
         identitiesCreateIdentityResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/identitiesIdentity'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         identitiesGetIdentityResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/identitiesIdentity'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         identitiesIdentity:
             properties:
-                additionalProperties:
+                additional_properties:
                     additionalProperties: {}
                     type: object
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
                 credentials:
@@ -680,44 +680,44 @@ components:
                     type: object
                 id:
                     type: string
-                metadataAdmin:
+                metadata_admin:
                     type: object
-                metadataPublic:
+                metadata_public:
                     type: object
-                organizationId:
+                organization_id:
                     $ref: '#/components/schemas/identitiesNullableString'
-                recoveryAddresses:
+                recovery_addresses:
                     items:
                         $ref: '#/components/schemas/identitiesRecoveryIdentityAddress'
                     type: array
-                schemaId:
+                schema_id:
                     type: string
-                schemaUrl:
+                schema_url:
                     type: string
                 state:
                     type: string
-                stateChangedAt:
+                state_changed_at:
                     format: date-time
                     type: string
                 traits:
                     type: object
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
-                verifiableAddresses:
+                verifiable_addresses:
                     items:
                         $ref: '#/components/schemas/identitiesVerifiableIdentityAddress'
                     type: array
             type: object
         identitiesIdentityCredentials:
             properties:
-                additionalProperties:
+                additional_properties:
                     additionalProperties: {}
                     type: object
                 config:
                     additionalProperties: {}
                     type: object
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
                 identifiers:
@@ -726,7 +726,7 @@ components:
                     type: array
                 type:
                     type: string
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
                 version:
@@ -735,14 +735,14 @@ components:
             type: object
         identitiesListIdentitiesResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/identitiesIdentity'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -756,15 +756,15 @@ components:
             type: object
         identitiesRecoveryIdentityAddress:
             properties:
-                additionalProperties:
+                additional_properties:
                     additionalProperties: {}
                     type: object
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
                 id:
                     type: string
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
                 value:
@@ -786,15 +786,15 @@ components:
             type: object
         identitiesUpdateIdentityBody:
             properties:
-                additionalProperties:
+                additional_properties:
                     type: object
                 credentials:
                     type: object
-                metadataAdmin:
+                metadata_admin:
                     type: object
-                metadataPublic:
+                metadata_public:
                     type: object
-                schemaId:
+                schema_id:
                     type: string
                 state:
                     type: string
@@ -803,38 +803,38 @@ components:
             type: object
         identitiesUpdateIdentityResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/identitiesIdentity'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         identitiesVerifiableIdentityAddress:
             properties:
-                additionalProperties:
+                additional_properties:
                     additionalProperties: {}
                     type: object
-                createdAt:
+                created_at:
                     format: date-time
                     type: string
                 id:
                     type: string
                 status:
                     type: string
-                updatedAt:
+                updated_at:
                     format: date-time
                     type: string
                 value:
                     type: string
                 verified:
                     type: boolean
-                verifiedAt:
+                verified_at:
                     format: date-time
                     type: string
                 via:
@@ -842,39 +842,39 @@ components:
             type: object
         idpsCreateIdpBody:
             properties:
-                applePrivateKey:
+                apple_private_key:
                     type: string
-                applePrivateKeyId:
+                apple_private_key_id:
                     type: string
-                appleTeamId:
+                apple_team_id:
                     type: string
-                authUrl:
+                auth_url:
                     type: string
-                clientId:
+                client_id:
                     type: string
-                clientSecret:
+                client_secret:
                     type: string
                 id:
                     type: string
-                issuerUrl:
+                issuer_url:
                     type: string
                 label:
                     type: string
-                mapperUrl:
+                mapper_url:
                     type: string
-                microsoftTenant:
+                microsoft_tenant:
                     type: string
                 provider:
                     type: string
-                requestedClaims:
+                requested_claims:
                     type: string
                 scope:
                     items:
                         type: string
                     type: array
-                subjectSource:
+                subject_source:
                     type: string
-                tokenUrl:
+                token_url:
                     type: string
             type: object
         idpsCreateIdpResp:
@@ -903,39 +903,39 @@ components:
             type: object
         idpsIdp:
             properties:
-                applePrivateKey:
+                apple_private_key:
                     type: string
-                applePrivateKeyId:
+                apple_private_key_id:
                     type: string
-                appleTeamId:
+                apple_team_id:
                     type: string
-                authUrl:
+                auth_url:
                     type: string
-                clientId:
+                client_id:
                     type: string
-                clientSecret:
+                client_secret:
                     type: string
                 id:
                     type: string
-                issuerUrl:
+                issuer_url:
                     type: string
                 label:
                     type: string
-                mapperUrl:
+                mapper_url:
                     type: string
-                microsoftTenant:
+                microsoft_tenant:
                     type: string
                 provider:
                     type: string
-                requestedClaims:
+                requested_claims:
                     type: string
                 scope:
                     items:
                         type: string
                     type: array
-                subjectSource:
+                subject_source:
                     type: string
-                tokenUrl:
+                token_url:
                     type: string
             type: object
         idpsListIdpsResp:
@@ -960,39 +960,39 @@ components:
             type: object
         idpsUpdateIdpBody:
             properties:
-                applePrivateKey:
+                apple_private_key:
                     type: string
-                applePrivateKeyId:
+                apple_private_key_id:
                     type: string
-                appleTeamId:
+                apple_team_id:
                     type: string
-                authUrl:
+                auth_url:
                     type: string
-                clientId:
+                client_id:
                     type: string
-                clientSecret:
+                client_secret:
                     type: string
                 id:
                     type: string
-                issuerUrl:
+                issuer_url:
                     type: string
                 label:
                     type: string
-                mapperUrl:
+                mapper_url:
                     type: string
-                microsoftTenant:
+                microsoft_tenant:
                     type: string
                 provider:
                     type: string
-                requestedClaims:
+                requested_claims:
                     type: string
                 scope:
                     items:
                         type: string
                     type: array
-                subjectSource:
+                subject_source:
                     type: string
-                tokenUrl:
+                token_url:
                     type: string
             type: object
         idpsUpdateIdpResp:
@@ -1142,42 +1142,42 @@ components:
             type: string
         rolesCreateRoleResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/rolesRole'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         rolesGetRoleGroupsResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
             type: object
         rolesGetRoleResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/rolesRole'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -1196,14 +1196,14 @@ components:
             type: object
         rolesListRolesResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         type: string
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -1282,14 +1282,14 @@ components:
             type: object
         schemasListSchemasResp:
             properties:
-                _meta:
-                    $ref: '#/components/schemas/typesPagination'
                 data:
                     items:
                         $ref: '#/components/schemas/apischemasSchema'
                     type: array
                 message:
                     type: string
+                meta:
+                    $ref: '#/components/schemas/typesPagination'
                 status:
                     format: int32
                     type: integer
@@ -1326,7 +1326,7 @@ components:
             type: object
         statusBuildInfo:
             properties:
-                commitHash:
+                commit_hash:
                     type: string
                 name:
                     type: string
@@ -1369,7 +1369,7 @@ components:
             type: object
         tenantListTenantUsersResponse:
             properties:
-                nextPageToken:
+                next_page_token:
                     type: string
                 users:
                     items:
@@ -1378,7 +1378,7 @@ components:
             type: object
         tenantListTenantsResponse:
             properties:
-                nextPageToken:
+                next_page_token:
                     type: string
                 tenants:
                     items:
@@ -1406,7 +1406,7 @@ components:
             type: object
         tenantTenant:
             properties:
-                createdAt:
+                created_at:
                     type: string
                 enabled:
                     type: boolean
@@ -1428,7 +1428,7 @@ components:
                     type: string
                 role:
                     type: string
-                userId:
+                user_id:
                     type: string
             type: object
         tenantUpdateTenantResponse:
@@ -1646,12 +1646,12 @@ paths:
                     description: Internal server error
             tags:
                 - AuthenticationService
-    /api/v0/authz/apps/{appId}/groups:
+    /api/v0/authz/apps/{app_id}/groups:
         delete:
             operationId: AppAuthorizationService_RemoveAllowedGroupsForApp
             parameters:
                 - in: path
-                  name: appId
+                  name: app_id
                   required: true
                   schema:
                     type: string
@@ -1693,7 +1693,7 @@ paths:
             operationId: AppAuthorizationService_GetAllowedGroupsForApp
             parameters:
                 - in: path
-                  name: appId
+                  name: app_id
                   required: true
                   schema:
                     type: string
@@ -1813,12 +1813,12 @@ paths:
                     description: Internal server error
             tags:
                 - AuthzGroupsService
-    /api/v0/authz/groups/{groupId}/apps:
+    /api/v0/authz/groups/{group_id}/apps:
         delete:
             operationId: AppAuthorizationService_RemoveAllowedAppsFromGroup
             parameters:
                 - in: path
-                  name: groupId
+                  name: group_id
                   required: true
                   schema:
                     type: string
@@ -1860,7 +1860,7 @@ paths:
             operationId: AppAuthorizationService_GetAllowedAppsInGroup
             parameters:
                 - in: path
-                  name: groupId
+                  name: group_id
                   required: true
                   schema:
                     type: string
@@ -1896,7 +1896,7 @@ paths:
             operationId: AppAuthorizationService_AddAllowedAppToGroup
             parameters:
                 - in: path
-                  name: groupId
+                  name: group_id
                   required: true
                   schema:
                     type: string
@@ -1941,17 +1941,17 @@ paths:
             summary: AddAllowedAppToGroup adds an app to the allowed list of a group.
             tags:
                 - AppAuthorizationService
-    /api/v0/authz/groups/{groupId}/apps/{appId}:
+    /api/v0/authz/groups/{group_id}/apps/{app_id}:
         delete:
             operationId: AppAuthorizationService_RemoveAllowedAppFromGroup
             parameters:
                 - in: path
-                  name: groupId
+                  name: group_id
                   required: true
                   schema:
                     type: string
                 - in: path
-                  name: appId
+                  name: app_id
                   required: true
                   schema:
                     type: string
@@ -2187,7 +2187,7 @@ paths:
                                 type: string
                             type: array
                 required: true
-                x-originalParamName: userIds
+                x-originalParamName: user_ids
             responses:
                 "200":
                     content:
@@ -2221,7 +2221,7 @@ paths:
                     description: Internal server error
             tags:
                 - AuthzGroupsService
-    /api/v0/authz/groups/{id}/users/{userId}:
+    /api/v0/authz/groups/{id}/users/{user_id}:
         delete:
             operationId: AuthzGroupsService_RemoveUserFromGroup
             parameters:
@@ -2231,7 +2231,7 @@ paths:
                   schema:
                     type: string
                 - in: path
-                  name: userId
+                  name: user_id
                   required: true
                   schema:
                     type: string
@@ -2335,7 +2335,7 @@ paths:
                                 type: string
                             type: array
                 required: true
-                x-originalParamName: groupIds
+                x-originalParamName: group_ids
             responses:
                 "200":
                     content:
@@ -2368,7 +2368,7 @@ paths:
             operationId: ClientsService_ListClients
             parameters:
                 - in: query
-                  name: clientName
+                  name: client_name
                   schema:
                     type: string
                 - in: query
@@ -2380,7 +2380,7 @@ paths:
                   schema:
                     type: string
                 - in: query
-                  name: pageToken
+                  name: page_token
                   schema:
                     type: string
             responses:
@@ -3161,7 +3161,7 @@ paths:
                   schema:
                     type: string
                 - in: query
-                  name: pageToken
+                  name: page_token
                   schema:
                     type: string
             responses:
@@ -3956,7 +3956,7 @@ paths:
                   schema:
                     type: string
                 - in: query
-                  name: pageToken
+                  name: page_token
                   schema:
                     type: string
             responses:
@@ -4260,11 +4260,11 @@ paths:
             operationId: TenantService_ListTenants
             parameters:
                 - in: query
-                  name: pageToken
+                  name: page_token
                   schema:
                     type: string
                 - in: query
-                  name: pageSize
+                  name: page_size
                   schema:
                     format: int32
                     type: integer
@@ -4343,12 +4343,12 @@ paths:
                     description: Internal server error
             tags:
                 - TenantService
-    /api/v0/tenants/{tenantId}:
+    /api/v0/tenants/{tenant_id}:
         delete:
             operationId: TenantService_DeleteTenant
             parameters:
                 - in: path
-                  name: tenantId
+                  name: tenant_id
                   required: true
                   schema:
                     type: string
@@ -4395,7 +4395,7 @@ paths:
             operationId: TenantService_UpdateTenant
             parameters:
                 - in: path
-                  name: tenantId
+                  name: tenant_id
                   required: true
                   schema:
                     type: string
@@ -4445,12 +4445,12 @@ paths:
                     description: Internal server error
             tags:
                 - TenantService
-    /api/v0/tenants/{tenantId}/invites:
+    /api/v0/tenants/{tenant_id}/invites:
         post:
             operationId: TenantService_InviteMember
             parameters:
                 - in: path
-                  name: tenantId
+                  name: tenant_id
                   required: true
                   schema:
                     type: string
@@ -4494,21 +4494,21 @@ paths:
                     description: Internal server error
             tags:
                 - TenantService
-    /api/v0/tenants/{tenantId}/users:
+    /api/v0/tenants/{tenant_id}/users:
         get:
             operationId: TenantService_ListTenantUsers
             parameters:
                 - in: path
-                  name: tenantId
+                  name: tenant_id
                   required: true
                   schema:
                     type: string
                 - in: query
-                  name: pageToken
+                  name: page_token
                   schema:
                     type: string
                 - in: query
-                  name: pageSize
+                  name: page_size
                   schema:
                     format: int32
                     type: integer
@@ -4526,14 +4526,14 @@ paths:
                     type: string
                 - description: Exact match on Kratos identity ID. Takes precedence over email when both are set.
                   in: query
-                  name: identityId
+                  name: identity_id
                   schema:
                     type: string
                 - description: |-
                     When true, the response includes email addresses fetched from Kratos.
                     When false (default), the email field is omitted and the Kratos call is skipped.
                   in: query
-                  name: includeEmails
+                  name: include_emails
                   schema:
                     type: boolean
             responses:
@@ -4573,7 +4573,7 @@ paths:
             operationId: TenantService_ProvisionUser
             parameters:
                 - in: path
-                  name: tenantId
+                  name: tenant_id
                   required: true
                   schema:
                     type: string
@@ -4617,17 +4617,17 @@ paths:
                     description: Internal server error
             tags:
                 - TenantService
-    /api/v0/tenants/{tenantId}/users/{userId}:
+    /api/v0/tenants/{tenant_id}/users/{user_id}:
         patch:
             operationId: TenantService_UpdateTenantUser
             parameters:
                 - in: path
-                  name: tenantId
+                  name: tenant_id
                   required: true
                   schema:
                     type: string
                 - in: path
-                  name: userId
+                  name: user_id
                   required: true
                   schema:
                     type: string
@@ -4690,7 +4690,7 @@ paths:
                   schema:
                     type: string
                 - in: query
-                  name: identityId
+                  name: identity_id
                   schema:
                     type: string
             responses:
@@ -4729,12 +4729,12 @@ paths:
                 - TenantService
                 - internal
             x-internal: true
-    /api/v0/users/{userId}/tenants:
+    /api/v0/users/{user_id}/tenants:
         get:
             operationId: TenantService_ListUserTenants
             parameters:
                 - in: path
-                  name: userId
+                  name: user_id
                   required: true
                   schema:
                     type: string

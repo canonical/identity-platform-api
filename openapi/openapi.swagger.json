@@ -215,7 +215,7 @@
         ]
       }
     },
-    "/api/v0/authz/groups/{groupId}/apps": {
+    "/api/v0/authz/groups/{group_id}/apps": {
       "get": {
         "summary": "GetAllowedAppsInGroup retrieves the list of apps allowed in a specific group.",
         "operationId": "AppAuthorizationService_GetAllowedAppsInGroup",
@@ -247,7 +247,7 @@
         },
         "parameters": [
           {
-            "name": "groupId",
+            "name": "group_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -294,7 +294,7 @@
         },
         "parameters": [
           {
-            "name": "groupId",
+            "name": "group_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -341,7 +341,7 @@
         },
         "parameters": [
           {
-            "name": "groupId",
+            "name": "group_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -360,7 +360,7 @@
         ]
       }
     },
-    "/api/v0/authz/groups/{groupId}/apps/{appId}": {
+    "/api/v0/authz/groups/{group_id}/apps/{app_id}": {
       "delete": {
         "summary": "RemoveAllowedAppFromGroup removes a specific app from the allowed list of a group.",
         "operationId": "AppAuthorizationService_RemoveAllowedAppFromGroup",
@@ -398,13 +398,13 @@
         },
         "parameters": [
           {
-            "name": "groupId",
+            "name": "group_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "appId",
+            "name": "app_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -415,7 +415,7 @@
         ]
       }
     },
-    "/api/v0/authz/apps/{appId}/groups": {
+    "/api/v0/authz/apps/{app_id}/groups": {
       "get": {
         "summary": "GetAllowedGroupsForApp retrieves the list of groups an app is allowed in.",
         "operationId": "AppAuthorizationService_GetAllowedGroupsForApp",
@@ -447,7 +447,7 @@
         },
         "parameters": [
           {
-            "name": "appId",
+            "name": "app_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -494,7 +494,7 @@
         },
         "parameters": [
           {
-            "name": "appId",
+            "name": "app_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -858,7 +858,7 @@
             "type": "string"
           },
           {
-            "name": "userIds",
+            "name": "user_ids",
             "in": "body",
             "required": true,
             "schema": {
@@ -874,7 +874,7 @@
         ]
       }
     },
-    "/api/v0/authz/groups/{id}/users/{userId}": {
+    "/api/v0/authz/groups/{id}/users/{user_id}": {
       "delete": {
         "operationId": "AuthzGroupsService_RemoveUserFromGroup",
         "responses": {
@@ -917,7 +917,7 @@
             "type": "string"
           },
           {
-            "name": "userId",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1024,7 +1024,7 @@
             "type": "string"
           },
           {
-            "name": "groupIds",
+            "name": "group_ids",
             "in": "body",
             "required": true,
             "schema": {
@@ -1071,7 +1071,7 @@
         },
         "parameters": [
           {
-            "name": "clientName",
+            "name": "client_name",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1089,7 +1089,7 @@
             "type": "string"
           },
           {
-            "name": "pageToken",
+            "name": "page_token",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1990,7 +1990,7 @@
             "type": "string"
           },
           {
-            "name": "pageToken",
+            "name": "page_token",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2865,7 +2865,7 @@
             "type": "string"
           },
           {
-            "name": "pageToken",
+            "name": "page_token",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3247,7 +3247,7 @@
         ]
       }
     },
-    "/api/v0/tenants/{tenantId}/invites": {
+    "/api/v0/tenants/{tenant_id}/invites": {
       "post": {
         "operationId": "TenantService_InviteMember",
         "responses": {
@@ -3284,7 +3284,7 @@
         },
         "parameters": [
           {
-            "name": "tenantId",
+            "name": "tenant_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3335,13 +3335,13 @@
         },
         "parameters": [
           {
-            "name": "pageToken",
+            "name": "page_token",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "pageSize",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3408,7 +3408,7 @@
         ]
       }
     },
-    "/api/v0/users/{userId}/tenants": {
+    "/api/v0/users/{user_id}/tenants": {
       "get": {
         "operationId": "TenantService_ListUserTenants",
         "responses": {
@@ -3445,7 +3445,7 @@
         },
         "parameters": [
           {
-            "name": "userId",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3463,7 +3463,7 @@
         ]
       }
     },
-    "/api/v0/tenants/{tenantId}/users": {
+    "/api/v0/tenants/{tenant_id}/users": {
       "get": {
         "operationId": "TenantService_ListTenantUsers",
         "responses": {
@@ -3500,19 +3500,19 @@
         },
         "parameters": [
           {
-            "name": "tenantId",
+            "name": "tenant_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "pageToken",
+            "name": "page_token",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "pageSize",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3533,14 +3533,14 @@
             "type": "string"
           },
           {
-            "name": "identityId",
+            "name": "identity_id",
             "description": "Exact match on Kratos identity ID. Takes precedence over email when both are set.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "includeEmails",
+            "name": "include_emails",
             "description": "When true, the response includes email addresses fetched from Kratos.\nWhen false (default), the email field is omitted and the Kratos call is skipped.",
             "in": "query",
             "required": false,
@@ -3587,7 +3587,7 @@
         },
         "parameters": [
           {
-            "name": "tenantId",
+            "name": "tenant_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3606,7 +3606,7 @@
         ]
       }
     },
-    "/api/v0/tenants/{tenantId}": {
+    "/api/v0/tenants/{tenant_id}": {
       "delete": {
         "operationId": "TenantService_DeleteTenant",
         "responses": {
@@ -3649,7 +3649,7 @@
         },
         "parameters": [
           {
-            "name": "tenantId",
+            "name": "tenant_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3701,7 +3701,7 @@
         },
         "parameters": [
           {
-            "name": "tenantId",
+            "name": "tenant_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3720,7 +3720,7 @@
         ]
       }
     },
-    "/api/v0/tenants/{tenantId}/users/{userId}": {
+    "/api/v0/tenants/{tenant_id}/users/{user_id}": {
       "patch": {
         "operationId": "TenantService_UpdateTenantUser",
         "responses": {
@@ -3763,13 +3763,13 @@
         },
         "parameters": [
           {
-            "name": "tenantId",
+            "name": "tenant_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "userId",
+            "name": "user_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3834,7 +3834,7 @@
             "type": "string"
           },
           {
-            "name": "identityId",
+            "name": "identity_id",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3877,7 +3877,7 @@
         "tenant": {
           "$ref": "#/definitions/tenantTenantInput"
         },
-        "updateMask": {
+        "update_mask": {
           "type": "string"
         }
       }
@@ -3893,7 +3893,7 @@
     "apiauthorizationGroup": {
       "type": "object",
       "properties": {
-        "groupId": {
+        "group_id": {
           "type": "string"
         }
       }
@@ -3945,7 +3945,7 @@
         "name": {
           "type": "string"
         },
-        "tenantId": {
+        "tenant_id": {
           "type": "string"
         },
         "description": {
@@ -3954,11 +3954,11 @@
         "type": {
           "type": "string"
         },
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         }
@@ -3981,7 +3981,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4034,7 +4034,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4056,7 +4056,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4088,7 +4088,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4117,7 +4117,7 @@
         "schema": {
           "type": "object"
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object"
         }
       }
@@ -4168,7 +4168,7 @@
     "authorizationApp": {
       "type": "object",
       "properties": {
-        "clientId": {
+        "client_id": {
           "type": "string"
         }
       }
@@ -4302,7 +4302,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4324,7 +4324,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4350,11 +4350,11 @@
         "role": {
           "type": "string"
         },
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         }
@@ -4363,10 +4363,10 @@
     "clientsClient": {
       "type": "object",
       "properties": {
-        "accessTokenStrategy": {
+        "access_token_strategy": {
           "type": "string"
         },
-        "allowedCorsOrigins": {
+        "allowed_cors_origins": {
           "type": "array",
           "items": {
             "type": "string"
@@ -4378,38 +4378,38 @@
             "type": "string"
           }
         },
-        "authorizationCodeGrantAccessTokenLifespan": {
+        "authorization_code_grant_access_token_lifespan": {
           "type": "string"
         },
-        "authorizationCodeGrantIdTokenLifespan": {
+        "authorization_code_grant_id_token_lifespan": {
           "type": "string"
         },
-        "authorizationCodeGrantRefreshTokenLifespan": {
+        "authorization_code_grant_refresh_token_lifespan": {
           "type": "string"
         },
-        "backchannelLogoutSessionRequired": {
+        "backchannel_logout_session_required": {
           "type": "boolean"
         },
-        "backchannelLogoutUri": {
+        "backchannel_logout_uri": {
           "type": "string"
         },
-        "clientCredentialsGrantAccessTokenLifespan": {
+        "client_credentials_grant_access_token_lifespan": {
           "type": "string"
         },
-        "clientId": {
+        "client_id": {
           "type": "string"
         },
-        "clientName": {
+        "client_name": {
           "type": "string"
         },
-        "clientSecret": {
+        "client_secret": {
           "type": "string"
         },
-        "clientSecretExpiresAt": {
+        "client_secret_expires_at": {
           "type": "string",
           "format": "int64"
         },
-        "clientUri": {
+        "client_uri": {
           "type": "string"
         },
         "contacts": {
@@ -4418,38 +4418,38 @@
             "type": "string"
           }
         },
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
-        "frontchannelLogoutSessionRequired": {
+        "frontchannel_logout_session_required": {
           "type": "boolean"
         },
-        "frontchannelLogoutUri": {
+        "frontchannel_logout_uri": {
           "type": "string"
         },
-        "grantTypes": {
+        "grant_types": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "implicitGrantAccessTokenLifespan": {
+        "implicit_grant_access_token_lifespan": {
           "type": "string"
         },
-        "implicitGrantIdTokenLifespan": {
+        "implicit_grant_id_token_lifespan": {
           "type": "string"
         },
         "jwks": {
           "type": "object"
         },
-        "jwksUri": {
+        "jwks_uri": {
           "type": "string"
         },
-        "jwtBearerGrantAccessTokenLifespan": {
+        "jwt_bearer_grant_access_token_lifespan": {
           "type": "string"
         },
-        "logoUri": {
+        "logo_uri": {
           "type": "string"
         },
         "metadata": {
@@ -4458,46 +4458,46 @@
         "owner": {
           "type": "string"
         },
-        "policyUri": {
+        "policy_uri": {
           "type": "string"
         },
-        "postLogoutRedirectUris": {
+        "post_logout_redirect_uris": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "redirectUris": {
+        "redirect_uris": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "refreshTokenGrantAccessTokenLifespan": {
+        "refresh_token_grant_access_token_lifespan": {
           "type": "string"
         },
-        "refreshTokenGrantIdTokenLifespan": {
+        "refresh_token_grant_id_token_lifespan": {
           "type": "string"
         },
-        "refreshTokenGrantRefreshTokenLifespan": {
+        "refresh_token_grant_refresh_token_lifespan": {
           "type": "string"
         },
-        "registrationAccessToken": {
+        "registration_access_token": {
           "type": "string"
         },
-        "registrationClientUri": {
+        "registration_client_uri": {
           "type": "string"
         },
-        "requestObjectSigningAlg": {
+        "request_object_signing_alg": {
           "type": "string"
         },
-        "requestUris": {
+        "request_uris": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "responseTypes": {
+        "response_types": {
           "type": "array",
           "items": {
             "type": "string"
@@ -4506,29 +4506,29 @@
         "scope": {
           "type": "string"
         },
-        "sectorIdentifierUri": {
+        "sector_identifier_uri": {
           "type": "string"
         },
-        "skipConsent": {
+        "skip_consent": {
           "type": "boolean"
         },
-        "subjectType": {
+        "subject_type": {
           "type": "string"
         },
-        "tokenEndpointAuthMethod": {
+        "token_endpoint_auth_method": {
           "type": "string"
         },
-        "tokenEndpointAuthSigningAlg": {
+        "token_endpoint_auth_signing_alg": {
           "type": "string"
         },
-        "tosUri": {
+        "tos_uri": {
           "type": "string"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         },
-        "userinfoSignedResponseAlg": {
+        "userinfo_signed_response_alg": {
           "type": "string"
         }
       }
@@ -4580,7 +4580,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4647,7 +4647,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4668,7 +4668,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4791,20 +4791,20 @@
         "credentials": {
           "type": "object"
         },
-        "metadataAdmin": {
+        "metadata_admin": {
           "type": "object"
         },
-        "metadataPublic": {
+        "metadata_public": {
           "type": "object"
         },
-        "recoveryAddresses": {
+        "recovery_addresses": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/identitiesRecoveryIdentityAddress"
           }
         },
-        "schemaId": {
+        "schema_id": {
           "type": "string"
         },
         "state": {
@@ -4813,14 +4813,14 @@
         "traits": {
           "type": "object"
         },
-        "verifiableAddresses": {
+        "verifiable_addresses": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/identitiesVerifiableIdentityAddress"
           }
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object"
         }
       }
@@ -4842,7 +4842,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4864,7 +4864,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -4872,7 +4872,7 @@
     "identitiesIdentity": {
       "type": "object",
       "properties": {
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
@@ -4885,50 +4885,50 @@
         "id": {
           "type": "string"
         },
-        "metadataAdmin": {
+        "metadata_admin": {
           "type": "object"
         },
-        "metadataPublic": {
+        "metadata_public": {
           "type": "object"
         },
-        "organizationId": {
+        "organization_id": {
           "$ref": "#/definitions/identitiesNullableString"
         },
-        "recoveryAddresses": {
+        "recovery_addresses": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/identitiesRecoveryIdentityAddress"
           }
         },
-        "schemaId": {
+        "schema_id": {
           "type": "string"
         },
-        "schemaUrl": {
+        "schema_url": {
           "type": "string"
         },
         "state": {
           "type": "string"
         },
-        "stateChangedAt": {
+        "state_changed_at": {
           "type": "string",
           "format": "date-time"
         },
         "traits": {
           "type": "object"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         },
-        "verifiableAddresses": {
+        "verifiable_addresses": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/identitiesVerifiableIdentityAddress"
           }
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object",
           "additionalProperties": {}
         }
@@ -4941,7 +4941,7 @@
           "type": "object",
           "additionalProperties": {}
         },
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
@@ -4954,7 +4954,7 @@
         "type": {
           "type": "string"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         },
@@ -4962,7 +4962,7 @@
           "type": "string",
           "format": "int64"
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object",
           "additionalProperties": {}
         }
@@ -4985,7 +4985,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5004,14 +5004,14 @@
     "identitiesRecoveryIdentityAddress": {
       "type": "object",
       "properties": {
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
         "id": {
           "type": "string"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         },
@@ -5021,7 +5021,7 @@
         "via": {
           "type": "string"
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object",
           "additionalProperties": {}
         }
@@ -5052,13 +5052,13 @@
         "credentials": {
           "type": "object"
         },
-        "metadataAdmin": {
+        "metadata_admin": {
           "type": "object"
         },
-        "metadataPublic": {
+        "metadata_public": {
           "type": "object"
         },
-        "schemaId": {
+        "schema_id": {
           "type": "string"
         },
         "state": {
@@ -5067,7 +5067,7 @@
         "traits": {
           "type": "object"
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object"
         }
       }
@@ -5089,7 +5089,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5097,7 +5097,7 @@
     "identitiesVerifiableIdentityAddress": {
       "type": "object",
       "properties": {
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
@@ -5107,7 +5107,7 @@
         "status": {
           "type": "string"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
         },
@@ -5117,14 +5117,14 @@
         "verified": {
           "type": "boolean"
         },
-        "verifiedAt": {
+        "verified_at": {
           "type": "string",
           "format": "date-time"
         },
         "via": {
           "type": "string"
         },
-        "additionalProperties": {
+        "additional_properties": {
           "type": "object",
           "additionalProperties": {}
         }
@@ -5142,34 +5142,34 @@
         "label": {
           "type": "string"
         },
-        "clientId": {
+        "client_id": {
           "type": "string"
         },
-        "clientSecret": {
+        "client_secret": {
           "type": "string"
         },
-        "issuerUrl": {
+        "issuer_url": {
           "type": "string"
         },
-        "authUrl": {
+        "auth_url": {
           "type": "string"
         },
-        "tokenUrl": {
+        "token_url": {
           "type": "string"
         },
-        "microsoftTenant": {
+        "microsoft_tenant": {
           "type": "string"
         },
-        "subjectSource": {
+        "subject_source": {
           "type": "string"
         },
-        "appleTeamId": {
+        "apple_team_id": {
           "type": "string"
         },
-        "applePrivateKeyId": {
+        "apple_private_key_id": {
           "type": "string"
         },
-        "applePrivateKey": {
+        "apple_private_key": {
           "type": "string"
         },
         "scope": {
@@ -5178,10 +5178,10 @@
             "type": "string"
           }
         },
-        "mapperUrl": {
+        "mapper_url": {
           "type": "string"
         },
-        "requestedClaims": {
+        "requested_claims": {
           "type": "string"
         }
       }
@@ -5236,34 +5236,34 @@
         "label": {
           "type": "string"
         },
-        "clientId": {
+        "client_id": {
           "type": "string"
         },
-        "clientSecret": {
+        "client_secret": {
           "type": "string"
         },
-        "issuerUrl": {
+        "issuer_url": {
           "type": "string"
         },
-        "authUrl": {
+        "auth_url": {
           "type": "string"
         },
-        "tokenUrl": {
+        "token_url": {
           "type": "string"
         },
-        "microsoftTenant": {
+        "microsoft_tenant": {
           "type": "string"
         },
-        "subjectSource": {
+        "subject_source": {
           "type": "string"
         },
-        "appleTeamId": {
+        "apple_team_id": {
           "type": "string"
         },
-        "applePrivateKeyId": {
+        "apple_private_key_id": {
           "type": "string"
         },
-        "applePrivateKey": {
+        "apple_private_key": {
           "type": "string"
         },
         "scope": {
@@ -5272,10 +5272,10 @@
             "type": "string"
           }
         },
-        "mapperUrl": {
+        "mapper_url": {
           "type": "string"
         },
-        "requestedClaims": {
+        "requested_claims": {
           "type": "string"
         }
       }
@@ -5323,34 +5323,34 @@
         "label": {
           "type": "string"
         },
-        "clientId": {
+        "client_id": {
           "type": "string"
         },
-        "clientSecret": {
+        "client_secret": {
           "type": "string"
         },
-        "issuerUrl": {
+        "issuer_url": {
           "type": "string"
         },
-        "authUrl": {
+        "auth_url": {
           "type": "string"
         },
-        "tokenUrl": {
+        "token_url": {
           "type": "string"
         },
-        "microsoftTenant": {
+        "microsoft_tenant": {
           "type": "string"
         },
-        "subjectSource": {
+        "subject_source": {
           "type": "string"
         },
-        "appleTeamId": {
+        "apple_team_id": {
           "type": "string"
         },
-        "applePrivateKeyId": {
+        "apple_private_key_id": {
           "type": "string"
         },
-        "applePrivateKey": {
+        "apple_private_key": {
           "type": "string"
         },
         "scope": {
@@ -5359,10 +5359,10 @@
             "type": "string"
           }
         },
-        "mapperUrl": {
+        "mapper_url": {
           "type": "string"
         },
-        "requestedClaims": {
+        "requested_claims": {
           "type": "string"
         }
       }
@@ -5422,7 +5422,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5443,7 +5443,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5465,7 +5465,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5504,7 +5504,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5637,7 +5637,7 @@
         "message": {
           "type": "string"
         },
-        "_meta": {
+        "meta": {
           "$ref": "#/definitions/typesPagination"
         }
       }
@@ -5694,7 +5694,7 @@
         "version": {
           "type": "string"
         },
-        "commitHash": {
+        "commit_hash": {
           "type": "string"
         },
         "name": {
@@ -5766,7 +5766,7 @@
             "$ref": "#/definitions/tenantTenantUser"
           }
         },
-        "nextPageToken": {
+        "next_page_token": {
           "type": "string"
         }
       }
@@ -5781,7 +5781,7 @@
             "$ref": "#/definitions/tenantTenant"
           }
         },
-        "nextPageToken": {
+        "next_page_token": {
           "type": "string"
         }
       }
@@ -5827,7 +5827,7 @@
         "name": {
           "type": "string"
         },
-        "createdAt": {
+        "created_at": {
           "type": "string"
         },
         "enabled": {
@@ -5849,7 +5849,7 @@
     "tenantTenantUser": {
       "type": "object",
       "properties": {
-        "userId": {
+        "user_id": {
           "type": "string"
         },
         "email": {
