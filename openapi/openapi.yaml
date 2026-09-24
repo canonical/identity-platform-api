@@ -4,14 +4,10 @@ components:
             properties:
                 email:
                     type: string
-                role:
-                    type: string
             type: object
         TenantServiceProvisionUserBody:
             properties:
                 email:
-                    type: string
-                role:
                     type: string
             type: object
         TenantServiceUpdateTenantBody:
@@ -19,11 +15,6 @@ components:
                 tenant:
                     $ref: '#/components/schemas/tenantTenantInput'
                 update_mask:
-                    type: string
-            type: object
-        TenantServiceUpdateTenantUserBody:
-            properties:
-                role:
                     type: string
             type: object
         apiauthorizationGroup:
@@ -1426,8 +1417,6 @@ components:
             properties:
                 email:
                     type: string
-                role:
-                    type: string
                 user_id:
                     type: string
             type: object
@@ -1435,11 +1424,6 @@ components:
             properties:
                 tenant:
                     $ref: '#/components/schemas/tenantTenant'
-            type: object
-        tenantUpdateTenantUserResponse:
-            properties:
-                user:
-                    $ref: '#/components/schemas/tenantTenantUser'
             type: object
         typesErrorResponse:
             properties:
@@ -4512,11 +4496,6 @@ paths:
                   schema:
                     format: int32
                     type: integer
-                - description: Exact match on membership role.
-                  in: query
-                  name: role
-                  schema:
-                    type: string
                 - description: |-
                     Exact match on user email. Resolved to identity_id in the service layer.
                     Use identity_id instead when the caller already knows it, to skip the Kratos lookup.
@@ -4609,66 +4588,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
-                default:
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Internal server error
-            tags:
-                - TenantService
-    /api/v0/tenants/{tenant_id}/users/{user_id}:
-        patch:
-            operationId: TenantService_UpdateTenantUser
-            parameters:
-                - in: path
-                  name: tenant_id
-                  required: true
-                  schema:
-                    type: string
-                - in: path
-                  name: user_id
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/TenantServiceUpdateTenantUserBody'
-                required: true
-                x-originalParamName: body
-            responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/tenantUpdateTenantUserResponse'
-                    description: ""
-                "400":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Bad request
-                "401":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Unauthorized
-                "403":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Forbidden
-                "404":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/typesErrorResponse'
-                    description: Not found
                 default:
                     content:
                         application/json:

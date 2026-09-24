@@ -6,16 +6,6 @@ option go_package = "github.com/canonical/identity-platform-api/tenant";
 import "buf/validate/validate.proto";
 import "google/protobuf/field_mask.proto";
 
-message UpdateTenantUserRequest {
-	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
-	string user_id = 2 [(buf.validate.field).string.uuid = true];
-	string role = 3 [(buf.validate.field).string.min_len = 1];
-}
-
-message UpdateTenantUserResponse {
-	TenantUser user = 1;
-}
-
 message ListMyTenantsRequest {
 	optional bool enabled = 1;
 }
@@ -51,7 +41,9 @@ message TenantInput {
 message InviteMemberRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	string email = 2 [(buf.validate.field).string.email = true];
-	string role = 3 [(buf.validate.field).string.min_len = 1];
+	// Membership permissions are managed by the authorization service.
+	reserved 3;
+	reserved "role";
 }
 
 message InviteMemberResponse {
@@ -100,7 +92,9 @@ message DeleteTenantResponse {
 message ProvisionUserRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	string email = 2 [(buf.validate.field).string.email = true];
-	string role = 3 [(buf.validate.field).string.min_len = 1];
+	// Membership permissions are managed by the authorization service.
+	reserved 3;
+	reserved "role";
 }
 
 message ProvisionUserResponse {
@@ -111,8 +105,9 @@ message ListTenantUsersRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	string page_token = 2;
 	int32 page_size = 3 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
-	// Exact match on membership role.
-	optional string role = 4 [(buf.validate.field).string.min_len = 1];
+	// Membership permissions are managed by the authorization service.
+	reserved 4;
+	reserved "role";
 	// Exact match on user email. Resolved to identity_id in the service layer.
 	// Use identity_id instead when the caller already knows it, to skip the Kratos lookup.
 	optional string email = 5 [(buf.validate.field).string.email = true];
@@ -131,7 +126,9 @@ message ListTenantUsersResponse {
 message TenantUser {
 	string user_id = 1;
 	string email = 2;
-	string role = 3;
+	// Membership permissions are managed by the authorization service.
+	reserved 3;
+	reserved "role";
 }
 
 message LookupTenantsRequest {

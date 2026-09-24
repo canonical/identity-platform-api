@@ -3519,13 +3519,6 @@
             "format": "int32"
           },
           {
-            "name": "role",
-            "description": "Exact match on membership role.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "email",
             "description": "Exact match on user email. Resolved to identity_id in the service layer.\nUse identity_id instead when the caller already knows it, to skip the Kratos lookup.",
             "in": "query",
@@ -3720,74 +3713,6 @@
         ]
       }
     },
-    "/api/v0/tenants/{tenant_id}/users/{user_id}": {
-      "patch": {
-        "operationId": "TenantService_UpdateTenantUser",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/tenantUpdateTenantUserResponse"
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/typesErrorResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "tenant_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TenantServiceUpdateTenantUserBody"
-            }
-          }
-        ],
-        "tags": [
-          "TenantService"
-        ]
-      }
-    },
     "/api/v0/tenants/lookup": {
       "get": {
         "summary": "Lookup tenants (internal)",
@@ -3854,9 +3779,6 @@
       "properties": {
         "email": {
           "type": "string"
-        },
-        "role": {
-          "type": "string"
         }
       }
     },
@@ -3864,9 +3786,6 @@
       "type": "object",
       "properties": {
         "email": {
-          "type": "string"
-        },
-        "role": {
           "type": "string"
         }
       }
@@ -3878,14 +3797,6 @@
           "$ref": "#/definitions/tenantTenantInput"
         },
         "update_mask": {
-          "type": "string"
-        }
-      }
-    },
-    "TenantServiceUpdateTenantUserBody": {
-      "type": "object",
-      "properties": {
-        "role": {
           "type": "string"
         }
       }
@@ -5854,9 +5765,6 @@
         },
         "email": {
           "type": "string"
-        },
-        "role": {
-          "type": "string"
         }
       }
     },
@@ -5865,14 +5773,6 @@
       "properties": {
         "tenant": {
           "$ref": "#/definitions/tenantTenant"
-        }
-      }
-    },
-    "tenantUpdateTenantUserResponse": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/tenantTenantUser"
         }
       }
     },
