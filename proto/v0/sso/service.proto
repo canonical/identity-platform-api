@@ -1,0 +1,982 @@
+syntax = "proto3";
+
+package identity.platform.api.sso;
+option go_package = "github.com/canonical/identity-platform-api/v0/sso";
+
+import "v0/sso/model.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// SSOSignInService is called by login-ui while a person signs in. gRPC only
+// (no HTTP mapping): no person may call it, so no gateway route exposes it.
+//
+// Errors are gRPC status codes with a google.rpc.ErrorInfo (domain
+// "sso-service") whose reason is one of: NOT_APPLICABLE
+// (FAILED_PRECONDITION), LAST_CREDENTIAL (FAILED_PRECONDITION).
+service SSOSignInService {
+  // ListOptions returns the connections among connection_ids that exist and
+  // are TESTED. No remote calls.
+  rpc ListOptions(ListOptionsRequest) returns (ListOptionsResponse) {}
+
+  // StartAttempt seals a sign-in attempt into its ticket (nothing is
+  // stored); refuses a connection that is not TESTED (NOT_APPLICABLE). No
+  // remote calls.
+  rpc StartAttempt(StartAttemptRequest) returns (StartAttemptResponse) {}
+
+  // CompleteAttempt confirms that the attempt ended at this account, in the
+  // browser that presents it: the ticket is unexpired, the account has the
+  // ticket's address and holds a link to the ticket's connection
+  // (byo-sso:<connection_id>:<subject>), read from Kratos, which wrote it
+  // (registration, account linking, or earlier), and the receipt is the one
+  // sso-service gave the browser when the identity provider answered for
+  // this ticket as that subject. Nothing is stored or written: a repeat
+  // returns the same answer; an expired ticket, another account or no such
+  // receipt, NOT_APPLICABLE.
+  rpc CompleteAttempt(CompleteAttemptRequest) returns (CompleteAttemptResponse) {}
+
+  // ListLinks reads the account's byo-sso identifiers from Kratos; those of
+  // deleted connections are ignored.
+  rpc ListLinks(ListLinksRequest) returns (ListLinksResponse) {}
+
+  // DeleteLink removes one link; refused (LAST_CREDENTIAL) unless the account
+  // keeps another way to sign in of its own.
+  rpc DeleteLink(DeleteLinkRequest) returns (DeleteLinkResponse) {}
+}
+
+// SSOTenantAdminService is what a tenant's admins manage: the tenant's
+// connections, their test sign-ins and its SSO policy. Every route names its
+// tenant in the path, and the gateway in front of sso-service authorizes the
+// caller for that tenant; sso-service checks no roles, only that the
+// resource belongs to that tenant (NOT_FOUND, CONNECTION_NOT_FOUND,
+// otherwise).
+//
+// A refusal that a client may branch on carries a reason: over gRPC a
+// google.rpc.ErrorInfo detail (domain "sso-service"), over HTTP the message
+// begins with "<REASON>: ". The reasons, with their status codes:
+//   CONNECTION_NOT_FOUND (NOT_FOUND): every RPC that names a connection.
+//   CONNECTION_LIMIT (FAILED_PRECONDITION): CreateConnection.
+//   PERSONAL_TENANT (FAILED_PRECONDITION): CreateConnection and the policy
+//     RPCs, for a personal tenant.
+//   IDP_CHECK_FAILED (FAILED_PRECONDITION): StartTestLogin, when the
+//     identity provider cannot be used as the connection describes it.
+//   CONNECTION_NOT_TESTED (FAILED_PRECONDITION): PutTenantSSOPolicy, an active
+//     binding to a connection that is not TESTED.
+//   REQUIRED_NEEDS_ACTIVE_BINDING, AUTO_JOIN_NEEDS_REQUIRED_AND_DOMAINS
+//     (FAILED_PRECONDITION): PutTenantSSOPolicy and DeleteConnection.
+service SSOTenantAdminService {
+  // ListConnections: the connections the tenant owns.
+  rpc ListConnections(ListConnectionsRequest) returns (ListConnectionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v0/sso/tenants/{tenant_id}/connections"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List a tenant's connections";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.ListConnectionsResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // CreateConnection: a DRAFT connection owned by the tenant; refused for a
+  // personal tenant (PERSONAL_TENANT) and beyond five connections
+  // (CONNECTION_LIMIT).
+  rpc CreateConnection(CreateConnectionRequest) returns (CreateConnectionResponse) {
+    option (google.api.http) = {
+      post: "/api/v0/sso/tenants/{tenant_id}/connections"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Register a connection for a tenant";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.CreateConnectionResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc GetConnection(GetConnectionRequest) returns (GetConnectionResponse) {
+    option (google.api.http) = {
+      get: "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a connection";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.GetConnectionResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // UpdateConnection: label and client secret; issuer and client_id are
+  // fixed at create. Over HTTP the body is the fields to change, and they
+  // make the update mask.
+  rpc UpdateConnection(UpdateConnectionRequest) returns (UpdateConnectionResponse) {
+    option (google.api.http) = {
+      patch: "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}"
+      body: "connection"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a connection's label or client secret";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.UpdateConnectionResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // DeleteConnection: removes the connection's binding from the tenant's
+  // policy first, then the connection; refused
+  // (REQUIRED_NEEDS_ACTIVE_BINDING) when that would leave a tenant that
+  // requires company sign-in with no active binding.
+  rpc DeleteConnection(DeleteConnectionRequest) returns (DeleteConnectionResponse) {
+    option (google.api.http) = {
+      delete: "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a connection";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.DeleteConnectionResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // StartTestLogin: a test sign-in of the connection; the only way a
+  // connection becomes TESTED.
+  rpc StartTestLogin(StartTestLoginRequest) returns (StartTestLoginResponse) {
+    option (google.api.http) = {
+      post: "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}/test-logins"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Start a test sign-in of a connection";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.StartTestLoginResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // GetTenantSSOPolicy: the tenant's SSO policy, domains included.
+  rpc GetTenantSSOPolicy(GetTenantSSOPolicyRequest) returns (GetTenantSSOPolicyResponse) {
+    option (google.api.http) = {
+      get: "/api/v0/sso/tenants/{tenant_id}/policy"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a tenant's SSO policy";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.GetTenantSSOPolicyResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // PutTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
+  rpc PutTenantSSOPolicy(PutTenantSSOPolicyRequest) returns (PutTenantSSOPolicyResponse) {
+    option (google.api.http) = {
+      put: "/api/v0/sso/tenants/{tenant_id}/policy"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Set a tenant's SSO policy";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.PutTenantSSOPolicyResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+}
+
+// SSOPlatformAdminService is for the platform's own admins, across tenants:
+// the gateway lets only them reach these routes. The rules and the locks are
+// SSOTenantAdminService's.
+//
+// The reasons are SSOTenantAdminService's: CONNECTION_NOT_FOUND,
+// REQUIRED_NEEDS_ACTIVE_BINDING, AUTO_JOIN_NEEDS_REQUIRED_AND_DOMAINS,
+// PERSONAL_TENANT.
+service SSOPlatformAdminService {
+  // ListAllConnections: every connection, or one owner's (which may have
+  // been deleted).
+  rpc ListAllConnections(ListAllConnectionsRequest) returns (ListAllConnectionsResponse) {
+    option (google.api.http) = {
+      get: "/api/v0/sso/connections"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List every tenant's connections";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.ListAllConnectionsResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // GetTenantDomains: the tenant's domains, to read before SetTenantDomains
+  // replaces them.
+  rpc GetTenantDomains(GetTenantDomainsRequest) returns (GetTenantDomainsResponse) {
+    option (google.api.http) = {
+      get: "/api/v0/sso/tenants/{tenant_id}/domains"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get the email domains of a tenant";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.GetTenantDomainsResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // SetTenantDomains: the whole set of the tenant's domains, after their
+  // ownership was checked outside the portal.
+  rpc SetTenantDomains(SetTenantDomainsRequest) returns (SetTenantDomainsResponse) {
+    option (google.api.http) = {
+      put: "/api/v0/sso/tenants/{tenant_id}/domains"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Set the email domains of a tenant";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.SetTenantDomainsResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  // DeleteAnyConnection: unbinds and deletes a connection of any tenant, its
+  // owner deleted or not; refused (REQUIRED_NEEDS_ACTIVE_BINDING) if its owner
+  // is REQUIRED and would be left with no active binding.
+  rpc DeleteAnyConnection(DeleteAnyConnectionRequest) returns (DeleteAnyConnectionResponse) {
+    option (google.api.http) = {
+      delete: "/api/v0/sso/connections/{connection_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Unbind and delete a connection";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.sso.DeleteAnyConnectionResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+}

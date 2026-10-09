@@ -19,16 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	TenantService_ListMyTenants_FullMethodName   = "/identity.platform.api.tenant.TenantService/ListMyTenants"
-	TenantService_InviteMember_FullMethodName    = "/identity.platform.api.tenant.TenantService/InviteMember"
-	TenantService_ListTenants_FullMethodName     = "/identity.platform.api.tenant.TenantService/ListTenants"
-	TenantService_ListUserTenants_FullMethodName = "/identity.platform.api.tenant.TenantService/ListUserTenants"
-	TenantService_ListTenantUsers_FullMethodName = "/identity.platform.api.tenant.TenantService/ListTenantUsers"
-	TenantService_CreateTenant_FullMethodName    = "/identity.platform.api.tenant.TenantService/CreateTenant"
-	TenantService_UpdateTenant_FullMethodName    = "/identity.platform.api.tenant.TenantService/UpdateTenant"
-	TenantService_DeleteTenant_FullMethodName    = "/identity.platform.api.tenant.TenantService/DeleteTenant"
-	TenantService_ProvisionUser_FullMethodName   = "/identity.platform.api.tenant.TenantService/ProvisionUser"
-	TenantService_LookupTenants_FullMethodName   = "/identity.platform.api.tenant.TenantService/LookupTenants"
+	TenantService_ListMyTenants_FullMethodName      = "/identity.platform.api.tenant.TenantService/ListMyTenants"
+	TenantService_InviteMember_FullMethodName       = "/identity.platform.api.tenant.TenantService/InviteMember"
+	TenantService_ListTenants_FullMethodName        = "/identity.platform.api.tenant.TenantService/ListTenants"
+	TenantService_ListUserTenants_FullMethodName    = "/identity.platform.api.tenant.TenantService/ListUserTenants"
+	TenantService_ListTenantUsers_FullMethodName    = "/identity.platform.api.tenant.TenantService/ListTenantUsers"
+	TenantService_CreateTenant_FullMethodName       = "/identity.platform.api.tenant.TenantService/CreateTenant"
+	TenantService_UpdateTenant_FullMethodName       = "/identity.platform.api.tenant.TenantService/UpdateTenant"
+	TenantService_DeleteTenant_FullMethodName       = "/identity.platform.api.tenant.TenantService/DeleteTenant"
+	TenantService_ProvisionUser_FullMethodName      = "/identity.platform.api.tenant.TenantService/ProvisionUser"
+	TenantService_RemoveTenantUser_FullMethodName   = "/identity.platform.api.tenant.TenantService/RemoveTenantUser"
+	TenantService_LookupTenants_FullMethodName      = "/identity.platform.api.tenant.TenantService/LookupTenants"
+	TenantService_GetTenantMFAPolicy_FullMethodName = "/identity.platform.api.tenant.TenantService/GetTenantMFAPolicy"
+	TenantService_PutTenantMFAPolicy_FullMethodName = "/identity.platform.api.tenant.TenantService/PutTenantMFAPolicy"
 )
 
 // TenantServiceClient is the client API for TenantService service.
@@ -46,7 +49,10 @@ type TenantServiceClient interface {
 	UpdateTenant(ctx context.Context, in *UpdateTenantRequest, opts ...grpc.CallOption) (*UpdateTenantResponse, error)
 	DeleteTenant(ctx context.Context, in *DeleteTenantRequest, opts ...grpc.CallOption) (*DeleteTenantResponse, error)
 	ProvisionUser(ctx context.Context, in *ProvisionUserRequest, opts ...grpc.CallOption) (*ProvisionUserResponse, error)
+	RemoveTenantUser(ctx context.Context, in *RemoveTenantUserRequest, opts ...grpc.CallOption) (*RemoveTenantUserResponse, error)
 	LookupTenants(ctx context.Context, in *LookupTenantsRequest, opts ...grpc.CallOption) (*LookupTenantsResponse, error)
+	GetTenantMFAPolicy(ctx context.Context, in *GetTenantMFAPolicyRequest, opts ...grpc.CallOption) (*GetTenantMFAPolicyResponse, error)
+	PutTenantMFAPolicy(ctx context.Context, in *PutTenantMFAPolicyRequest, opts ...grpc.CallOption) (*PutTenantMFAPolicyResponse, error)
 }
 
 type tenantServiceClient struct {
@@ -138,9 +144,36 @@ func (c *tenantServiceClient) ProvisionUser(ctx context.Context, in *ProvisionUs
 	return out, nil
 }
 
+func (c *tenantServiceClient) RemoveTenantUser(ctx context.Context, in *RemoveTenantUserRequest, opts ...grpc.CallOption) (*RemoveTenantUserResponse, error) {
+	out := new(RemoveTenantUserResponse)
+	err := c.cc.Invoke(ctx, TenantService_RemoveTenantUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tenantServiceClient) LookupTenants(ctx context.Context, in *LookupTenantsRequest, opts ...grpc.CallOption) (*LookupTenantsResponse, error) {
 	out := new(LookupTenantsResponse)
 	err := c.cc.Invoke(ctx, TenantService_LookupTenants_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) GetTenantMFAPolicy(ctx context.Context, in *GetTenantMFAPolicyRequest, opts ...grpc.CallOption) (*GetTenantMFAPolicyResponse, error) {
+	out := new(GetTenantMFAPolicyResponse)
+	err := c.cc.Invoke(ctx, TenantService_GetTenantMFAPolicy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantServiceClient) PutTenantMFAPolicy(ctx context.Context, in *PutTenantMFAPolicyRequest, opts ...grpc.CallOption) (*PutTenantMFAPolicyResponse, error) {
+	out := new(PutTenantMFAPolicyResponse)
+	err := c.cc.Invoke(ctx, TenantService_PutTenantMFAPolicy_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +195,10 @@ type TenantServiceServer interface {
 	UpdateTenant(context.Context, *UpdateTenantRequest) (*UpdateTenantResponse, error)
 	DeleteTenant(context.Context, *DeleteTenantRequest) (*DeleteTenantResponse, error)
 	ProvisionUser(context.Context, *ProvisionUserRequest) (*ProvisionUserResponse, error)
+	RemoveTenantUser(context.Context, *RemoveTenantUserRequest) (*RemoveTenantUserResponse, error)
 	LookupTenants(context.Context, *LookupTenantsRequest) (*LookupTenantsResponse, error)
+	GetTenantMFAPolicy(context.Context, *GetTenantMFAPolicyRequest) (*GetTenantMFAPolicyResponse, error)
+	PutTenantMFAPolicy(context.Context, *PutTenantMFAPolicyRequest) (*PutTenantMFAPolicyResponse, error)
 	mustEmbedUnimplementedTenantServiceServer()
 }
 
@@ -197,8 +233,17 @@ func (UnimplementedTenantServiceServer) DeleteTenant(context.Context, *DeleteTen
 func (UnimplementedTenantServiceServer) ProvisionUser(context.Context, *ProvisionUserRequest) (*ProvisionUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProvisionUser not implemented")
 }
+func (UnimplementedTenantServiceServer) RemoveTenantUser(context.Context, *RemoveTenantUserRequest) (*RemoveTenantUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveTenantUser not implemented")
+}
 func (UnimplementedTenantServiceServer) LookupTenants(context.Context, *LookupTenantsRequest) (*LookupTenantsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LookupTenants not implemented")
+}
+func (UnimplementedTenantServiceServer) GetTenantMFAPolicy(context.Context, *GetTenantMFAPolicyRequest) (*GetTenantMFAPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTenantMFAPolicy not implemented")
+}
+func (UnimplementedTenantServiceServer) PutTenantMFAPolicy(context.Context, *PutTenantMFAPolicyRequest) (*PutTenantMFAPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PutTenantMFAPolicy not implemented")
 }
 func (UnimplementedTenantServiceServer) mustEmbedUnimplementedTenantServiceServer() {}
 
@@ -375,6 +420,24 @@ func _TenantService_ProvisionUser_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TenantService_RemoveTenantUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveTenantUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).RemoveTenantUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_RemoveTenantUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).RemoveTenantUser(ctx, req.(*RemoveTenantUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TenantService_LookupTenants_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LookupTenantsRequest)
 	if err := dec(in); err != nil {
@@ -389,6 +452,42 @@ func _TenantService_LookupTenants_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TenantServiceServer).LookupTenants(ctx, req.(*LookupTenantsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_GetTenantMFAPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTenantMFAPolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).GetTenantMFAPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_GetTenantMFAPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).GetTenantMFAPolicy(ctx, req.(*GetTenantMFAPolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantService_PutTenantMFAPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PutTenantMFAPolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).PutTenantMFAPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_PutTenantMFAPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).PutTenantMFAPolicy(ctx, req.(*PutTenantMFAPolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -437,8 +536,463 @@ var TenantService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TenantService_ProvisionUser_Handler,
 		},
 		{
+			MethodName: "RemoveTenantUser",
+			Handler:    _TenantService_RemoveTenantUser_Handler,
+		},
+		{
 			MethodName: "LookupTenants",
 			Handler:    _TenantService_LookupTenants_Handler,
+		},
+		{
+			MethodName: "GetTenantMFAPolicy",
+			Handler:    _TenantService_GetTenantMFAPolicy_Handler,
+		},
+		{
+			MethodName: "PutTenantMFAPolicy",
+			Handler:    _TenantService_PutTenantMFAPolicy_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "v0/tenant/service.proto",
+}
+
+const (
+	TenantSignInService_ListSignInTenants_FullMethodName    = "/identity.platform.api.tenant.TenantSignInService/ListSignInTenants"
+	TenantSignInService_GetSignInContext_FullMethodName     = "/identity.platform.api.tenant.TenantSignInService/GetSignInContext"
+	TenantSignInService_JoinTenant_FullMethodName           = "/identity.platform.api.tenant.TenantSignInService/JoinTenant"
+	TenantSignInService_CreatePersonalTenant_FullMethodName = "/identity.platform.api.tenant.TenantSignInService/CreatePersonalTenant"
+)
+
+// TenantSignInServiceClient is the client API for TenantSignInService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type TenantSignInServiceClient interface {
+	// ListSignInTenants returns the tenants an address may sign in to: those
+	// its account is a member of, those that invited it and those it could
+	// auto-join, even when the address has no account.
+	ListSignInTenants(ctx context.Context, in *ListSignInTenantsRequest, opts ...grpc.CallOption) (*ListSignInTenantsResponse, error)
+	// GetSignInContext answers, for one tenant and an address (before sign-in)
+	// or an account, what a sign-in into that tenant needs: membership,
+	// enforcement, the active bindings that apply to the address, whether
+	// an invitation or auto-join admits it, the MFA requirement, and whether
+	// the address has an account.
+	GetSignInContext(ctx context.Context, in *GetSignInContextRequest, opts ...grpc.CallOption) (*GetSignInContextResponse, error)
+	// JoinTenant makes the account a member of the tenant, when the tenant
+	// admits the account's address by a pending invitation (which this spends)
+	// or by auto-join; otherwise NOT_ADMITTED. An account that is a member
+	// already is success. For login-ui, when it accepts a sign-in to the tenant.
+	JoinTenant(ctx context.Context, in *JoinTenantRequest, opts ...grpc.CallOption) (*JoinTenantResponse, error)
+	// CreatePersonalTenant creates the account's personal tenant, enabled, with
+	// the account as its owner. A repeat call returns the existing one. An
+	// account that belongs to a tenant, or has a pending invitation to one,
+	// gets none: HAS_TENANT.
+	CreatePersonalTenant(ctx context.Context, in *CreatePersonalTenantRequest, opts ...grpc.CallOption) (*CreatePersonalTenantResponse, error)
+}
+
+type tenantSignInServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTenantSignInServiceClient(cc grpc.ClientConnInterface) TenantSignInServiceClient {
+	return &tenantSignInServiceClient{cc}
+}
+
+func (c *tenantSignInServiceClient) ListSignInTenants(ctx context.Context, in *ListSignInTenantsRequest, opts ...grpc.CallOption) (*ListSignInTenantsResponse, error) {
+	out := new(ListSignInTenantsResponse)
+	err := c.cc.Invoke(ctx, TenantSignInService_ListSignInTenants_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantSignInServiceClient) GetSignInContext(ctx context.Context, in *GetSignInContextRequest, opts ...grpc.CallOption) (*GetSignInContextResponse, error) {
+	out := new(GetSignInContextResponse)
+	err := c.cc.Invoke(ctx, TenantSignInService_GetSignInContext_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantSignInServiceClient) JoinTenant(ctx context.Context, in *JoinTenantRequest, opts ...grpc.CallOption) (*JoinTenantResponse, error) {
+	out := new(JoinTenantResponse)
+	err := c.cc.Invoke(ctx, TenantSignInService_JoinTenant_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantSignInServiceClient) CreatePersonalTenant(ctx context.Context, in *CreatePersonalTenantRequest, opts ...grpc.CallOption) (*CreatePersonalTenantResponse, error) {
+	out := new(CreatePersonalTenantResponse)
+	err := c.cc.Invoke(ctx, TenantSignInService_CreatePersonalTenant_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TenantSignInServiceServer is the server API for TenantSignInService service.
+// All implementations must embed UnimplementedTenantSignInServiceServer
+// for forward compatibility
+type TenantSignInServiceServer interface {
+	// ListSignInTenants returns the tenants an address may sign in to: those
+	// its account is a member of, those that invited it and those it could
+	// auto-join, even when the address has no account.
+	ListSignInTenants(context.Context, *ListSignInTenantsRequest) (*ListSignInTenantsResponse, error)
+	// GetSignInContext answers, for one tenant and an address (before sign-in)
+	// or an account, what a sign-in into that tenant needs: membership,
+	// enforcement, the active bindings that apply to the address, whether
+	// an invitation or auto-join admits it, the MFA requirement, and whether
+	// the address has an account.
+	GetSignInContext(context.Context, *GetSignInContextRequest) (*GetSignInContextResponse, error)
+	// JoinTenant makes the account a member of the tenant, when the tenant
+	// admits the account's address by a pending invitation (which this spends)
+	// or by auto-join; otherwise NOT_ADMITTED. An account that is a member
+	// already is success. For login-ui, when it accepts a sign-in to the tenant.
+	JoinTenant(context.Context, *JoinTenantRequest) (*JoinTenantResponse, error)
+	// CreatePersonalTenant creates the account's personal tenant, enabled, with
+	// the account as its owner. A repeat call returns the existing one. An
+	// account that belongs to a tenant, or has a pending invitation to one,
+	// gets none: HAS_TENANT.
+	CreatePersonalTenant(context.Context, *CreatePersonalTenantRequest) (*CreatePersonalTenantResponse, error)
+	mustEmbedUnimplementedTenantSignInServiceServer()
+}
+
+// UnimplementedTenantSignInServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedTenantSignInServiceServer struct {
+}
+
+func (UnimplementedTenantSignInServiceServer) ListSignInTenants(context.Context, *ListSignInTenantsRequest) (*ListSignInTenantsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSignInTenants not implemented")
+}
+func (UnimplementedTenantSignInServiceServer) GetSignInContext(context.Context, *GetSignInContextRequest) (*GetSignInContextResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSignInContext not implemented")
+}
+func (UnimplementedTenantSignInServiceServer) JoinTenant(context.Context, *JoinTenantRequest) (*JoinTenantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JoinTenant not implemented")
+}
+func (UnimplementedTenantSignInServiceServer) CreatePersonalTenant(context.Context, *CreatePersonalTenantRequest) (*CreatePersonalTenantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePersonalTenant not implemented")
+}
+func (UnimplementedTenantSignInServiceServer) mustEmbedUnimplementedTenantSignInServiceServer() {}
+
+// UnsafeTenantSignInServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TenantSignInServiceServer will
+// result in compilation errors.
+type UnsafeTenantSignInServiceServer interface {
+	mustEmbedUnimplementedTenantSignInServiceServer()
+}
+
+func RegisterTenantSignInServiceServer(s grpc.ServiceRegistrar, srv TenantSignInServiceServer) {
+	s.RegisterService(&TenantSignInService_ServiceDesc, srv)
+}
+
+func _TenantSignInService_ListSignInTenants_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSignInTenantsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSignInServiceServer).ListSignInTenants(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSignInService_ListSignInTenants_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSignInServiceServer).ListSignInTenants(ctx, req.(*ListSignInTenantsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantSignInService_GetSignInContext_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSignInContextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSignInServiceServer).GetSignInContext(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSignInService_GetSignInContext_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSignInServiceServer).GetSignInContext(ctx, req.(*GetSignInContextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantSignInService_JoinTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(JoinTenantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSignInServiceServer).JoinTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSignInService_JoinTenant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSignInServiceServer).JoinTenant(ctx, req.(*JoinTenantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantSignInService_CreatePersonalTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePersonalTenantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSignInServiceServer).CreatePersonalTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSignInService_CreatePersonalTenant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSignInServiceServer).CreatePersonalTenant(ctx, req.(*CreatePersonalTenantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TenantSignInService_ServiceDesc is the grpc.ServiceDesc for TenantSignInService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TenantSignInService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "identity.platform.api.tenant.TenantSignInService",
+	HandlerType: (*TenantSignInServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListSignInTenants",
+			Handler:    _TenantSignInService_ListSignInTenants_Handler,
+		},
+		{
+			MethodName: "GetSignInContext",
+			Handler:    _TenantSignInService_GetSignInContext_Handler,
+		},
+		{
+			MethodName: "JoinTenant",
+			Handler:    _TenantSignInService_JoinTenant_Handler,
+		},
+		{
+			MethodName: "CreatePersonalTenant",
+			Handler:    _TenantSignInService_CreatePersonalTenant_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "v0/tenant/service.proto",
+}
+
+const (
+	TenantSSOPolicyService_GetTenantSSOPolicy_FullMethodName     = "/identity.platform.api.tenant.TenantSSOPolicyService/GetTenantSSOPolicy"
+	TenantSSOPolicyService_PutTenantSSOPolicy_FullMethodName     = "/identity.platform.api.tenant.TenantSSOPolicyService/PutTenantSSOPolicy"
+	TenantSSOPolicyService_SetTenantSSODomains_FullMethodName    = "/identity.platform.api.tenant.TenantSSOPolicyService/SetTenantSSODomains"
+	TenantSSOPolicyService_RemoveTenantSSOBinding_FullMethodName = "/identity.platform.api.tenant.TenantSSOPolicyService/RemoveTenantSSOBinding"
+)
+
+// TenantSSOPolicyServiceClient is the client API for TenantSSOPolicyService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type TenantSSOPolicyServiceClient interface {
+	GetTenantSSOPolicy(ctx context.Context, in *GetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*GetTenantSSOPolicyResponse, error)
+	// PutTenantSSOPolicy: enforcement, auto-join and the bindings.
+	PutTenantSSOPolicy(ctx context.Context, in *PutTenantSSOPolicyRequest, opts ...grpc.CallOption) (*PutTenantSSOPolicyResponse, error)
+	// SetTenantSSODomains: the domains.
+	SetTenantSSODomains(ctx context.Context, in *SetTenantSSODomainsRequest, opts ...grpc.CallOption) (*SetTenantSSODomainsResponse, error)
+	// RemoveTenantSSOBinding: one binding, when its connection is deleted. A
+	// connection the policy does not bind changes nothing.
+	RemoveTenantSSOBinding(ctx context.Context, in *RemoveTenantSSOBindingRequest, opts ...grpc.CallOption) (*RemoveTenantSSOBindingResponse, error)
+}
+
+type tenantSSOPolicyServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTenantSSOPolicyServiceClient(cc grpc.ClientConnInterface) TenantSSOPolicyServiceClient {
+	return &tenantSSOPolicyServiceClient{cc}
+}
+
+func (c *tenantSSOPolicyServiceClient) GetTenantSSOPolicy(ctx context.Context, in *GetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*GetTenantSSOPolicyResponse, error) {
+	out := new(GetTenantSSOPolicyResponse)
+	err := c.cc.Invoke(ctx, TenantSSOPolicyService_GetTenantSSOPolicy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantSSOPolicyServiceClient) PutTenantSSOPolicy(ctx context.Context, in *PutTenantSSOPolicyRequest, opts ...grpc.CallOption) (*PutTenantSSOPolicyResponse, error) {
+	out := new(PutTenantSSOPolicyResponse)
+	err := c.cc.Invoke(ctx, TenantSSOPolicyService_PutTenantSSOPolicy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantSSOPolicyServiceClient) SetTenantSSODomains(ctx context.Context, in *SetTenantSSODomainsRequest, opts ...grpc.CallOption) (*SetTenantSSODomainsResponse, error) {
+	out := new(SetTenantSSODomainsResponse)
+	err := c.cc.Invoke(ctx, TenantSSOPolicyService_SetTenantSSODomains_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tenantSSOPolicyServiceClient) RemoveTenantSSOBinding(ctx context.Context, in *RemoveTenantSSOBindingRequest, opts ...grpc.CallOption) (*RemoveTenantSSOBindingResponse, error) {
+	out := new(RemoveTenantSSOBindingResponse)
+	err := c.cc.Invoke(ctx, TenantSSOPolicyService_RemoveTenantSSOBinding_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TenantSSOPolicyServiceServer is the server API for TenantSSOPolicyService service.
+// All implementations must embed UnimplementedTenantSSOPolicyServiceServer
+// for forward compatibility
+type TenantSSOPolicyServiceServer interface {
+	GetTenantSSOPolicy(context.Context, *GetTenantSSOPolicyRequest) (*GetTenantSSOPolicyResponse, error)
+	// PutTenantSSOPolicy: enforcement, auto-join and the bindings.
+	PutTenantSSOPolicy(context.Context, *PutTenantSSOPolicyRequest) (*PutTenantSSOPolicyResponse, error)
+	// SetTenantSSODomains: the domains.
+	SetTenantSSODomains(context.Context, *SetTenantSSODomainsRequest) (*SetTenantSSODomainsResponse, error)
+	// RemoveTenantSSOBinding: one binding, when its connection is deleted. A
+	// connection the policy does not bind changes nothing.
+	RemoveTenantSSOBinding(context.Context, *RemoveTenantSSOBindingRequest) (*RemoveTenantSSOBindingResponse, error)
+	mustEmbedUnimplementedTenantSSOPolicyServiceServer()
+}
+
+// UnimplementedTenantSSOPolicyServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedTenantSSOPolicyServiceServer struct {
+}
+
+func (UnimplementedTenantSSOPolicyServiceServer) GetTenantSSOPolicy(context.Context, *GetTenantSSOPolicyRequest) (*GetTenantSSOPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTenantSSOPolicy not implemented")
+}
+func (UnimplementedTenantSSOPolicyServiceServer) PutTenantSSOPolicy(context.Context, *PutTenantSSOPolicyRequest) (*PutTenantSSOPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PutTenantSSOPolicy not implemented")
+}
+func (UnimplementedTenantSSOPolicyServiceServer) SetTenantSSODomains(context.Context, *SetTenantSSODomainsRequest) (*SetTenantSSODomainsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetTenantSSODomains not implemented")
+}
+func (UnimplementedTenantSSOPolicyServiceServer) RemoveTenantSSOBinding(context.Context, *RemoveTenantSSOBindingRequest) (*RemoveTenantSSOBindingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveTenantSSOBinding not implemented")
+}
+func (UnimplementedTenantSSOPolicyServiceServer) mustEmbedUnimplementedTenantSSOPolicyServiceServer() {
+}
+
+// UnsafeTenantSSOPolicyServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TenantSSOPolicyServiceServer will
+// result in compilation errors.
+type UnsafeTenantSSOPolicyServiceServer interface {
+	mustEmbedUnimplementedTenantSSOPolicyServiceServer()
+}
+
+func RegisterTenantSSOPolicyServiceServer(s grpc.ServiceRegistrar, srv TenantSSOPolicyServiceServer) {
+	s.RegisterService(&TenantSSOPolicyService_ServiceDesc, srv)
+}
+
+func _TenantSSOPolicyService_GetTenantSSOPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTenantSSOPolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSSOPolicyServiceServer).GetTenantSSOPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSSOPolicyService_GetTenantSSOPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSSOPolicyServiceServer).GetTenantSSOPolicy(ctx, req.(*GetTenantSSOPolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantSSOPolicyService_PutTenantSSOPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PutTenantSSOPolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSSOPolicyServiceServer).PutTenantSSOPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSSOPolicyService_PutTenantSSOPolicy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSSOPolicyServiceServer).PutTenantSSOPolicy(ctx, req.(*PutTenantSSOPolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantSSOPolicyService_SetTenantSSODomains_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTenantSSODomainsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSSOPolicyServiceServer).SetTenantSSODomains(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSSOPolicyService_SetTenantSSODomains_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSSOPolicyServiceServer).SetTenantSSODomains(ctx, req.(*SetTenantSSODomainsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TenantSSOPolicyService_RemoveTenantSSOBinding_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveTenantSSOBindingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantSSOPolicyServiceServer).RemoveTenantSSOBinding(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantSSOPolicyService_RemoveTenantSSOBinding_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantSSOPolicyServiceServer).RemoveTenantSSOBinding(ctx, req.(*RemoveTenantSSOBindingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TenantSSOPolicyService_ServiceDesc is the grpc.ServiceDesc for TenantSSOPolicyService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TenantSSOPolicyService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "identity.platform.api.tenant.TenantSSOPolicyService",
+	HandlerType: (*TenantSSOPolicyServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetTenantSSOPolicy",
+			Handler:    _TenantSSOPolicyService_GetTenantSSOPolicy_Handler,
+		},
+		{
+			MethodName: "PutTenantSSOPolicy",
+			Handler:    _TenantSSOPolicyService_PutTenantSSOPolicy_Handler,
+		},
+		{
+			MethodName: "SetTenantSSODomains",
+			Handler:    _TenantSSOPolicyService_SetTenantSSODomains_Handler,
+		},
+		{
+			MethodName: "RemoveTenantSSOBinding",
+			Handler:    _TenantSSOPolicyService_RemoveTenantSSOBinding_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
