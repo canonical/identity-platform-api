@@ -1,12 +1,26 @@
 syntax = "proto3";
 
 package identity.platform.api.tenant;
-option go_package = "github.com/canonical/identity-platform-api/tenant";
+option go_package = "github.com/canonical/identity-platform-api/v0/tenant";
 
 import "v0/tenant/model.proto";
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
+// Errors. A refusal that a client may branch on carries a reason: over gRPC a
+// google.rpc.ErrorInfo detail (domain "tenant-service"), over HTTP the
+// message begins with "<REASON>: ". The reasons, with their status codes:
+//   PERSONAL_TENANT (FAILED_PRECONDITION): InviteMember, ProvisionUser and
+//     RemoveTenantUser on a personal tenant; the SSO-policy RPCs on one.
+//   DOMAIN_NOT_ALLOWED (INVALID_ARGUMENT): InviteMember, an address outside
+//     the domains of a tenant that requires company sign-in.
+//   NOT_ADMITTED (FAILED_PRECONDITION): JoinTenant.
+//   HAS_TENANT (FAILED_PRECONDITION): CreatePersonalTenant.
+//   REQUIRED_NEEDS_ACTIVE_BINDING, AUTO_JOIN_NEEDS_REQUIRED_AND_DOMAINS
+//     (FAILED_PRECONDITION): the SSO-policy writes.
+
+// TenantService is what people call, through the gateway, which authorizes
+// each route.
 service TenantService {
   // Public Endpoints
   rpc ListMyTenants(ListMyTenantsRequest) returns (ListMyTenantsResponse) {
@@ -581,6 +595,80 @@ service TenantService {
     };
   }
 
+  rpc RemoveTenantUser(RemoveTenantUserRequest) returns (RemoveTenantUserResponse) {
+    option (google.api.http) = {
+      delete: "/api/v0/tenants/{tenant_id}/users/{user_id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.tenant.RemoveTenantUserResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
   rpc LookupTenants(LookupTenantsRequest) returns (LookupTenantsResponse) {
     option (google.api.http) = {
       get: "/api/v0/tenants/lookup"
@@ -651,4 +739,219 @@ service TenantService {
       };
     };
   }
+
+  rpc GetTenantMFAPolicy(GetTenantMFAPolicyRequest) returns (GetTenantMFAPolicyResponse) {
+    option (google.api.http) = {
+      get: "/api/v0/tenants/{tenant_id}/mfa-policy"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get the MFA policy of a tenant";
+      description: "A tenant that never set one answers NONE.";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.tenant.GetTenantMFAPolicyResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+
+  rpc PutTenantMFAPolicy(PutTenantMFAPolicyRequest) returns (PutTenantMFAPolicyResponse) {
+    option (google.api.http) = {
+      put: "/api/v0/tenants/{tenant_id}/mfa-policy"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Set the MFA policy of a tenant";
+      description: "Last write wins; the change is audited.";
+      responses: {
+        key: "200",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.tenant.PutTenantMFAPolicyResponse"
+            }
+          }
+        }
+      };
+      responses: {
+        key: "400",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Bad request";
+        }
+      };
+      responses: {
+        key: "401",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Unauthorized";
+        }
+      };
+      responses: {
+        key: "403",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Forbidden";
+        }
+      };
+      responses: {
+        key: "404",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Not found";
+        }
+      };
+      responses: {
+        key: "409",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Conflict";
+        }
+      };
+      responses: {
+        key: "default",
+        value: {
+          schema: {
+            json_schema: {
+              ref: ".identity.platform.api.types.ErrorResponse"
+            }
+          }
+          description: "Internal server error";
+        }
+      };
+    };
+  }
+}
+
+// TenantSignInService is what a sign-in asks of the tenants. Callers:
+// login-ui and sso-service. gRPC only: no HTTP mapping, so no gateway route
+// exposes it.
+service TenantSignInService {
+  // ListSignInTenants returns the tenants an address may sign in to: those
+  // its account is a member of, those that invited it and those it could
+  // auto-join, even when the address has no account.
+  rpc ListSignInTenants(ListSignInTenantsRequest) returns (ListSignInTenantsResponse) {}
+
+  // GetSignInContext answers, for one tenant and an address (before sign-in)
+  // or an account, what a sign-in into that tenant needs: membership,
+  // enforcement, the active bindings that apply to the address, whether
+  // an invitation or auto-join admits it, the MFA requirement, and whether
+  // the address has an account.
+  rpc GetSignInContext(GetSignInContextRequest) returns (GetSignInContextResponse) {}
+
+  // JoinTenant makes the account a member of the tenant, when the tenant
+  // admits the account's address by a pending invitation (which this spends)
+  // or by auto-join; otherwise NOT_ADMITTED. An account that is a member
+  // already is success. For login-ui, when it accepts a sign-in to the tenant.
+  rpc JoinTenant(JoinTenantRequest) returns (JoinTenantResponse) {}
+
+  // CreatePersonalTenant creates the account's personal tenant, enabled, with
+  // the account as its owner. A repeat call returns the existing one. An
+  // account that belongs to a tenant, or has a pending invitation to one,
+  // gets none: HAS_TENANT.
+  rpc CreatePersonalTenant(CreatePersonalTenantRequest) returns (CreatePersonalTenantResponse) {}
+}
+
+// TenantSSOPolicyService is for sso-service, which checks what only it knows
+// before it writes: a binding names a connection the tenant owns, and an
+// active one a tested connection. Each write changes one part of the policy;
+// the rules of the policy as a whole (REQUIRED needs an active binding,
+// auto-join needs REQUIRED and domains) are checked here, against what is
+// stored, in the transaction that writes it. No caller reads the policy to
+// write it back. gRPC only: no HTTP mapping, so no gateway route leads around
+// those checks.
+service TenantSSOPolicyService {
+  rpc GetTenantSSOPolicy(GetTenantSSOPolicyRequest) returns (GetTenantSSOPolicyResponse) {}
+
+  // PutTenantSSOPolicy: enforcement, auto-join and the bindings.
+  rpc PutTenantSSOPolicy(PutTenantSSOPolicyRequest) returns (PutTenantSSOPolicyResponse) {}
+
+  // SetTenantSSODomains: the domains.
+  rpc SetTenantSSODomains(SetTenantSSODomainsRequest) returns (SetTenantSSODomainsResponse) {}
+
+  // RemoveTenantSSOBinding: one binding, when its connection is deleted. A
+  // connection the policy does not bind changes nothing.
+  rpc RemoveTenantSSOBinding(RemoveTenantSSOBindingRequest) returns (RemoveTenantSSOBindingResponse) {}
 }

@@ -1,5 +1,26 @@
 components:
     schemas:
+        SSOPlatformAdminServiceSetTenantDomainsBody:
+            properties:
+                domains:
+                    description: After their ownership was checked outside the portal.
+                    items:
+                        type: string
+                    type: array
+            type: object
+        SSOTenantAdminServiceCreateConnectionBody:
+            properties:
+                client_id:
+                    type: string
+                client_secret:
+                    type: string
+                issuer:
+                    type: string
+                label:
+                    type: string
+            type: object
+        SSOTenantAdminServiceStartTestLoginBody:
+            type: object
         TenantServiceInviteMemberBody:
             properties:
                 email:
@@ -9,6 +30,11 @@ components:
             properties:
                 email:
                     type: string
+            type: object
+        TenantServicePutTenantMFAPolicyBody:
+            properties:
+                requirement:
+                    $ref: '#/components/schemas/tenantMFARequirement'
             type: object
         TenantServiceUpdateTenantBody:
             properties:
@@ -167,12 +193,32 @@ components:
                 schema:
                     type: object
             type: object
+        apissoGetTenantSSOPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantSSOPolicy'
+            type: object
+        apissoPutTenantSSOPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantSSOPolicy'
+            type: object
         apistatusStatus:
             properties:
                 buildInfo:
                     $ref: '#/components/schemas/statusBuildInfo'
                 status:
                     type: string
+            type: object
+        apitenantGetTenantSSOPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantSSOPolicy'
+            type: object
+        apitenantPutTenantSSOPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantSSOPolicy'
             type: object
         authenticationMeResp:
             properties:
@@ -1315,6 +1361,175 @@ components:
                     format: int32
                     type: integer
             type: object
+        ssoCompleteAttemptResponse:
+            properties:
+                connection_id:
+                    type: string
+                tenant_id:
+                    type: string
+            type: object
+        ssoConnection:
+            description: |-
+                Connection is a tenant's registration of its OIDC identity provider. The
+                client secret is write only. issuer and client_id are fixed at create.
+            properties:
+                client_id:
+                    type: string
+                create_time:
+                    type: string
+                created_by:
+                    type: string
+                id:
+                    type: string
+                issuer:
+                    type: string
+                label:
+                    type: string
+                owner_tenant_id:
+                    type: string
+                redirect_uri:
+                    description: The redirect URI to register at the IdP.
+                    type: string
+                status:
+                    $ref: '#/components/schemas/ssoConnectionStatus'
+                test_time:
+                    type: string
+                update_time:
+                    type: string
+            type: object
+        ssoConnectionStatus:
+            default: CONNECTION_STATUS_UNSPECIFIED
+            description: ConnectionStatus only moves from DRAFT to TESTED.
+            enum:
+                - CONNECTION_STATUS_UNSPECIFIED
+                - CONNECTION_STATUS_DRAFT
+                - CONNECTION_STATUS_TESTED
+            type: string
+        ssoConnectionUpdate:
+            description: ConnectionUpdate carries the fields UpdateConnection may change.
+            properties:
+                client_secret:
+                    type: string
+                label:
+                    type: string
+            type: object
+        ssoCreateConnectionResponse:
+            properties:
+                connection:
+                    $ref: '#/components/schemas/ssoConnection'
+            type: object
+        ssoDeleteAnyConnectionResponse:
+            type: object
+        ssoDeleteConnectionResponse:
+            type: object
+        ssoDeleteLinkResponse:
+            type: object
+        ssoGetConnectionResponse:
+            properties:
+                connection:
+                    $ref: '#/components/schemas/ssoConnection'
+            type: object
+        ssoGetTenantDomainsResponse:
+            properties:
+                domains:
+                    items:
+                        type: string
+                    type: array
+            type: object
+        ssoLink:
+            properties:
+                connection_id:
+                    type: string
+                label:
+                    type: string
+                tenant_id:
+                    description: |-
+                        The tenant whose connection it is: a re-authentication through it
+                        starts an attempt for that tenant.
+                    type: string
+            type: object
+        ssoListAllConnectionsResponse:
+            properties:
+                connections:
+                    items:
+                        $ref: '#/components/schemas/ssoConnection'
+                    type: array
+                next_page_token:
+                    type: string
+            type: object
+        ssoListConnectionsResponse:
+            properties:
+                connections:
+                    items:
+                        $ref: '#/components/schemas/ssoConnection'
+                    type: array
+                next_page_token:
+                    type: string
+            type: object
+        ssoListLinksResponse:
+            properties:
+                links:
+                    items:
+                        $ref: '#/components/schemas/ssoLink'
+                    type: array
+            type: object
+        ssoListOptionsResponse:
+            properties:
+                options:
+                    description: Those that exist and are TESTED, in the order asked.
+                    items:
+                        $ref: '#/components/schemas/ssoOption'
+                    type: array
+            type: object
+        ssoOption:
+            properties:
+                connection_id:
+                    type: string
+                label:
+                    type: string
+            type: object
+        ssoSSOTenantAdminServicePutTenantSSOPolicyBody:
+            properties:
+                auto_join:
+                    description: |-
+                        Domains are kept as stored: platform admins set them
+                        (SSOPlatformAdminService.SetTenantDomains).
+                    type: boolean
+                bindings:
+                    description: Only connections the tenant owns.
+                    items:
+                        $ref: '#/components/schemas/tenantSSOBinding'
+                    type: array
+                enforcement:
+                    $ref: '#/components/schemas/tenantEnforcement'
+            type: object
+        ssoSetTenantDomainsResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantSSOPolicy'
+            type: object
+        ssoStartAttemptResponse:
+            properties:
+                ticket:
+                    description: |-
+                        Opaque to the caller: the attempt sealed with sso-service's envelope
+                        key (AES-256-GCM), valid 30 minutes. Passed to Kratos as login_hint.
+                    type: string
+            type: object
+        ssoStartTestLoginResponse:
+            properties:
+                url:
+                    description: |-
+                        Open in a browser; sent to the IdP with prompt=login and max_age=0. The
+                        page it ends on shows the result, and a success turns the connection
+                        TESTED.
+                    type: string
+            type: object
+        ssoUpdateConnectionResponse:
+            properties:
+                connection:
+                    $ref: '#/components/schemas/ssoConnection'
+            type: object
         statusBuildInfo:
             properties:
                 commit_hash:
@@ -1323,6 +1538,11 @@ components:
                     type: string
                 version:
                     type: string
+            type: object
+        tenantCreatePersonalTenantResponse:
+            properties:
+                tenant:
+                    $ref: '#/components/schemas/tenantTenant'
             type: object
         tenantCreateTenantRequest:
             properties:
@@ -1342,20 +1562,65 @@ components:
                     format: int32
                     type: integer
             type: object
+        tenantEnforcement:
+            default: ENFORCEMENT_UNSPECIFIED
+            description: |-
+                Enforcement of a tenant's company sign-in. A tenant is OFF until its
+                enforcement is first written, and only OPTIONAL or REQUIRED can be written;
+                with no active binding it is off whatever it stores.
+            enum:
+                - ENFORCEMENT_UNSPECIFIED
+                - ENFORCEMENT_OFF
+                - ENFORCEMENT_OPTIONAL
+                - ENFORCEMENT_REQUIRED
+            type: string
+        tenantGetSignInContextResponse:
+            properties:
+                context:
+                    $ref: '#/components/schemas/tenantSignInContext'
+            type: object
+        tenantGetTenantMFAPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantMFAPolicy'
+            type: object
         tenantInviteMemberResponse:
             properties:
                 code:
                     type: string
                 link:
+                    description: |-
+                        Recovery link and code: only for a new account at a tenant that does not
+                        require company sign-in. Empty otherwise (the membership alone, or a
+                        pending invitation).
                     type: string
                 status:
+                    description: |-
+                        "invited": a membership: a new account at a tenant that does not require
+                        company sign-in, with a recovery link and code; or an account that is a
+                        member already, with neither. "pending": a pending invitation and no
+                        membership: an existing account that is not a member, or a new address
+                        at a REQUIRED tenant, which gets no account either.
                     type: string
+            type: object
+        tenantJoinTenantResponse:
             type: object
         tenantListMyTenantsResponse:
             properties:
                 tenants:
                     items:
                         $ref: '#/components/schemas/tenantTenant'
+                    type: array
+            type: object
+        tenantListSignInTenantsResponse:
+            properties:
+                tenants:
+                    description: |-
+                        The tenants the address's account is a member of, its personal tenant
+                        first, then those that invited the address and those it could auto-join,
+                        even when the address has no account.
+                    items:
+                        $ref: '#/components/schemas/tenantSignInTenant'
                     type: array
             type: object
         tenantListTenantUsersResponse:
@@ -1386,14 +1651,97 @@ components:
         tenantLookupTenantsResponse:
             properties:
                 tenants:
+                    description: The account's personal tenant first.
                     items:
                         $ref: '#/components/schemas/tenantTenant'
                     type: array
             type: object
+        tenantMFARequirement:
+            default: MFA_REQUIREMENT_UNSPECIFIED
+            description: |-
+                MFARequirement is what a tenant asks of a company or public sign-in: MFA
+                only at REQUIRED. Every other first factor always needs MFA.
+            enum:
+                - MFA_REQUIREMENT_UNSPECIFIED
+                - MFA_REQUIREMENT_NONE
+                - MFA_REQUIREMENT_REQUIRED
+            type: string
         tenantProvisionUserResponse:
             properties:
                 status:
                     type: string
+            type: object
+        tenantPutTenantMFAPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantMFAPolicy'
+            type: object
+        tenantRemoveTenantSSOBindingResponse:
+            type: object
+        tenantRemoveTenantUserResponse:
+            type: object
+        tenantSSOBinding:
+            properties:
+                active:
+                    description: 'In use for this tenant: members see it and it counts for REQUIRED.'
+                    type: boolean
+                connection_id:
+                    type: string
+            type: object
+        tenantSetTenantSSODomainsResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantSSOPolicy'
+            type: object
+        tenantSignInContext:
+            properties:
+                account_exists:
+                    description: Whether the account exists (identity_id given, or the email has one).
+                    type: boolean
+                auto_join_admits:
+                    description: |-
+                        Auto-join admits the address (not a member, address in the domains,
+                        auto-join on, REQUIRED).
+                    type: boolean
+                connection_ids:
+                    description: |-
+                        Active bindings whose connection applies to the address (within the
+                        tenant's domains when it lists any).
+                    items:
+                        type: string
+                    type: array
+                enforcement:
+                    $ref: '#/components/schemas/tenantEnforcement'
+                invitation_admits:
+                    description: |-
+                        A pending invitation admits the address (not a member; the address may
+                        have no account yet).
+                    type: boolean
+                member:
+                    description: The account is a member of this tenant.
+                    type: boolean
+                mfa_requirement:
+                    $ref: '#/components/schemas/tenantMFARequirement'
+            type: object
+        tenantSignInTenant:
+            description: |-
+                SignInTenant is a tenant an address may sign in to, and how the address
+                relates to it. Enforcement, connections, the MFA requirement and domains
+                are not part of it.
+            properties:
+                auto_join_candidate:
+                    description: |-
+                        Not a membership: the tenant admits the address's domain through
+                        auto-join and the address is not yet a member.
+                    type: boolean
+                invited:
+                    description: |-
+                        Not a membership: a pending invitation of the address to this tenant.
+                        The address may have no account yet; its first company sign-in there
+                        creates the account (Kratos) and the membership.
+                    type: boolean
+                tenant:
+                    $ref: '#/components/schemas/tenantTenant'
             type: object
         tenantTenant:
             properties:
@@ -1411,6 +1759,33 @@ components:
                 enabled:
                     type: boolean
                 name:
+                    type: string
+            type: object
+        tenantTenantMFAPolicy:
+            description: |-
+                TenantMFAPolicy is a tenant's MFA policy: one value per tenant, last write
+                wins; changes are audited in the log.
+            properties:
+                requirement:
+                    $ref: '#/components/schemas/tenantMFARequirement'
+                tenant_id:
+                    type: string
+            type: object
+        tenantTenantSSOPolicy:
+            properties:
+                auto_join:
+                    type: boolean
+                bindings:
+                    items:
+                        $ref: '#/components/schemas/tenantSSOBinding'
+                    type: array
+                domains:
+                    items:
+                        type: string
+                    type: array
+                enforcement:
+                    $ref: '#/components/schemas/tenantEnforcement'
+                tenant_id:
                     type: string
             type: object
         tenantTenantUser:
@@ -4221,6 +4596,651 @@ paths:
                     description: Internal server error
             tags:
                 - SchemasService
+    /api/v0/sso/connections:
+        get:
+            operationId: SSOPlatformAdminService_ListAllConnections
+            parameters:
+                - description: Only this owner's connections, when set (it need not exist any more).
+                  in: query
+                  name: owner_tenant_id
+                  schema:
+                    type: string
+                - in: query
+                  name: page_token
+                  schema:
+                    type: string
+                - in: query
+                  name: page_size
+                  schema:
+                    format: int32
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoListAllConnectionsResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: List every tenant's connections
+            tags:
+                - SSOPlatformAdminService
+    /api/v0/sso/connections/{connection_id}:
+        delete:
+            operationId: SSOPlatformAdminService_DeleteAnyConnection
+            parameters:
+                - in: path
+                  name: connection_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoDeleteAnyConnectionResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Unbind and delete a connection
+            tags:
+                - SSOPlatformAdminService
+    /api/v0/sso/tenants/{tenant_id}/connections:
+        get:
+            operationId: SSOTenantAdminService_ListConnections
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+                - in: query
+                  name: page_token
+                  schema:
+                    type: string
+                - in: query
+                  name: page_size
+                  schema:
+                    format: int32
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoListConnectionsResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: List a tenant's connections
+            tags:
+                - SSOTenantAdminService
+        post:
+            operationId: SSOTenantAdminService_CreateConnection
+            parameters:
+                - description: 'The owner: the tenant in the path.'
+                  in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SSOTenantAdminServiceCreateConnectionBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoCreateConnectionResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Register a connection for a tenant
+            tags:
+                - SSOTenantAdminService
+    /api/v0/sso/tenants/{tenant_id}/connections/{connection_id}:
+        delete:
+            operationId: SSOTenantAdminService_DeleteConnection
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: connection_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoDeleteConnectionResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Delete a connection
+            tags:
+                - SSOTenantAdminService
+        get:
+            operationId: SSOTenantAdminService_GetConnection
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: connection_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoGetConnectionResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Get a connection
+            tags:
+                - SSOTenantAdminService
+        patch:
+            operationId: SSOTenantAdminService_UpdateConnection
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: connection_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ssoConnectionUpdate'
+                required: true
+                x-originalParamName: connection
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoUpdateConnectionResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Update a connection's label or client secret
+            tags:
+                - SSOTenantAdminService
+    /api/v0/sso/tenants/{tenant_id}/connections/{connection_id}/test-logins:
+        post:
+            operationId: SSOTenantAdminService_StartTestLogin
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: connection_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SSOTenantAdminServiceStartTestLoginBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoStartTestLoginResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Start a test sign-in of a connection
+            tags:
+                - SSOTenantAdminService
+    /api/v0/sso/tenants/{tenant_id}/domains:
+        get:
+            operationId: SSOPlatformAdminService_GetTenantDomains
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoGetTenantDomainsResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Get the email domains of a tenant
+            tags:
+                - SSOPlatformAdminService
+        put:
+            operationId: SSOPlatformAdminService_SetTenantDomains
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SSOPlatformAdminServiceSetTenantDomainsBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ssoSetTenantDomainsResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Set the email domains of a tenant
+            tags:
+                - SSOPlatformAdminService
+    /api/v0/sso/tenants/{tenant_id}/policy:
+        get:
+            operationId: SSOTenantAdminService_GetTenantSSOPolicy
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apissoGetTenantSSOPolicyResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Get a tenant's SSO policy
+            tags:
+                - SSOTenantAdminService
+        put:
+            operationId: SSOTenantAdminService_PutTenantSSOPolicy
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ssoSSOTenantAdminServicePutTenantSSOPolicyBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/apissoPutTenantSSOPolicyResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Set a tenant's SSO policy
+            tags:
+                - SSOTenantAdminService
     /api/v0/status:
         get:
             operationId: StatusService_GetStatus
@@ -4478,6 +5498,118 @@ paths:
                     description: Internal server error
             tags:
                 - TenantService
+    /api/v0/tenants/{tenant_id}/mfa-policy:
+        get:
+            description: A tenant that never set one answers NONE.
+            operationId: TenantService_GetTenantMFAPolicy
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantGetTenantMFAPolicyResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Get the MFA policy of a tenant
+            tags:
+                - TenantService
+        put:
+            description: Last write wins; the change is audited.
+            operationId: TenantService_PutTenantMFAPolicy
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TenantServicePutTenantMFAPolicyBody'
+                required: true
+                x-originalParamName: body
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantPutTenantMFAPolicyResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
+                "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Conflict
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            summary: Set the MFA policy of a tenant
+            tags:
+                - TenantService
     /api/v0/tenants/{tenant_id}/users:
         get:
             operationId: TenantService_ListTenantUsers
@@ -4588,6 +5720,59 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
                     description: Forbidden
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Internal server error
+            tags:
+                - TenantService
+    /api/v0/tenants/{tenant_id}/users/{user_id}:
+        delete:
+            operationId: TenantService_RemoveTenantUser
+            parameters:
+                - in: path
+                  name: tenant_id
+                  required: true
+                  schema:
+                    type: string
+                - in: path
+                  name: user_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/tenantRemoveTenantUserResponse'
+                    description: ""
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Bad request
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Unauthorized
+                "403":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Forbidden
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/typesErrorResponse'
+                    description: Not found
                 default:
                     content:
                         application/json:
@@ -4724,5 +5909,10 @@ tags:
     - name: MetricsService
     - name: RolesService
     - name: SchemasService
+    - name: SSOSignInService
+    - name: SSOTenantAdminService
+    - name: SSOPlatformAdminService
     - name: StatusService
     - name: TenantService
+    - name: TenantSignInService
+    - name: TenantSSOPolicyService

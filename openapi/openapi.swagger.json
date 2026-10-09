@@ -45,10 +45,25 @@
       "name": "SchemasService"
     },
     {
+      "name": "SSOSignInService"
+    },
+    {
+      "name": "SSOTenantAdminService"
+    },
+    {
+      "name": "SSOPlatformAdminService"
+    },
+    {
       "name": "StatusService"
     },
     {
       "name": "TenantService"
+    },
+    {
+      "name": "TenantSignInService"
+    },
+    {
+      "name": "TenantSSOPolicyService"
     }
   ],
   "schemes": [
@@ -3160,6 +3175,736 @@
         ]
       }
     },
+    "/api/v0/sso/tenants/{tenant_id}/connections": {
+      "get": {
+        "summary": "List a tenant's connections",
+        "operationId": "SSOTenantAdminService_ListConnections",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoListConnectionsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page_token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      },
+      "post": {
+        "summary": "Register a connection for a tenant",
+        "operationId": "SSOTenantAdminService_CreateConnection",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoCreateConnectionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "description": "The owner: the tenant in the path.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SSOTenantAdminServiceCreateConnectionBody"
+            }
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      }
+    },
+    "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}": {
+      "get": {
+        "summary": "Get a connection",
+        "operationId": "SSOTenantAdminService_GetConnection",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoGetConnectionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a connection",
+        "operationId": "SSOTenantAdminService_DeleteConnection",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoDeleteConnectionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      },
+      "patch": {
+        "summary": "Update a connection's label or client secret",
+        "operationId": "SSOTenantAdminService_UpdateConnection",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoUpdateConnectionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connection",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ssoConnectionUpdate"
+            }
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      }
+    },
+    "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}/test-logins": {
+      "post": {
+        "summary": "Start a test sign-in of a connection",
+        "operationId": "SSOTenantAdminService_StartTestLogin",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoStartTestLoginResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SSOTenantAdminServiceStartTestLoginBody"
+            }
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      }
+    },
+    "/api/v0/sso/tenants/{tenant_id}/policy": {
+      "get": {
+        "summary": "Get a tenant's SSO policy",
+        "operationId": "SSOTenantAdminService_GetTenantSSOPolicy",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/apissoGetTenantSSOPolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      },
+      "put": {
+        "summary": "Set a tenant's SSO policy",
+        "operationId": "SSOTenantAdminService_PutTenantSSOPolicy",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/apissoPutTenantSSOPolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ssoSSOTenantAdminServicePutTenantSSOPolicyBody"
+            }
+          }
+        ],
+        "tags": [
+          "SSOTenantAdminService"
+        ]
+      }
+    },
+    "/api/v0/sso/connections": {
+      "get": {
+        "summary": "List every tenant's connections",
+        "operationId": "SSOPlatformAdminService_ListAllConnections",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoListAllConnectionsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner_tenant_id",
+            "description": "Only this owner's connections, when set (it need not exist any more).",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page_token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "SSOPlatformAdminService"
+        ]
+      }
+    },
+    "/api/v0/sso/tenants/{tenant_id}/domains": {
+      "get": {
+        "summary": "Get the email domains of a tenant",
+        "operationId": "SSOPlatformAdminService_GetTenantDomains",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoGetTenantDomainsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SSOPlatformAdminService"
+        ]
+      },
+      "put": {
+        "summary": "Set the email domains of a tenant",
+        "operationId": "SSOPlatformAdminService_SetTenantDomains",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoSetTenantDomainsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SSOPlatformAdminServiceSetTenantDomainsBody"
+            }
+          }
+        ],
+        "tags": [
+          "SSOPlatformAdminService"
+        ]
+      }
+    },
+    "/api/v0/sso/connections/{connection_id}": {
+      "delete": {
+        "summary": "Unbind and delete a connection",
+        "operationId": "SSOPlatformAdminService_DeleteAnyConnection",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ssoDeleteAnyConnectionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SSOPlatformAdminService"
+        ]
+      }
+    },
     "/api/v0/status": {
       "get": {
         "operationId": "StatusService_GetStatus",
@@ -3713,6 +4458,66 @@
         ]
       }
     },
+    "/api/v0/tenants/{tenant_id}/users/{user_id}": {
+      "delete": {
+        "operationId": "TenantService_RemoveTenantUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/tenantRemoveTenantUserResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TenantService"
+        ]
+      }
+    },
     "/api/v0/tenants/lookup": {
       "get": {
         "summary": "Lookup tenants (internal)",
@@ -3771,9 +4576,165 @@
         ],
         "x-internal": true
       }
+    },
+    "/api/v0/tenants/{tenant_id}/mfa-policy": {
+      "get": {
+        "summary": "Get the MFA policy of a tenant",
+        "description": "A tenant that never set one answers NONE.",
+        "operationId": "TenantService_GetTenantMFAPolicy",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/tenantGetTenantMFAPolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TenantService"
+        ]
+      },
+      "put": {
+        "summary": "Set the MFA policy of a tenant",
+        "description": "Last write wins; the change is audited.",
+        "operationId": "TenantService_PutTenantMFAPolicy",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/tenantPutTenantMFAPolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/typesErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TenantServicePutTenantMFAPolicyBody"
+            }
+          }
+        ],
+        "tags": [
+          "TenantService"
+        ]
+      }
     }
   },
   "definitions": {
+    "SSOPlatformAdminServiceSetTenantDomainsBody": {
+      "type": "object",
+      "properties": {
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "After their ownership was checked outside the portal."
+        }
+      }
+    },
+    "SSOTenantAdminServiceCreateConnectionBody": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "issuer": {
+          "type": "string"
+        },
+        "client_id": {
+          "type": "string"
+        },
+        "client_secret": {
+          "type": "string"
+        }
+      }
+    },
+    "SSOTenantAdminServiceStartTestLoginBody": {
+      "type": "object"
+    },
     "TenantServiceInviteMemberBody": {
       "type": "object",
       "properties": {
@@ -3787,6 +4748,14 @@
       "properties": {
         "email": {
           "type": "string"
+        }
+      }
+    },
+    "TenantServicePutTenantMFAPolicyBody": {
+      "type": "object",
+      "properties": {
+        "requirement": {
+          "$ref": "#/definitions/tenantMFARequirement"
         }
       }
     },
@@ -4033,6 +5002,22 @@
         }
       }
     },
+    "apissoGetTenantSSOPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantSSOPolicy"
+        }
+      }
+    },
+    "apissoPutTenantSSOPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantSSOPolicy"
+        }
+      }
+    },
     "apistatusStatus": {
       "type": "object",
       "properties": {
@@ -4041,6 +5026,23 @@
         },
         "buildInfo": {
           "$ref": "#/definitions/statusBuildInfo"
+        }
+      }
+    },
+    "apitenantGetTenantSSOPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantSSOPolicy",
+          "description": "Always set: a tenant that never wrote a policy answers OFF with nothing\nbound."
+        }
+      }
+    },
+    "apitenantPutTenantSSOPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantSSOPolicy"
         }
       }
     },
@@ -5599,6 +6601,251 @@
         }
       }
     },
+    "ssoCompleteAttemptResponse": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string"
+        },
+        "tenant_id": {
+          "type": "string"
+        }
+      }
+    },
+    "ssoConnection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "owner_tenant_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "issuer": {
+          "type": "string"
+        },
+        "client_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/ssoConnectionStatus",
+          "description": "TESTED once a test sign-in through it succeeded."
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "create_time": {
+          "type": "string"
+        },
+        "update_time": {
+          "type": "string"
+        },
+        "test_time": {
+          "type": "string"
+        },
+        "redirect_uri": {
+          "type": "string",
+          "description": "The redirect URI to register at the IdP."
+        }
+      },
+      "description": "Connection is a tenant's registration of its OIDC identity provider. The\nclient secret is write only. issuer and client_id are fixed at create."
+    },
+    "ssoConnectionStatus": {
+      "type": "string",
+      "enum": [
+        "CONNECTION_STATUS_UNSPECIFIED",
+        "CONNECTION_STATUS_DRAFT",
+        "CONNECTION_STATUS_TESTED"
+      ],
+      "default": "CONNECTION_STATUS_UNSPECIFIED",
+      "description": "ConnectionStatus only moves from DRAFT to TESTED."
+    },
+    "ssoConnectionUpdate": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "description": "ConnectionUpdate carries the fields UpdateConnection may change."
+    },
+    "ssoCreateConnectionResponse": {
+      "type": "object",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/ssoConnection"
+        }
+      }
+    },
+    "ssoDeleteAnyConnectionResponse": {
+      "type": "object"
+    },
+    "ssoDeleteConnectionResponse": {
+      "type": "object"
+    },
+    "ssoDeleteLinkResponse": {
+      "type": "object"
+    },
+    "ssoGetConnectionResponse": {
+      "type": "object",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/ssoConnection"
+        }
+      }
+    },
+    "ssoGetTenantDomainsResponse": {
+      "type": "object",
+      "properties": {
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ssoLink": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "tenant_id": {
+          "type": "string",
+          "description": "The tenant whose connection it is: a re-authentication through it\nstarts an attempt for that tenant."
+        }
+      }
+    },
+    "ssoListAllConnectionsResponse": {
+      "type": "object",
+      "properties": {
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ssoConnection"
+          }
+        },
+        "next_page_token": {
+          "type": "string"
+        }
+      }
+    },
+    "ssoListConnectionsResponse": {
+      "type": "object",
+      "properties": {
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ssoConnection"
+          }
+        },
+        "next_page_token": {
+          "type": "string"
+        }
+      }
+    },
+    "ssoListLinksResponse": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ssoLink"
+          }
+        }
+      }
+    },
+    "ssoListOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ssoOption"
+          },
+          "description": "Those that exist and are TESTED, in the order asked."
+        }
+      }
+    },
+    "ssoOption": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "ssoSSOTenantAdminServicePutTenantSSOPolicyBody": {
+      "type": "object",
+      "properties": {
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tenantSSOBinding"
+          },
+          "description": "Only connections the tenant owns."
+        },
+        "enforcement": {
+          "$ref": "#/definitions/tenantEnforcement"
+        },
+        "auto_join": {
+          "type": "boolean",
+          "description": "Domains are kept as stored: platform admins set them\n(SSOPlatformAdminService.SetTenantDomains)."
+        }
+      }
+    },
+    "ssoSetTenantDomainsResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantSSOPolicy"
+        }
+      }
+    },
+    "ssoStartAttemptResponse": {
+      "type": "object",
+      "properties": {
+        "ticket": {
+          "type": "string",
+          "description": "Opaque to the caller: the attempt sealed with sso-service's envelope\nkey (AES-256-GCM), valid 30 minutes. Passed to Kratos as login_hint."
+        }
+      }
+    },
+    "ssoStartTestLoginResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Open in a browser; sent to the IdP with prompt=login and max_age=0. The\npage it ends on shows the result, and a success turns the connection\nTESTED."
+        }
+      }
+    },
+    "ssoUpdateConnectionResponse": {
+      "type": "object",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/ssoConnection"
+        }
+      }
+    },
     "statusBuildInfo": {
       "type": "object",
       "properties": {
@@ -5610,6 +6857,14 @@
         },
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "tenantCreatePersonalTenantResponse": {
+      "type": "object",
+      "properties": {
+        "tenant": {
+          "$ref": "#/definitions/tenantTenant"
         }
       }
     },
@@ -5641,19 +6896,52 @@
         }
       }
     },
+    "tenantEnforcement": {
+      "type": "string",
+      "enum": [
+        "ENFORCEMENT_UNSPECIFIED",
+        "ENFORCEMENT_OFF",
+        "ENFORCEMENT_OPTIONAL",
+        "ENFORCEMENT_REQUIRED"
+      ],
+      "default": "ENFORCEMENT_UNSPECIFIED",
+      "description": "Enforcement of a tenant's company sign-in. A tenant is OFF until its\nenforcement is first written, and only OPTIONAL or REQUIRED can be written;\nwith no active binding it is off whatever it stores."
+    },
+    "tenantGetSignInContextResponse": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "$ref": "#/definitions/tenantSignInContext"
+        }
+      }
+    },
+    "tenantGetTenantMFAPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantMFAPolicy",
+          "description": "Always set: a tenant that never set a policy answers NONE."
+        }
+      }
+    },
     "tenantInviteMemberResponse": {
       "type": "object",
       "properties": {
         "status": {
-          "type": "string"
+          "type": "string",
+          "description": "\"invited\": a membership: a new account at a tenant that does not require\ncompany sign-in, with a recovery link and code; or an account that is a\nmember already, with neither. \"pending\": a pending invitation and no\nmembership: an existing account that is not a member, or a new address\nat a REQUIRED tenant, which gets no account either."
         },
         "link": {
-          "type": "string"
+          "type": "string",
+          "description": "Recovery link and code: only for a new account at a tenant that does not\nrequire company sign-in. Empty otherwise (the membership alone, or a\npending invitation)."
         },
         "code": {
           "type": "string"
         }
       }
+    },
+    "tenantJoinTenantResponse": {
+      "type": "object"
     },
     "tenantListMyTenantsResponse": {
       "type": "object",
@@ -5664,6 +6952,19 @@
             "type": "object",
             "$ref": "#/definitions/tenantTenant"
           }
+        }
+      }
+    },
+    "tenantListSignInTenantsResponse": {
+      "type": "object",
+      "properties": {
+        "tenants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tenantSignInTenant"
+          },
+          "description": "The tenants the address's account is a member of, its personal tenant\nfirst, then those that invited the address and those it could auto-join,\neven when the address has no account."
         }
       }
     },
@@ -5717,9 +7018,20 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/tenantTenant"
-          }
+          },
+          "description": "The account's personal tenant first."
         }
       }
+    },
+    "tenantMFARequirement": {
+      "type": "string",
+      "enum": [
+        "MFA_REQUIREMENT_UNSPECIFIED",
+        "MFA_REQUIREMENT_NONE",
+        "MFA_REQUIREMENT_REQUIRED"
+      ],
+      "default": "MFA_REQUIREMENT_UNSPECIFIED",
+      "description": "MFARequirement is what a tenant asks of a company or public sign-in: MFA\nonly at REQUIRED. Every other first factor always needs MFA."
     },
     "tenantProvisionUserResponse": {
       "type": "object",
@@ -5728,6 +7040,91 @@
           "type": "string"
         }
       }
+    },
+    "tenantPutTenantMFAPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantMFAPolicy"
+        }
+      }
+    },
+    "tenantRemoveTenantSSOBindingResponse": {
+      "type": "object"
+    },
+    "tenantRemoveTenantUserResponse": {
+      "type": "object"
+    },
+    "tenantSSOBinding": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "In use for this tenant: members see it and it counts for REQUIRED."
+        }
+      }
+    },
+    "tenantSetTenantSSODomainsResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantSSOPolicy"
+        }
+      }
+    },
+    "tenantSignInContext": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "boolean",
+          "description": "The account is a member of this tenant."
+        },
+        "enforcement": {
+          "$ref": "#/definitions/tenantEnforcement"
+        },
+        "connection_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Active bindings whose connection applies to the address (within the\ntenant's domains when it lists any)."
+        },
+        "auto_join_admits": {
+          "type": "boolean",
+          "description": "Auto-join admits the address (not a member, address in the domains,\nauto-join on, REQUIRED)."
+        },
+        "invitation_admits": {
+          "type": "boolean",
+          "description": "A pending invitation admits the address (not a member; the address may\nhave no account yet)."
+        },
+        "mfa_requirement": {
+          "$ref": "#/definitions/tenantMFARequirement"
+        },
+        "account_exists": {
+          "type": "boolean",
+          "description": "Whether the account exists (identity_id given, or the email has one)."
+        }
+      }
+    },
+    "tenantSignInTenant": {
+      "type": "object",
+      "properties": {
+        "tenant": {
+          "$ref": "#/definitions/tenantTenant"
+        },
+        "auto_join_candidate": {
+          "type": "boolean",
+          "description": "Not a membership: the tenant admits the address's domain through\nauto-join and the address is not yet a member."
+        },
+        "invited": {
+          "type": "boolean",
+          "description": "Not a membership: a pending invitation of the address to this tenant.\nThe address may have no account yet; its first company sign-in there\ncreates the account (Kratos) and the membership."
+        }
+      },
+      "description": "SignInTenant is a tenant an address may sign in to, and how the address\nrelates to it. Enforcement, connections, the MFA requirement and domains\nare not part of it."
     },
     "tenantTenant": {
       "type": "object",
@@ -5754,6 +7151,46 @@
         },
         "enabled": {
           "type": "boolean"
+        }
+      }
+    },
+    "tenantTenantMFAPolicy": {
+      "type": "object",
+      "properties": {
+        "tenant_id": {
+          "type": "string"
+        },
+        "requirement": {
+          "$ref": "#/definitions/tenantMFARequirement"
+        }
+      },
+      "description": "TenantMFAPolicy is a tenant's MFA policy: one value per tenant, last write\nwins; changes are audited in the log."
+    },
+    "tenantTenantSSOPolicy": {
+      "type": "object",
+      "properties": {
+        "tenant_id": {
+          "type": "string"
+        },
+        "enforcement": {
+          "$ref": "#/definitions/tenantEnforcement",
+          "description": "As stored: OFF until the tenant's enforcement is first written, then\nOPTIONAL or REQUIRED."
+        },
+        "auto_join": {
+          "type": "boolean"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tenantSSOBinding"
+          }
         }
       }
     },
