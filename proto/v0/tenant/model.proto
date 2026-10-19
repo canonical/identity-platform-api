@@ -1,10 +1,17 @@
 syntax = "proto3";
 
 package identity.platform.api.tenant;
-option go_package = "github.com/canonical/identity-platform-api/tenant";
+option go_package = "github.com/canonical/identity-platform-api/v0/tenant";
 
 import "buf/validate/validate.proto";
 import "google/protobuf/field_mask.proto";
+
+message RemoveTenantUserRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string user_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message RemoveTenantUserResponse {}
 
 message ListMyTenantsRequest {
 	optional bool enabled = 1;
@@ -47,7 +54,15 @@ message InviteMemberRequest {
 }
 
 message InviteMemberResponse {
+	// "invited": a membership: a new account at a tenant that does not require
+	// company sign-in, with a recovery link and code; or an account that is a
+	// member already, with neither. "pending": a pending invitation and no
+	// membership: an existing account that is not a member, or a new address
+	// at a REQUIRED tenant, which gets no account either.
 	string status = 1;
+	// Recovery link and code: only for a new account at a tenant that does not
+	// require company sign-in. Empty otherwise (the membership alone, or a
+	// pending invitation).
 	string link = 2;
 	string code = 3;
 }
@@ -101,6 +116,14 @@ message ProvisionUserResponse {
 	string status = 1;
 }
 
+message JoinTenantRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	// The account that joins; its address is read from Kratos.
+	string identity_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message JoinTenantResponse {}
+
 message ListTenantUsersRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	string page_token = 2;
@@ -139,5 +162,174 @@ message LookupTenantsRequest {
 }
 
 message LookupTenantsResponse {
+	// The account's personal tenant first.
 	repeated Tenant tenants = 1;
 }
+
+// Enforcement of a tenant's company sign-in. A tenant is OFF until its
+// enforcement is first written, and only OPTIONAL or REQUIRED can be written;
+// with no active binding it is off whatever it stores.
+enum Enforcement {
+	ENFORCEMENT_UNSPECIFIED = 0;
+	ENFORCEMENT_OFF = 1;
+	ENFORCEMENT_OPTIONAL = 2;
+	ENFORCEMENT_REQUIRED = 3;
+}
+
+// MFARequirement is what a tenant asks of a company or public sign-in: MFA
+// only at REQUIRED. Every other first factor always needs MFA.
+enum MFARequirement {
+	MFA_REQUIREMENT_UNSPECIFIED = 0;
+	MFA_REQUIREMENT_NONE = 1;
+	MFA_REQUIREMENT_REQUIRED = 2;
+}
+
+// SignInTenant is a tenant an address may sign in to, and how the address
+// relates to it. Enforcement, connections, the MFA requirement and domains
+// are not part of it.
+message SignInTenant {
+	Tenant tenant = 1;
+	// Not a membership: the tenant admits the address's domain through
+	// auto-join and the address is not yet a member.
+	bool auto_join_candidate = 2;
+	// Not a membership: a pending invitation of the address to this tenant.
+	// The address may have no account yet; its first company sign-in there
+	// creates the account (Kratos) and the membership.
+	bool invited = 3;
+}
+
+message ListSignInTenantsRequest {
+	string email = 1 [(buf.validate.field).string.email = true];
+}
+
+message ListSignInTenantsResponse {
+	// The tenants the address's account is a member of, its personal tenant
+	// first, then those that invited the address and those it could auto-join,
+	// even when the address has no account.
+	repeated SignInTenant tenants = 1;
+}
+
+message CreatePersonalTenantRequest {
+	string identity_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message CreatePersonalTenantResponse {
+	Tenant tenant = 1;
+}
+
+message GetSignInContextRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	// At least one of email and identity_id. With identity_id the account's
+	// own address is used.
+	string email = 2;
+	string identity_id = 3;
+}
+
+message SignInContext {
+	// The account is a member of this tenant.
+	bool member = 1;
+	Enforcement enforcement = 2;
+	// Active bindings whose connection applies to the address (within the
+	// tenant's domains when it lists any).
+	repeated string connection_ids = 3;
+	// Auto-join admits the address (not a member, address in the domains,
+	// auto-join on, REQUIRED).
+	bool auto_join_admits = 4;
+	// A pending invitation admits the address (not a member; the address may
+	// have no account yet).
+	bool invitation_admits = 5;
+	MFARequirement mfa_requirement = 6;
+	// Whether the account exists (identity_id given, or the email has one).
+	bool account_exists = 7;
+}
+
+message GetSignInContextResponse {
+	SignInContext context = 1;
+}
+
+message SSOBinding {
+	string connection_id = 1 [(buf.validate.field).string.uuid = true];
+	// In use for this tenant: members see it and it counts for REQUIRED.
+	bool active = 2;
+}
+
+message TenantSSOPolicy {
+	string tenant_id = 1;
+	// As stored: OFF until the tenant's enforcement is first written, then
+	// OPTIONAL or REQUIRED.
+	Enforcement enforcement = 2;
+	bool auto_join = 3;
+	repeated string domains = 4;
+	repeated SSOBinding bindings = 5;
+}
+
+message GetTenantSSOPolicyRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message GetTenantSSOPolicyResponse {
+	// Always set: a tenant that never wrote a policy answers OFF with nothing
+	// bound.
+	TenantSSOPolicy policy = 1;
+}
+
+// PutTenantSSOPolicyRequest is the part of the policy the tenant's admins
+// decide: enforcement, auto-join and the bindings. The domains are kept as
+// stored.
+message PutTenantSSOPolicyRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	// OPTIONAL or REQUIRED.
+	Enforcement enforcement = 2 [(buf.validate.field).enum = {in: [2, 3]}];
+	bool auto_join = 3;
+	// The whole set; with none the tenant is OFF.
+	repeated SSOBinding bindings = 4;
+}
+
+message PutTenantSSOPolicyResponse {
+	TenantSSOPolicy policy = 1;
+}
+
+// SetTenantSSODomainsRequest is the part the platform's admins decide: the
+// domains. Enforcement, auto-join and the bindings are kept as stored.
+message SetTenantSSODomainsRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	// The whole set; empty clears it.
+	repeated string domains = 2;
+}
+
+message SetTenantSSODomainsResponse {
+	TenantSSOPolicy policy = 1;
+}
+
+message RemoveTenantSSOBindingRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string connection_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message RemoveTenantSSOBindingResponse {}
+
+// TenantMFAPolicy is a tenant's MFA policy: one value per tenant, last write
+// wins; changes are audited in the log.
+message TenantMFAPolicy {
+	string tenant_id = 1;
+	MFARequirement requirement = 2;
+}
+
+message GetTenantMFAPolicyRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message GetTenantMFAPolicyResponse {
+	// Always set: a tenant that never set a policy answers NONE.
+	TenantMFAPolicy policy = 1;
+}
+
+message PutTenantMFAPolicyRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	MFARequirement requirement = 2 [(buf.validate.field).enum = {in: [1, 2]}];
+}
+
+message PutTenantMFAPolicyResponse {
+	TenantMFAPolicy policy = 1;
+}
+

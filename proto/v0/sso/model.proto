@@ -1,0 +1,247 @@
+syntax = "proto3";
+
+package identity.platform.api.sso;
+option go_package = "github.com/canonical/identity-platform-api/v0/sso";
+
+import "buf/validate/validate.proto";
+import "google/protobuf/field_mask.proto";
+import "v0/tenant/model.proto";
+
+// ConnectionStatus only moves from DRAFT to TESTED.
+enum ConnectionStatus {
+	CONNECTION_STATUS_UNSPECIFIED = 0;
+	CONNECTION_STATUS_DRAFT = 1;
+	CONNECTION_STATUS_TESTED = 2;
+}
+
+// Connection is a tenant's registration of its OIDC identity provider. The
+// client secret is write only. issuer and client_id are fixed at create.
+message Connection {
+	string id = 1;
+	string owner_tenant_id = 2;
+	string label = 3;
+	string issuer = 4;
+	string client_id = 5;
+	// TESTED once a test sign-in through it succeeded.
+	ConnectionStatus status = 6;
+	string created_by = 7;
+	string create_time = 8;
+	string update_time = 9;
+	string test_time = 10;
+	// The redirect URI to register at the IdP: the same for all the connections
+	// of the tenant.
+	string redirect_uri = 11;
+}
+
+// ---- SSOSignInService (login-ui; gRPC only) ----
+
+message Option {
+	string connection_id = 1;
+	string label = 2;
+}
+
+message ListOptionsRequest {
+	// The bindings GetSignInContext returned for the tenant and address.
+	repeated string connection_ids = 1 [(buf.validate.field).repeated = {
+		max_items: 50,
+		items: {string: {uuid: true}}
+	}];
+}
+
+message ListOptionsResponse {
+	// Those that exist and are TESTED, in the order asked.
+	repeated Option options = 1;
+}
+
+message StartAttemptRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string email = 2 [(buf.validate.field).string.email = true];
+	string connection_id = 3 [(buf.validate.field).string.uuid = true];
+	// The app asked for a fresh first factor: prompt=login and max_age=0 go to
+	// the IdP, as a request it can ignore.
+	bool reauthenticate = 4;
+}
+
+message StartAttemptResponse {
+	// Opaque to the caller: the attempt sealed with sso-service's envelope
+	// key (AES-256-GCM), valid 30 minutes. Passed to Kratos as login_hint.
+	string ticket = 1;
+}
+
+message CompleteAttemptRequest {
+	string ticket = 1 [(buf.validate.field).string.min_len = 1];
+	string identity_id = 2 [(buf.validate.field).string.uuid = true];
+	// The value of the receipt cookie sso-service set in the browser when the
+	// identity provider answered for this ticket: the cookie named
+	// "__Host-sso_receipt_" followed by the first 16 hex digits of the
+	// SHA-256 of the ticket. Empty when the browser has none.
+	string receipt = 3;
+}
+
+message CompleteAttemptResponse {
+	string connection_id = 1;
+	string tenant_id = 2;
+}
+
+message Link {
+	string connection_id = 1;
+	string label = 2;
+	// The tenant whose connection it is: a re-authentication through it
+	// starts an attempt for that tenant.
+	string tenant_id = 3;
+}
+
+message ListLinksRequest {
+	string identity_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message ListLinksResponse {
+	repeated Link links = 1;
+}
+
+message DeleteLinkRequest {
+	string connection_id = 1 [(buf.validate.field).string.uuid = true];
+	string identity_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message DeleteLinkResponse {}
+
+// ---- SSOTenantAdminService (a tenant's admins: the tenant in the path) ----
+//
+// Every request names its tenant. The service only checks that the resource
+// belongs to it (a connection it owns, a binding of it) and answers NOT_FOUND
+// (CONNECTION_NOT_FOUND) otherwise. Who may act on the tenant is decided by
+// the gateway, not by sso-service.
+
+message ListConnectionsRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string page_token = 2;
+	int32 page_size = 3 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
+}
+
+message ListConnectionsResponse {
+	repeated Connection connections = 1;
+	string next_page_token = 2;
+}
+
+message CreateConnectionRequest {
+	// The owner: the tenant in the path.
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string label = 2 [(buf.validate.field).string = {min_len: 1, max_len: 100}];
+	string issuer = 3 [(buf.validate.field).string = {min_len: 1, max_len: 2048}];
+	string client_id = 4 [(buf.validate.field).string = {min_len: 1, max_len: 512}];
+	string client_secret = 5 [(buf.validate.field).string = {min_len: 1, max_len: 4096}];
+}
+
+message CreateConnectionResponse {
+	Connection connection = 1;
+}
+
+message GetConnectionRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string connection_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message GetConnectionResponse {
+	Connection connection = 1;
+}
+
+// ConnectionUpdate carries the fields UpdateConnection may change.
+message ConnectionUpdate {
+	string label = 1;
+	string client_secret = 2;
+}
+
+message UpdateConnectionRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string connection_id = 2 [(buf.validate.field).string.uuid = true];
+	ConnectionUpdate connection = 3 [(buf.validate.field).required = true];
+	// Paths among label, client_secret. Over HTTP, the fields of the body.
+	google.protobuf.FieldMask update_mask = 4 [(buf.validate.field).required = true];
+}
+
+message UpdateConnectionResponse {
+	Connection connection = 1;
+}
+
+message DeleteConnectionRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string connection_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message DeleteConnectionResponse {}
+
+message StartTestLoginRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	string connection_id = 2 [(buf.validate.field).string.uuid = true];
+}
+
+message StartTestLoginResponse {
+	// Open in a browser; sent to the IdP with prompt=login and max_age=0. The
+	// page it ends on shows the result, and a success turns the connection
+	// TESTED.
+	string url = 1;
+}
+
+message GetTenantSSOPolicyRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message GetTenantSSOPolicyResponse {
+	identity.platform.api.tenant.TenantSSOPolicy policy = 1;
+}
+
+message PutTenantSSOPolicyRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	// Only connections the tenant owns.
+	repeated identity.platform.api.tenant.SSOBinding bindings = 2;
+	identity.platform.api.tenant.Enforcement enforcement = 3 [(buf.validate.field).enum = {in: [2, 3]}];
+	// Domains are kept as stored: platform admins set them
+	// (SSOPlatformAdminService.SetTenantDomains).
+	bool auto_join = 4;
+}
+
+message PutTenantSSOPolicyResponse {
+	identity.platform.api.tenant.TenantSSOPolicy policy = 1;
+}
+
+// ---- SSOPlatformAdminService (the platform's admins, across tenants) ----
+
+message ListAllConnectionsRequest {
+	// Only this owner's connections, when set (it need not exist any more).
+	string owner_tenant_id = 1 [
+		(buf.validate.field).string.uuid = true,
+		(buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
+	];
+	string page_token = 2;
+	int32 page_size = 3 [(buf.validate.field).int32 = {gte: 0, lte: 100}];
+}
+
+message ListAllConnectionsResponse {
+	repeated Connection connections = 1;
+	string next_page_token = 2;
+}
+
+message GetTenantDomainsRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message GetTenantDomainsResponse {
+	repeated string domains = 1;
+}
+
+message SetTenantDomainsRequest {
+	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
+	// After their ownership was checked outside the portal.
+	repeated string domains = 2 [(buf.validate.field).repeated.max_items = 50];
+}
+
+message SetTenantDomainsResponse {
+	identity.platform.api.tenant.TenantSSOPolicy policy = 1;
+}
+
+message DeleteAnyConnectionRequest {
+	string connection_id = 1 [(buf.validate.field).string.uuid = true];
+}
+
+message DeleteAnyConnectionResponse {}
