@@ -6648,7 +6648,7 @@
         },
         "redirect_uri": {
           "type": "string",
-          "description": "The redirect URI to register at the IdP."
+          "description": "The redirect URI to register at the IdP: the same for all the connections\nof the tenant."
         }
       },
       "description": "Connection is a tenant's registration of its OIDC identity provider. The\nclient secret is write only. issuer and client_id are fixed at create."

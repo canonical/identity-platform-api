@@ -28,7 +28,8 @@ message Connection {
 	string create_time = 8;
 	string update_time = 9;
 	string test_time = 10;
-	// The redirect URI to register at the IdP.
+	// The redirect URI to register at the IdP: the same for all the connections
+	// of the tenant.
 	string redirect_uri = 11;
 }
 
@@ -57,7 +58,7 @@ message StartAttemptRequest {
 	string email = 2 [(buf.validate.field).string.email = true];
 	string connection_id = 3 [(buf.validate.field).string.uuid = true];
 	// The app asked for a fresh first factor: prompt=login and max_age=0 go to
-	// the IdP, and the id_token's auth_time must not be earlier than the attempt.
+	// the IdP, as a request it can ignore.
 	bool reauthenticate = 4;
 }
 

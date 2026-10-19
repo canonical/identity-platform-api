@@ -91,7 +91,8 @@ type Connection struct {
 	CreateTime string           `protobuf:"bytes,8,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
 	UpdateTime string           `protobuf:"bytes,9,opt,name=update_time,json=updateTime,proto3" json:"update_time,omitempty"`
 	TestTime   string           `protobuf:"bytes,10,opt,name=test_time,json=testTime,proto3" json:"test_time,omitempty"`
-	// The redirect URI to register at the IdP.
+	// The redirect URI to register at the IdP: the same for all the connections
+	// of the tenant.
 	RedirectUri string `protobuf:"bytes,11,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
 }
 
@@ -364,7 +365,7 @@ type StartAttemptRequest struct {
 	Email        string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
 	ConnectionId string `protobuf:"bytes,3,opt,name=connection_id,json=connectionId,proto3" json:"connection_id,omitempty"`
 	// The app asked for a fresh first factor: prompt=login and max_age=0 go to
-	// the IdP, and the id_token's auth_time must not be earlier than the attempt.
+	// the IdP, as a request it can ignore.
 	Reauthenticate bool `protobuf:"varint,4,opt,name=reauthenticate,proto3" json:"reauthenticate,omitempty"`
 }
 

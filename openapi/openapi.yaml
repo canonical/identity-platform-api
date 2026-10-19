@@ -1388,7 +1388,9 @@ components:
                 owner_tenant_id:
                     type: string
                 redirect_uri:
-                    description: The redirect URI to register at the IdP.
+                    description: |-
+                        The redirect URI to register at the IdP: the same for all the connections
+                        of the tenant.
                     type: string
                 status:
                     $ref: '#/components/schemas/ssoConnectionStatus'
