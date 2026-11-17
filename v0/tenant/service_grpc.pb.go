@@ -31,7 +31,7 @@ const (
 	TenantService_RemoveTenantUser_FullMethodName   = "/identity.platform.api.tenant.TenantService/RemoveTenantUser"
 	TenantService_LookupTenants_FullMethodName      = "/identity.platform.api.tenant.TenantService/LookupTenants"
 	TenantService_GetTenantMFAPolicy_FullMethodName = "/identity.platform.api.tenant.TenantService/GetTenantMFAPolicy"
-	TenantService_PutTenantMFAPolicy_FullMethodName = "/identity.platform.api.tenant.TenantService/PutTenantMFAPolicy"
+	TenantService_SetTenantMFAPolicy_FullMethodName = "/identity.platform.api.tenant.TenantService/SetTenantMFAPolicy"
 )
 
 // TenantServiceClient is the client API for TenantService service.
@@ -52,7 +52,7 @@ type TenantServiceClient interface {
 	RemoveTenantUser(ctx context.Context, in *RemoveTenantUserRequest, opts ...grpc.CallOption) (*RemoveTenantUserResponse, error)
 	LookupTenants(ctx context.Context, in *LookupTenantsRequest, opts ...grpc.CallOption) (*LookupTenantsResponse, error)
 	GetTenantMFAPolicy(ctx context.Context, in *GetTenantMFAPolicyRequest, opts ...grpc.CallOption) (*GetTenantMFAPolicyResponse, error)
-	PutTenantMFAPolicy(ctx context.Context, in *PutTenantMFAPolicyRequest, opts ...grpc.CallOption) (*PutTenantMFAPolicyResponse, error)
+	SetTenantMFAPolicy(ctx context.Context, in *SetTenantMFAPolicyRequest, opts ...grpc.CallOption) (*SetTenantMFAPolicyResponse, error)
 }
 
 type tenantServiceClient struct {
@@ -171,9 +171,9 @@ func (c *tenantServiceClient) GetTenantMFAPolicy(ctx context.Context, in *GetTen
 	return out, nil
 }
 
-func (c *tenantServiceClient) PutTenantMFAPolicy(ctx context.Context, in *PutTenantMFAPolicyRequest, opts ...grpc.CallOption) (*PutTenantMFAPolicyResponse, error) {
-	out := new(PutTenantMFAPolicyResponse)
-	err := c.cc.Invoke(ctx, TenantService_PutTenantMFAPolicy_FullMethodName, in, out, opts...)
+func (c *tenantServiceClient) SetTenantMFAPolicy(ctx context.Context, in *SetTenantMFAPolicyRequest, opts ...grpc.CallOption) (*SetTenantMFAPolicyResponse, error) {
+	out := new(SetTenantMFAPolicyResponse)
+	err := c.cc.Invoke(ctx, TenantService_SetTenantMFAPolicy_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -198,7 +198,7 @@ type TenantServiceServer interface {
 	RemoveTenantUser(context.Context, *RemoveTenantUserRequest) (*RemoveTenantUserResponse, error)
 	LookupTenants(context.Context, *LookupTenantsRequest) (*LookupTenantsResponse, error)
 	GetTenantMFAPolicy(context.Context, *GetTenantMFAPolicyRequest) (*GetTenantMFAPolicyResponse, error)
-	PutTenantMFAPolicy(context.Context, *PutTenantMFAPolicyRequest) (*PutTenantMFAPolicyResponse, error)
+	SetTenantMFAPolicy(context.Context, *SetTenantMFAPolicyRequest) (*SetTenantMFAPolicyResponse, error)
 	mustEmbedUnimplementedTenantServiceServer()
 }
 
@@ -242,8 +242,8 @@ func (UnimplementedTenantServiceServer) LookupTenants(context.Context, *LookupTe
 func (UnimplementedTenantServiceServer) GetTenantMFAPolicy(context.Context, *GetTenantMFAPolicyRequest) (*GetTenantMFAPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTenantMFAPolicy not implemented")
 }
-func (UnimplementedTenantServiceServer) PutTenantMFAPolicy(context.Context, *PutTenantMFAPolicyRequest) (*PutTenantMFAPolicyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PutTenantMFAPolicy not implemented")
+func (UnimplementedTenantServiceServer) SetTenantMFAPolicy(context.Context, *SetTenantMFAPolicyRequest) (*SetTenantMFAPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetTenantMFAPolicy not implemented")
 }
 func (UnimplementedTenantServiceServer) mustEmbedUnimplementedTenantServiceServer() {}
 
@@ -474,20 +474,20 @@ func _TenantService_GetTenantMFAPolicy_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TenantService_PutTenantMFAPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PutTenantMFAPolicyRequest)
+func _TenantService_SetTenantMFAPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTenantMFAPolicyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TenantServiceServer).PutTenantMFAPolicy(ctx, in)
+		return srv.(TenantServiceServer).SetTenantMFAPolicy(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TenantService_PutTenantMFAPolicy_FullMethodName,
+		FullMethod: TenantService_SetTenantMFAPolicy_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TenantServiceServer).PutTenantMFAPolicy(ctx, req.(*PutTenantMFAPolicyRequest))
+		return srv.(TenantServiceServer).SetTenantMFAPolicy(ctx, req.(*SetTenantMFAPolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -548,8 +548,8 @@ var TenantService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TenantService_GetTenantMFAPolicy_Handler,
 		},
 		{
-			MethodName: "PutTenantMFAPolicy",
-			Handler:    _TenantService_PutTenantMFAPolicy_Handler,
+			MethodName: "SetTenantMFAPolicy",
+			Handler:    _TenantService_SetTenantMFAPolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -791,7 +791,7 @@ var TenantSignInService_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	TenantSSOPolicyService_GetTenantSSOPolicy_FullMethodName     = "/identity.platform.api.tenant.TenantSSOPolicyService/GetTenantSSOPolicy"
-	TenantSSOPolicyService_PutTenantSSOPolicy_FullMethodName     = "/identity.platform.api.tenant.TenantSSOPolicyService/PutTenantSSOPolicy"
+	TenantSSOPolicyService_SetTenantSSOPolicy_FullMethodName     = "/identity.platform.api.tenant.TenantSSOPolicyService/SetTenantSSOPolicy"
 	TenantSSOPolicyService_SetTenantSSODomains_FullMethodName    = "/identity.platform.api.tenant.TenantSSOPolicyService/SetTenantSSODomains"
 	TenantSSOPolicyService_RemoveTenantSSOBinding_FullMethodName = "/identity.platform.api.tenant.TenantSSOPolicyService/RemoveTenantSSOBinding"
 )
@@ -801,8 +801,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TenantSSOPolicyServiceClient interface {
 	GetTenantSSOPolicy(ctx context.Context, in *GetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*GetTenantSSOPolicyResponse, error)
-	// PutTenantSSOPolicy: enforcement, auto-join and the bindings.
-	PutTenantSSOPolicy(ctx context.Context, in *PutTenantSSOPolicyRequest, opts ...grpc.CallOption) (*PutTenantSSOPolicyResponse, error)
+	// SetTenantSSOPolicy: enforcement, auto-join and the bindings.
+	SetTenantSSOPolicy(ctx context.Context, in *SetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*SetTenantSSOPolicyResponse, error)
 	// SetTenantSSODomains: the domains.
 	SetTenantSSODomains(ctx context.Context, in *SetTenantSSODomainsRequest, opts ...grpc.CallOption) (*SetTenantSSODomainsResponse, error)
 	// RemoveTenantSSOBinding: one binding, when its connection is deleted. A
@@ -827,9 +827,9 @@ func (c *tenantSSOPolicyServiceClient) GetTenantSSOPolicy(ctx context.Context, i
 	return out, nil
 }
 
-func (c *tenantSSOPolicyServiceClient) PutTenantSSOPolicy(ctx context.Context, in *PutTenantSSOPolicyRequest, opts ...grpc.CallOption) (*PutTenantSSOPolicyResponse, error) {
-	out := new(PutTenantSSOPolicyResponse)
-	err := c.cc.Invoke(ctx, TenantSSOPolicyService_PutTenantSSOPolicy_FullMethodName, in, out, opts...)
+func (c *tenantSSOPolicyServiceClient) SetTenantSSOPolicy(ctx context.Context, in *SetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*SetTenantSSOPolicyResponse, error) {
+	out := new(SetTenantSSOPolicyResponse)
+	err := c.cc.Invoke(ctx, TenantSSOPolicyService_SetTenantSSOPolicy_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -859,8 +859,8 @@ func (c *tenantSSOPolicyServiceClient) RemoveTenantSSOBinding(ctx context.Contex
 // for forward compatibility
 type TenantSSOPolicyServiceServer interface {
 	GetTenantSSOPolicy(context.Context, *GetTenantSSOPolicyRequest) (*GetTenantSSOPolicyResponse, error)
-	// PutTenantSSOPolicy: enforcement, auto-join and the bindings.
-	PutTenantSSOPolicy(context.Context, *PutTenantSSOPolicyRequest) (*PutTenantSSOPolicyResponse, error)
+	// SetTenantSSOPolicy: enforcement, auto-join and the bindings.
+	SetTenantSSOPolicy(context.Context, *SetTenantSSOPolicyRequest) (*SetTenantSSOPolicyResponse, error)
 	// SetTenantSSODomains: the domains.
 	SetTenantSSODomains(context.Context, *SetTenantSSODomainsRequest) (*SetTenantSSODomainsResponse, error)
 	// RemoveTenantSSOBinding: one binding, when its connection is deleted. A
@@ -876,8 +876,8 @@ type UnimplementedTenantSSOPolicyServiceServer struct {
 func (UnimplementedTenantSSOPolicyServiceServer) GetTenantSSOPolicy(context.Context, *GetTenantSSOPolicyRequest) (*GetTenantSSOPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTenantSSOPolicy not implemented")
 }
-func (UnimplementedTenantSSOPolicyServiceServer) PutTenantSSOPolicy(context.Context, *PutTenantSSOPolicyRequest) (*PutTenantSSOPolicyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PutTenantSSOPolicy not implemented")
+func (UnimplementedTenantSSOPolicyServiceServer) SetTenantSSOPolicy(context.Context, *SetTenantSSOPolicyRequest) (*SetTenantSSOPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetTenantSSOPolicy not implemented")
 }
 func (UnimplementedTenantSSOPolicyServiceServer) SetTenantSSODomains(context.Context, *SetTenantSSODomainsRequest) (*SetTenantSSODomainsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetTenantSSODomains not implemented")
@@ -917,20 +917,20 @@ func _TenantSSOPolicyService_GetTenantSSOPolicy_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TenantSSOPolicyService_PutTenantSSOPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PutTenantSSOPolicyRequest)
+func _TenantSSOPolicyService_SetTenantSSOPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTenantSSOPolicyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TenantSSOPolicyServiceServer).PutTenantSSOPolicy(ctx, in)
+		return srv.(TenantSSOPolicyServiceServer).SetTenantSSOPolicy(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TenantSSOPolicyService_PutTenantSSOPolicy_FullMethodName,
+		FullMethod: TenantSSOPolicyService_SetTenantSSOPolicy_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TenantSSOPolicyServiceServer).PutTenantSSOPolicy(ctx, req.(*PutTenantSSOPolicyRequest))
+		return srv.(TenantSSOPolicyServiceServer).SetTenantSSOPolicy(ctx, req.(*SetTenantSSOPolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -983,8 +983,8 @@ var TenantSSOPolicyService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TenantSSOPolicyService_GetTenantSSOPolicy_Handler,
 		},
 		{
-			MethodName: "PutTenantSSOPolicy",
-			Handler:    _TenantSSOPolicyService_PutTenantSSOPolicy_Handler,
+			MethodName: "SetTenantSSOPolicy",
+			Handler:    _TenantSSOPolicyService_SetTenantSSOPolicy_Handler,
 		},
 		{
 			MethodName: "SetTenantSSODomains",

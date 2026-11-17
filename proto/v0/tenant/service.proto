@@ -816,7 +816,7 @@ service TenantService {
     };
   }
 
-  rpc PutTenantMFAPolicy(PutTenantMFAPolicyRequest) returns (PutTenantMFAPolicyResponse) {
+  rpc SetTenantMFAPolicy(SetTenantMFAPolicyRequest) returns (SetTenantMFAPolicyResponse) {
     option (google.api.http) = {
       put: "/api/v0/tenants/{tenant_id}/mfa-policy"
       body: "*"
@@ -830,7 +830,7 @@ service TenantService {
         value: {
           schema: {
             json_schema: {
-              ref: ".identity.platform.api.tenant.PutTenantMFAPolicyResponse"
+              ref: ".identity.platform.api.tenant.SetTenantMFAPolicyResponse"
             }
           }
         }
@@ -945,8 +945,8 @@ service TenantSignInService {
 service TenantSSOPolicyService {
   rpc GetTenantSSOPolicy(GetTenantSSOPolicyRequest) returns (GetTenantSSOPolicyResponse) {}
 
-  // PutTenantSSOPolicy: enforcement, auto-join and the bindings.
-  rpc PutTenantSSOPolicy(PutTenantSSOPolicyRequest) returns (PutTenantSSOPolicyResponse) {}
+  // SetTenantSSOPolicy: enforcement, auto-join and the bindings.
+  rpc SetTenantSSOPolicy(SetTenantSSOPolicyRequest) returns (SetTenantSSOPolicyResponse) {}
 
   // SetTenantSSODomains: the domains.
   rpc SetTenantSSODomains(SetTenantSSODomainsRequest) returns (SetTenantSSODomainsResponse) {}

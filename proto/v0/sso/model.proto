@@ -25,9 +25,9 @@ message Connection {
 	// TESTED once a test sign-in through it succeeded.
 	ConnectionStatus status = 6;
 	string created_by = 7;
-	string create_time = 8;
-	string update_time = 9;
-	string test_time = 10;
+	string created_at = 8;
+	string updated_at = 9;
+	string tested_at = 10;
 	// The redirect URI to register at the IdP: the same for all the connections
 	// of the tenant.
 	string redirect_uri = 11;
@@ -68,7 +68,7 @@ message StartAttemptResponse {
 	string ticket = 1;
 }
 
-message CompleteAttemptRequest {
+message VerifyAttemptRequest {
 	string ticket = 1 [(buf.validate.field).string.min_len = 1];
 	string identity_id = 2 [(buf.validate.field).string.uuid = true];
 	// The value of the receipt cookie sso-service set in the browser when the
@@ -78,7 +78,7 @@ message CompleteAttemptRequest {
 	string receipt = 3;
 }
 
-message CompleteAttemptResponse {
+message VerifyAttemptResponse {
 	string connection_id = 1;
 	string tenant_id = 2;
 }
@@ -177,9 +177,8 @@ message StartTestLoginRequest {
 }
 
 message StartTestLoginResponse {
-	// Open in a browser; sent to the IdP with prompt=login and max_age=0. The
-	// page it ends on shows the result, and a success turns the connection
-	// TESTED.
+	// Open in a browser. The page it ends on shows the result, and a success
+	// turns the connection TESTED.
 	string url = 1;
 }
 
@@ -191,17 +190,17 @@ message GetTenantSSOPolicyResponse {
 	identity.platform.api.tenant.TenantSSOPolicy policy = 1;
 }
 
-message PutTenantSSOPolicyRequest {
+message SetTenantSSOPolicyRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
-	// Only connections the tenant owns.
-	repeated identity.platform.api.tenant.SSOBinding bindings = 2;
-	identity.platform.api.tenant.Enforcement enforcement = 3 [(buf.validate.field).enum = {in: [2, 3]}];
-	// Domains are kept as stored: platform admins set them
-	// (SSOPlatformAdminService.SetTenantDomains).
-	bool auto_join = 4;
+	// OPTIONAL or REQUIRED.
+	identity.platform.api.tenant.Enforcement enforcement = 2 [(buf.validate.field).enum = {in: [2, 3]}];
+	bool auto_join = 3;
+	// The whole set; only connections the tenant owns. Domains are kept as
+	// stored: platform admins set them (SSOPlatformAdminService.SetTenantDomains).
+	repeated identity.platform.api.tenant.SSOBinding bindings = 4;
 }
 
-message PutTenantSSOPolicyResponse {
+message SetTenantSSOPolicyResponse {
 	identity.platform.api.tenant.TenantSSOPolicy policy = 1;
 }
 

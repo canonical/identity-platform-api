@@ -505,9 +505,9 @@ func local_request_TenantService_GetTenantMFAPolicy_0(ctx context.Context, marsh
 	return msg, metadata, err
 }
 
-func request_TenantService_PutTenantMFAPolicy_0(ctx context.Context, marshaler runtime.Marshaler, client TenantServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_TenantService_SetTenantMFAPolicy_0(ctx context.Context, marshaler runtime.Marshaler, client TenantServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq PutTenantMFAPolicyRequest
+		protoReq SetTenantMFAPolicyRequest
 		metadata runtime.ServerMetadata
 		err      error
 	)
@@ -522,13 +522,13 @@ func request_TenantService_PutTenantMFAPolicy_0(ctx context.Context, marshaler r
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenant_id", err)
 	}
-	msg, err := client.PutTenantMFAPolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.SetTenantMFAPolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 }
 
-func local_request_TenantService_PutTenantMFAPolicy_0(ctx context.Context, marshaler runtime.Marshaler, server TenantServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_TenantService_SetTenantMFAPolicy_0(ctx context.Context, marshaler runtime.Marshaler, server TenantServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq PutTenantMFAPolicyRequest
+		protoReq SetTenantMFAPolicyRequest
 		metadata runtime.ServerMetadata
 		err      error
 	)
@@ -543,7 +543,7 @@ func local_request_TenantService_PutTenantMFAPolicy_0(ctx context.Context, marsh
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenant_id", err)
 	}
-	msg, err := server.PutTenantMFAPolicy(ctx, &protoReq)
+	msg, err := server.SetTenantMFAPolicy(ctx, &protoReq)
 	return msg, metadata, err
 }
 
@@ -793,25 +793,25 @@ func RegisterTenantServiceHandlerServer(ctx context.Context, mux *runtime.ServeM
 		}
 		forward_TenantService_GetTenantMFAPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPut, pattern_TenantService_PutTenantMFAPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_TenantService_SetTenantMFAPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.tenant.TenantService/PutTenantMFAPolicy", runtime.WithHTTPPathPattern("/api/v0/tenants/{tenant_id}/mfa-policy"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.tenant.TenantService/SetTenantMFAPolicy", runtime.WithHTTPPathPattern("/api/v0/tenants/{tenant_id}/mfa-policy"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_TenantService_PutTenantMFAPolicy_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_TenantService_SetTenantMFAPolicy_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_TenantService_PutTenantMFAPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_TenantService_SetTenantMFAPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -1057,22 +1057,22 @@ func RegisterTenantServiceHandlerClient(ctx context.Context, mux *runtime.ServeM
 		}
 		forward_TenantService_GetTenantMFAPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPut, pattern_TenantService_PutTenantMFAPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_TenantService_SetTenantMFAPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.tenant.TenantService/PutTenantMFAPolicy", runtime.WithHTTPPathPattern("/api/v0/tenants/{tenant_id}/mfa-policy"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.tenant.TenantService/SetTenantMFAPolicy", runtime.WithHTTPPathPattern("/api/v0/tenants/{tenant_id}/mfa-policy"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_TenantService_PutTenantMFAPolicy_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_TenantService_SetTenantMFAPolicy_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_TenantService_PutTenantMFAPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_TenantService_SetTenantMFAPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 	return nil
 }
@@ -1090,7 +1090,7 @@ var (
 	pattern_TenantService_RemoveTenantUser_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"api", "v0", "tenants", "tenant_id", "users", "user_id"}, ""))
 	pattern_TenantService_LookupTenants_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v0", "tenants", "lookup"}, ""))
 	pattern_TenantService_GetTenantMFAPolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "tenants", "tenant_id", "mfa-policy"}, ""))
-	pattern_TenantService_PutTenantMFAPolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "tenants", "tenant_id", "mfa-policy"}, ""))
+	pattern_TenantService_SetTenantMFAPolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"api", "v0", "tenants", "tenant_id", "mfa-policy"}, ""))
 )
 
 var (
@@ -1106,5 +1106,5 @@ var (
 	forward_TenantService_RemoveTenantUser_0   = runtime.ForwardResponseMessage
 	forward_TenantService_LookupTenants_0      = runtime.ForwardResponseMessage
 	forward_TenantService_GetTenantMFAPolicy_0 = runtime.ForwardResponseMessage
-	forward_TenantService_PutTenantMFAPolicy_0 = runtime.ForwardResponseMessage
+	forward_TenantService_SetTenantMFAPolicy_0 = runtime.ForwardResponseMessage
 )

@@ -54,11 +54,17 @@ message InviteMemberRequest {
 }
 
 message InviteMemberResponse {
-	// "invited": a membership: a new account at a tenant that does not require
-	// company sign-in, with a recovery link and code; or an account that is a
-	// member already, with neither. "pending": a pending invitation and no
-	// membership: an existing account that is not a member, or a new address
-	// at a REQUIRED tenant, which gets no account either.
+	// "invited": the address is a member of the tenant now.
+	//   - It had no account: one was created, and link and code let its owner
+	//     sign in for the first time. This happens only at a tenant that does
+	//     not require company sign-in.
+	//   - Its account was a member already: nothing changes, and link and code
+	//     are empty.
+	// "pending": the address has an invitation and is not a member yet. It
+	// becomes a member when its owner signs in to the tenant.
+	//   - It has an account that is not a member of the tenant.
+	//   - It has no account and the tenant requires company sign-in: no
+	//     account is created.
 	string status = 1;
 	// Recovery link and code: only for a new account at a tenant that does not
 	// require company sign-in. Empty otherwise (the membership alone, or a
@@ -162,13 +168,15 @@ message LookupTenantsRequest {
 }
 
 message LookupTenantsResponse {
-	// The account's personal tenant first.
+	// The account's personal tenant, when it has one, is always listed first.
 	repeated Tenant tenants = 1;
 }
 
-// Enforcement of a tenant's company sign-in. A tenant is OFF until its
-// enforcement is first written, and only OPTIONAL or REQUIRED can be written;
-// with no active binding it is off whatever it stores.
+// Enforcement says how strictly a tenant asks for its company sign-in while
+// it has an active binding. Without an active binding the tenant is OFF,
+// whatever value is stored. So OFF cannot be written: a tenant turns company
+// sign-in off by deactivating or removing its bindings. A tenant that never
+// wrote a policy reads OFF.
 enum Enforcement {
 	ENFORCEMENT_UNSPECIFIED = 0;
 	ENFORCEMENT_OFF = 1;
@@ -184,9 +192,10 @@ enum MFARequirement {
 	MFA_REQUIREMENT_REQUIRED = 2;
 }
 
-// SignInTenant is a tenant an address may sign in to, and how the address
-// relates to it. Enforcement, connections, the MFA requirement and domains
-// are not part of it.
+// SignInTenant is one entry of ListSignInTenants: a tenant that an address
+// can sign in to, with the reason when the address is not a member yet.
+// Enforcement, connections, the MFA requirement and domains are not part of
+// it.
 message SignInTenant {
 	Tenant tenant = 1;
 	// Not a membership: the tenant admits the address's domain through
@@ -221,8 +230,14 @@ message GetSignInContextRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	// At least one of email and identity_id. With identity_id the account's
 	// own address is used.
-	string email = 2;
-	string identity_id = 3;
+	string email = 2 [
+		(buf.validate.field).string.email = true,
+		(buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
+	];
+	string identity_id = 3 [
+		(buf.validate.field).string.uuid = true,
+		(buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
+	];
 }
 
 message SignInContext {
@@ -273,10 +288,10 @@ message GetTenantSSOPolicyResponse {
 	TenantSSOPolicy policy = 1;
 }
 
-// PutTenantSSOPolicyRequest is the part of the policy the tenant's admins
+// SetTenantSSOPolicyRequest is the part of the policy the tenant's admins
 // decide: enforcement, auto-join and the bindings. The domains are kept as
 // stored.
-message PutTenantSSOPolicyRequest {
+message SetTenantSSOPolicyRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	// OPTIONAL or REQUIRED.
 	Enforcement enforcement = 2 [(buf.validate.field).enum = {in: [2, 3]}];
@@ -285,7 +300,7 @@ message PutTenantSSOPolicyRequest {
 	repeated SSOBinding bindings = 4;
 }
 
-message PutTenantSSOPolicyResponse {
+message SetTenantSSOPolicyResponse {
 	TenantSSOPolicy policy = 1;
 }
 
@@ -294,7 +309,7 @@ message PutTenantSSOPolicyResponse {
 message SetTenantSSODomainsRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	// The whole set; empty clears it.
-	repeated string domains = 2;
+	repeated string domains = 2 [(buf.validate.field).repeated.max_items = 50];
 }
 
 message SetTenantSSODomainsResponse {
@@ -324,12 +339,12 @@ message GetTenantMFAPolicyResponse {
 	TenantMFAPolicy policy = 1;
 }
 
-message PutTenantMFAPolicyRequest {
+message SetTenantMFAPolicyRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
 	MFARequirement requirement = 2 [(buf.validate.field).enum = {in: [1, 2]}];
 }
 
-message PutTenantMFAPolicyResponse {
+message SetTenantMFAPolicyResponse {
 	TenantMFAPolicy policy = 1;
 }
 

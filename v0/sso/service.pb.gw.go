@@ -419,9 +419,9 @@ func local_request_SSOTenantAdminService_GetTenantSSOPolicy_0(ctx context.Contex
 	return msg, metadata, err
 }
 
-func request_SSOTenantAdminService_PutTenantSSOPolicy_0(ctx context.Context, marshaler runtime.Marshaler, client SSOTenantAdminServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_SSOTenantAdminService_SetTenantSSOPolicy_0(ctx context.Context, marshaler runtime.Marshaler, client SSOTenantAdminServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq PutTenantSSOPolicyRequest
+		protoReq SetTenantSSOPolicyRequest
 		metadata runtime.ServerMetadata
 		err      error
 	)
@@ -436,13 +436,13 @@ func request_SSOTenantAdminService_PutTenantSSOPolicy_0(ctx context.Context, mar
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenant_id", err)
 	}
-	msg, err := client.PutTenantSSOPolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.SetTenantSSOPolicy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 }
 
-func local_request_SSOTenantAdminService_PutTenantSSOPolicy_0(ctx context.Context, marshaler runtime.Marshaler, server SSOTenantAdminServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_SSOTenantAdminService_SetTenantSSOPolicy_0(ctx context.Context, marshaler runtime.Marshaler, server SSOTenantAdminServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq PutTenantSSOPolicyRequest
+		protoReq SetTenantSSOPolicyRequest
 		metadata runtime.ServerMetadata
 		err      error
 	)
@@ -457,7 +457,7 @@ func local_request_SSOTenantAdminService_PutTenantSSOPolicy_0(ctx context.Contex
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tenant_id", err)
 	}
-	msg, err := server.PutTenantSSOPolicy(ctx, &protoReq)
+	msg, err := server.SetTenantSSOPolicy(ctx, &protoReq)
 	return msg, metadata, err
 }
 
@@ -753,25 +753,25 @@ func RegisterSSOTenantAdminServiceHandlerServer(ctx context.Context, mux *runtim
 		}
 		forward_SSOTenantAdminService_GetTenantSSOPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPut, pattern_SSOTenantAdminService_PutTenantSSOPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_SSOTenantAdminService_SetTenantSSOPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.sso.SSOTenantAdminService/PutTenantSSOPolicy", runtime.WithHTTPPathPattern("/api/v0/sso/tenants/{tenant_id}/policy"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/identity.platform.api.sso.SSOTenantAdminService/SetTenantSSOPolicy", runtime.WithHTTPPathPattern("/api/v0/sso/tenants/{tenant_id}/policy"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_SSOTenantAdminService_PutTenantSSOPolicy_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_SSOTenantAdminService_SetTenantSSOPolicy_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_SSOTenantAdminService_PutTenantSSOPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SSOTenantAdminService_SetTenantSSOPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -1022,22 +1022,22 @@ func RegisterSSOTenantAdminServiceHandlerClient(ctx context.Context, mux *runtim
 		}
 		forward_SSOTenantAdminService_GetTenantSSOPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPut, pattern_SSOTenantAdminService_PutTenantSSOPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_SSOTenantAdminService_SetTenantSSOPolicy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.sso.SSOTenantAdminService/PutTenantSSOPolicy", runtime.WithHTTPPathPattern("/api/v0/sso/tenants/{tenant_id}/policy"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/identity.platform.api.sso.SSOTenantAdminService/SetTenantSSOPolicy", runtime.WithHTTPPathPattern("/api/v0/sso/tenants/{tenant_id}/policy"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_SSOTenantAdminService_PutTenantSSOPolicy_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_SSOTenantAdminService_SetTenantSSOPolicy_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		forward_SSOTenantAdminService_PutTenantSSOPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_SSOTenantAdminService_SetTenantSSOPolicy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 	return nil
 }
@@ -1050,7 +1050,7 @@ var (
 	pattern_SSOTenantAdminService_DeleteConnection_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6}, []string{"api", "v0", "sso", "tenants", "tenant_id", "connections", "connection_id"}, ""))
 	pattern_SSOTenantAdminService_StartTestLogin_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5, 1, 0, 4, 1, 5, 6, 2, 7}, []string{"api", "v0", "sso", "tenants", "tenant_id", "connections", "connection_id", "test-logins"}, ""))
 	pattern_SSOTenantAdminService_GetTenantSSOPolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "sso", "tenants", "tenant_id", "policy"}, ""))
-	pattern_SSOTenantAdminService_PutTenantSSOPolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "sso", "tenants", "tenant_id", "policy"}, ""))
+	pattern_SSOTenantAdminService_SetTenantSSOPolicy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"api", "v0", "sso", "tenants", "tenant_id", "policy"}, ""))
 )
 
 var (
@@ -1061,7 +1061,7 @@ var (
 	forward_SSOTenantAdminService_DeleteConnection_0   = runtime.ForwardResponseMessage
 	forward_SSOTenantAdminService_StartTestLogin_0     = runtime.ForwardResponseMessage
 	forward_SSOTenantAdminService_GetTenantSSOPolicy_0 = runtime.ForwardResponseMessage
-	forward_SSOTenantAdminService_PutTenantSSOPolicy_0 = runtime.ForwardResponseMessage
+	forward_SSOTenantAdminService_SetTenantSSOPolicy_0 = runtime.ForwardResponseMessage
 )
 
 // RegisterSSOPlatformAdminServiceHandlerFromEndpoint is same as RegisterSSOPlatformAdminServiceHandler but

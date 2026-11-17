@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SSOSignInService_ListOptions_FullMethodName     = "/identity.platform.api.sso.SSOSignInService/ListOptions"
-	SSOSignInService_StartAttempt_FullMethodName    = "/identity.platform.api.sso.SSOSignInService/StartAttempt"
-	SSOSignInService_CompleteAttempt_FullMethodName = "/identity.platform.api.sso.SSOSignInService/CompleteAttempt"
-	SSOSignInService_ListLinks_FullMethodName       = "/identity.platform.api.sso.SSOSignInService/ListLinks"
-	SSOSignInService_DeleteLink_FullMethodName      = "/identity.platform.api.sso.SSOSignInService/DeleteLink"
+	SSOSignInService_ListOptions_FullMethodName   = "/identity.platform.api.sso.SSOSignInService/ListOptions"
+	SSOSignInService_StartAttempt_FullMethodName  = "/identity.platform.api.sso.SSOSignInService/StartAttempt"
+	SSOSignInService_VerifyAttempt_FullMethodName = "/identity.platform.api.sso.SSOSignInService/VerifyAttempt"
+	SSOSignInService_ListLinks_FullMethodName     = "/identity.platform.api.sso.SSOSignInService/ListLinks"
+	SSOSignInService_DeleteLink_FullMethodName    = "/identity.platform.api.sso.SSOSignInService/DeleteLink"
 )
 
 // SSOSignInServiceClient is the client API for SSOSignInService service.
@@ -37,7 +37,7 @@ type SSOSignInServiceClient interface {
 	// stored); refuses a connection that is not TESTED (NOT_APPLICABLE). No
 	// remote calls.
 	StartAttempt(ctx context.Context, in *StartAttemptRequest, opts ...grpc.CallOption) (*StartAttemptResponse, error)
-	// CompleteAttempt confirms that the attempt ended at this account, in the
+	// VerifyAttempt confirms that the attempt ended at this account, in the
 	// browser that presents it: the ticket is unexpired, the account has the
 	// ticket's address and holds a link to the ticket's connection
 	// (byo-sso:<connection_id>:<subject>), read from Kratos, which wrote it
@@ -46,7 +46,7 @@ type SSOSignInServiceClient interface {
 	// this ticket as that subject. Nothing is stored or written: a repeat
 	// returns the same answer; an expired ticket, another account or no such
 	// receipt, NOT_APPLICABLE.
-	CompleteAttempt(ctx context.Context, in *CompleteAttemptRequest, opts ...grpc.CallOption) (*CompleteAttemptResponse, error)
+	VerifyAttempt(ctx context.Context, in *VerifyAttemptRequest, opts ...grpc.CallOption) (*VerifyAttemptResponse, error)
 	// ListLinks reads the account's byo-sso identifiers from Kratos; those of
 	// deleted connections are ignored.
 	ListLinks(ctx context.Context, in *ListLinksRequest, opts ...grpc.CallOption) (*ListLinksResponse, error)
@@ -81,9 +81,9 @@ func (c *sSOSignInServiceClient) StartAttempt(ctx context.Context, in *StartAtte
 	return out, nil
 }
 
-func (c *sSOSignInServiceClient) CompleteAttempt(ctx context.Context, in *CompleteAttemptRequest, opts ...grpc.CallOption) (*CompleteAttemptResponse, error) {
-	out := new(CompleteAttemptResponse)
-	err := c.cc.Invoke(ctx, SSOSignInService_CompleteAttempt_FullMethodName, in, out, opts...)
+func (c *sSOSignInServiceClient) VerifyAttempt(ctx context.Context, in *VerifyAttemptRequest, opts ...grpc.CallOption) (*VerifyAttemptResponse, error) {
+	out := new(VerifyAttemptResponse)
+	err := c.cc.Invoke(ctx, SSOSignInService_VerifyAttempt_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ type SSOSignInServiceServer interface {
 	// stored); refuses a connection that is not TESTED (NOT_APPLICABLE). No
 	// remote calls.
 	StartAttempt(context.Context, *StartAttemptRequest) (*StartAttemptResponse, error)
-	// CompleteAttempt confirms that the attempt ended at this account, in the
+	// VerifyAttempt confirms that the attempt ended at this account, in the
 	// browser that presents it: the ticket is unexpired, the account has the
 	// ticket's address and holds a link to the ticket's connection
 	// (byo-sso:<connection_id>:<subject>), read from Kratos, which wrote it
@@ -128,7 +128,7 @@ type SSOSignInServiceServer interface {
 	// this ticket as that subject. Nothing is stored or written: a repeat
 	// returns the same answer; an expired ticket, another account or no such
 	// receipt, NOT_APPLICABLE.
-	CompleteAttempt(context.Context, *CompleteAttemptRequest) (*CompleteAttemptResponse, error)
+	VerifyAttempt(context.Context, *VerifyAttemptRequest) (*VerifyAttemptResponse, error)
 	// ListLinks reads the account's byo-sso identifiers from Kratos; those of
 	// deleted connections are ignored.
 	ListLinks(context.Context, *ListLinksRequest) (*ListLinksResponse, error)
@@ -148,8 +148,8 @@ func (UnimplementedSSOSignInServiceServer) ListOptions(context.Context, *ListOpt
 func (UnimplementedSSOSignInServiceServer) StartAttempt(context.Context, *StartAttemptRequest) (*StartAttemptResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartAttempt not implemented")
 }
-func (UnimplementedSSOSignInServiceServer) CompleteAttempt(context.Context, *CompleteAttemptRequest) (*CompleteAttemptResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CompleteAttempt not implemented")
+func (UnimplementedSSOSignInServiceServer) VerifyAttempt(context.Context, *VerifyAttemptRequest) (*VerifyAttemptResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyAttempt not implemented")
 }
 func (UnimplementedSSOSignInServiceServer) ListLinks(context.Context, *ListLinksRequest) (*ListLinksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListLinks not implemented")
@@ -206,20 +206,20 @@ func _SSOSignInService_StartAttempt_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SSOSignInService_CompleteAttempt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CompleteAttemptRequest)
+func _SSOSignInService_VerifyAttempt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyAttemptRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SSOSignInServiceServer).CompleteAttempt(ctx, in)
+		return srv.(SSOSignInServiceServer).VerifyAttempt(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SSOSignInService_CompleteAttempt_FullMethodName,
+		FullMethod: SSOSignInService_VerifyAttempt_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SSOSignInServiceServer).CompleteAttempt(ctx, req.(*CompleteAttemptRequest))
+		return srv.(SSOSignInServiceServer).VerifyAttempt(ctx, req.(*VerifyAttemptRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -276,8 +276,8 @@ var SSOSignInService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SSOSignInService_StartAttempt_Handler,
 		},
 		{
-			MethodName: "CompleteAttempt",
-			Handler:    _SSOSignInService_CompleteAttempt_Handler,
+			MethodName: "VerifyAttempt",
+			Handler:    _SSOSignInService_VerifyAttempt_Handler,
 		},
 		{
 			MethodName: "ListLinks",
@@ -300,7 +300,7 @@ const (
 	SSOTenantAdminService_DeleteConnection_FullMethodName   = "/identity.platform.api.sso.SSOTenantAdminService/DeleteConnection"
 	SSOTenantAdminService_StartTestLogin_FullMethodName     = "/identity.platform.api.sso.SSOTenantAdminService/StartTestLogin"
 	SSOTenantAdminService_GetTenantSSOPolicy_FullMethodName = "/identity.platform.api.sso.SSOTenantAdminService/GetTenantSSOPolicy"
-	SSOTenantAdminService_PutTenantSSOPolicy_FullMethodName = "/identity.platform.api.sso.SSOTenantAdminService/PutTenantSSOPolicy"
+	SSOTenantAdminService_SetTenantSSOPolicy_FullMethodName = "/identity.platform.api.sso.SSOTenantAdminService/SetTenantSSOPolicy"
 )
 
 // SSOTenantAdminServiceClient is the client API for SSOTenantAdminService service.
@@ -328,8 +328,8 @@ type SSOTenantAdminServiceClient interface {
 	StartTestLogin(ctx context.Context, in *StartTestLoginRequest, opts ...grpc.CallOption) (*StartTestLoginResponse, error)
 	// GetTenantSSOPolicy: the tenant's SSO policy, domains included.
 	GetTenantSSOPolicy(ctx context.Context, in *GetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*GetTenantSSOPolicyResponse, error)
-	// PutTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
-	PutTenantSSOPolicy(ctx context.Context, in *PutTenantSSOPolicyRequest, opts ...grpc.CallOption) (*PutTenantSSOPolicyResponse, error)
+	// SetTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
+	SetTenantSSOPolicy(ctx context.Context, in *SetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*SetTenantSSOPolicyResponse, error)
 }
 
 type sSOTenantAdminServiceClient struct {
@@ -403,9 +403,9 @@ func (c *sSOTenantAdminServiceClient) GetTenantSSOPolicy(ctx context.Context, in
 	return out, nil
 }
 
-func (c *sSOTenantAdminServiceClient) PutTenantSSOPolicy(ctx context.Context, in *PutTenantSSOPolicyRequest, opts ...grpc.CallOption) (*PutTenantSSOPolicyResponse, error) {
-	out := new(PutTenantSSOPolicyResponse)
-	err := c.cc.Invoke(ctx, SSOTenantAdminService_PutTenantSSOPolicy_FullMethodName, in, out, opts...)
+func (c *sSOTenantAdminServiceClient) SetTenantSSOPolicy(ctx context.Context, in *SetTenantSSOPolicyRequest, opts ...grpc.CallOption) (*SetTenantSSOPolicyResponse, error) {
+	out := new(SetTenantSSOPolicyResponse)
+	err := c.cc.Invoke(ctx, SSOTenantAdminService_SetTenantSSOPolicy_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -437,8 +437,8 @@ type SSOTenantAdminServiceServer interface {
 	StartTestLogin(context.Context, *StartTestLoginRequest) (*StartTestLoginResponse, error)
 	// GetTenantSSOPolicy: the tenant's SSO policy, domains included.
 	GetTenantSSOPolicy(context.Context, *GetTenantSSOPolicyRequest) (*GetTenantSSOPolicyResponse, error)
-	// PutTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
-	PutTenantSSOPolicy(context.Context, *PutTenantSSOPolicyRequest) (*PutTenantSSOPolicyResponse, error)
+	// SetTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
+	SetTenantSSOPolicy(context.Context, *SetTenantSSOPolicyRequest) (*SetTenantSSOPolicyResponse, error)
 	mustEmbedUnimplementedSSOTenantAdminServiceServer()
 }
 
@@ -467,8 +467,8 @@ func (UnimplementedSSOTenantAdminServiceServer) StartTestLogin(context.Context, 
 func (UnimplementedSSOTenantAdminServiceServer) GetTenantSSOPolicy(context.Context, *GetTenantSSOPolicyRequest) (*GetTenantSSOPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTenantSSOPolicy not implemented")
 }
-func (UnimplementedSSOTenantAdminServiceServer) PutTenantSSOPolicy(context.Context, *PutTenantSSOPolicyRequest) (*PutTenantSSOPolicyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PutTenantSSOPolicy not implemented")
+func (UnimplementedSSOTenantAdminServiceServer) SetTenantSSOPolicy(context.Context, *SetTenantSSOPolicyRequest) (*SetTenantSSOPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetTenantSSOPolicy not implemented")
 }
 func (UnimplementedSSOTenantAdminServiceServer) mustEmbedUnimplementedSSOTenantAdminServiceServer() {}
 
@@ -609,20 +609,20 @@ func _SSOTenantAdminService_GetTenantSSOPolicy_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SSOTenantAdminService_PutTenantSSOPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PutTenantSSOPolicyRequest)
+func _SSOTenantAdminService_SetTenantSSOPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTenantSSOPolicyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SSOTenantAdminServiceServer).PutTenantSSOPolicy(ctx, in)
+		return srv.(SSOTenantAdminServiceServer).SetTenantSSOPolicy(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SSOTenantAdminService_PutTenantSSOPolicy_FullMethodName,
+		FullMethod: SSOTenantAdminService_SetTenantSSOPolicy_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SSOTenantAdminServiceServer).PutTenantSSOPolicy(ctx, req.(*PutTenantSSOPolicyRequest))
+		return srv.(SSOTenantAdminServiceServer).SetTenantSSOPolicy(ctx, req.(*SetTenantSSOPolicyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -663,8 +663,8 @@ var SSOTenantAdminService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SSOTenantAdminService_GetTenantSSOPolicy_Handler,
 		},
 		{
-			MethodName: "PutTenantSSOPolicy",
-			Handler:    _SSOTenantAdminService_PutTenantSSOPolicy_Handler,
+			MethodName: "SetTenantSSOPolicy",
+			Handler:    _SSOTenantAdminService_SetTenantSSOPolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
