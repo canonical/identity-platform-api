@@ -3611,12 +3611,12 @@
       },
       "put": {
         "summary": "Set a tenant's SSO policy",
-        "operationId": "SSOTenantAdminService_PutTenantSSOPolicy",
+        "operationId": "SSOTenantAdminService_SetTenantSSOPolicy",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/apissoPutTenantSSOPolicyResponse"
+              "$ref": "#/definitions/apissoSetTenantSSOPolicyResponse"
             }
           },
           "400": {
@@ -3662,7 +3662,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ssoSSOTenantAdminServicePutTenantSSOPolicyBody"
+              "$ref": "#/definitions/ssoSSOTenantAdminServiceSetTenantSSOPolicyBody"
             }
           }
         ],
@@ -4635,12 +4635,12 @@
       "put": {
         "summary": "Set the MFA policy of a tenant",
         "description": "Last write wins; the change is audited.",
-        "operationId": "TenantService_PutTenantMFAPolicy",
+        "operationId": "TenantService_SetTenantMFAPolicy",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/tenantPutTenantMFAPolicyResponse"
+              "$ref": "#/definitions/tenantSetTenantMFAPolicyResponse"
             }
           },
           "400": {
@@ -4692,7 +4692,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/TenantServicePutTenantMFAPolicyBody"
+              "$ref": "#/definitions/TenantServiceSetTenantMFAPolicyBody"
             }
           }
         ],
@@ -4751,7 +4751,7 @@
         }
       }
     },
-    "TenantServicePutTenantMFAPolicyBody": {
+    "TenantServiceSetTenantMFAPolicyBody": {
       "type": "object",
       "properties": {
         "requirement": {
@@ -5010,7 +5010,7 @@
         }
       }
     },
-    "apissoPutTenantSSOPolicyResponse": {
+    "apissoSetTenantSSOPolicyResponse": {
       "type": "object",
       "properties": {
         "policy": {
@@ -5038,7 +5038,7 @@
         }
       }
     },
-    "apitenantPutTenantSSOPolicyResponse": {
+    "apitenantSetTenantSSOPolicyResponse": {
       "type": "object",
       "properties": {
         "policy": {
@@ -6601,17 +6601,6 @@
         }
       }
     },
-    "ssoCompleteAttemptResponse": {
-      "type": "object",
-      "properties": {
-        "connection_id": {
-          "type": "string"
-        },
-        "tenant_id": {
-          "type": "string"
-        }
-      }
-    },
     "ssoConnection": {
       "type": "object",
       "properties": {
@@ -6637,13 +6626,13 @@
         "created_by": {
           "type": "string"
         },
-        "create_time": {
+        "created_at": {
           "type": "string"
         },
-        "update_time": {
+        "updated_at": {
           "type": "string"
         },
-        "test_time": {
+        "tested_at": {
           "type": "string"
         },
         "redirect_uri": {
@@ -6792,23 +6781,23 @@
         }
       }
     },
-    "ssoSSOTenantAdminServicePutTenantSSOPolicyBody": {
+    "ssoSSOTenantAdminServiceSetTenantSSOPolicyBody": {
       "type": "object",
       "properties": {
+        "enforcement": {
+          "$ref": "#/definitions/tenantEnforcement",
+          "description": "OPTIONAL or REQUIRED."
+        },
+        "auto_join": {
+          "type": "boolean"
+        },
         "bindings": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/tenantSSOBinding"
           },
-          "description": "Only connections the tenant owns."
-        },
-        "enforcement": {
-          "$ref": "#/definitions/tenantEnforcement"
-        },
-        "auto_join": {
-          "type": "boolean",
-          "description": "Domains are kept as stored: platform admins set them\n(SSOPlatformAdminService.SetTenantDomains)."
+          "description": "The whole set; only connections the tenant owns. Domains are kept as\nstored: platform admins set them (SSOPlatformAdminService.SetTenantDomains)."
         }
       }
     },
@@ -6834,7 +6823,7 @@
       "properties": {
         "url": {
           "type": "string",
-          "description": "Open in a browser; sent to the IdP with prompt=login and max_age=0. The\npage it ends on shows the result, and a success turns the connection\nTESTED."
+          "description": "Open in a browser. The page it ends on shows the result, and a success\nturns the connection TESTED."
         }
       }
     },
@@ -6843,6 +6832,17 @@
       "properties": {
         "connection": {
           "$ref": "#/definitions/ssoConnection"
+        }
+      }
+    },
+    "ssoVerifyAttemptResponse": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string"
+        },
+        "tenant_id": {
+          "type": "string"
         }
       }
     },
@@ -6905,7 +6905,7 @@
         "ENFORCEMENT_REQUIRED"
       ],
       "default": "ENFORCEMENT_UNSPECIFIED",
-      "description": "Enforcement of a tenant's company sign-in. A tenant is OFF until its\nenforcement is first written, and only OPTIONAL or REQUIRED can be written;\nwith no active binding it is off whatever it stores."
+      "description": "Enforcement says how strictly a tenant asks for its company sign-in while\nit has an active binding. Without an active binding the tenant is OFF,\nwhatever value is stored. So OFF cannot be written: a tenant turns company\nsign-in off by deactivating or removing its bindings. A tenant that never\nwrote a policy reads OFF."
     },
     "tenantGetSignInContextResponse": {
       "type": "object",
@@ -6929,7 +6929,7 @@
       "properties": {
         "status": {
           "type": "string",
-          "description": "\"invited\": a membership: a new account at a tenant that does not require\ncompany sign-in, with a recovery link and code; or an account that is a\nmember already, with neither. \"pending\": a pending invitation and no\nmembership: an existing account that is not a member, or a new address\nat a REQUIRED tenant, which gets no account either."
+          "description": "\"invited\": the address is a member of the tenant now.\n  - It had no account: one was created, and link and code let its owner\n    sign in for the first time. This happens only at a tenant that does\n    not require company sign-in.\n  - Its account was a member already: nothing changes, and link and code\n    are empty.\n\"pending\": the address has an invitation and is not a member yet. It\nbecomes a member when its owner signs in to the tenant.\n  - It has an account that is not a member of the tenant.\n  - It has no account and the tenant requires company sign-in: no\n    account is created."
         },
         "link": {
           "type": "string",
@@ -7019,7 +7019,7 @@
             "type": "object",
             "$ref": "#/definitions/tenantTenant"
           },
-          "description": "The account's personal tenant first."
+          "description": "The account's personal tenant, when it has one, is always listed first."
         }
       }
     },
@@ -7041,14 +7041,6 @@
         }
       }
     },
-    "tenantPutTenantMFAPolicyResponse": {
-      "type": "object",
-      "properties": {
-        "policy": {
-          "$ref": "#/definitions/tenantTenantMFAPolicy"
-        }
-      }
-    },
     "tenantRemoveTenantSSOBindingResponse": {
       "type": "object"
     },
@@ -7064,6 +7056,14 @@
         "active": {
           "type": "boolean",
           "description": "In use for this tenant: members see it and it counts for REQUIRED."
+        }
+      }
+    },
+    "tenantSetTenantMFAPolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/tenantTenantMFAPolicy"
         }
       }
     },
@@ -7124,7 +7124,7 @@
           "description": "Not a membership: a pending invitation of the address to this tenant.\nThe address may have no account yet; its first company sign-in there\ncreates the account (Kratos) and the membership."
         }
       },
-      "description": "SignInTenant is a tenant an address may sign in to, and how the address\nrelates to it. Enforcement, connections, the MFA requirement and domains\nare not part of it."
+      "description": "SignInTenant is one entry of ListSignInTenants: a tenant that an address\ncan sign in to, with the reason when the address is not a member yet.\nEnforcement, connections, the MFA requirement and domains are not part of\nit."
     },
     "tenantTenant": {
       "type": "object",

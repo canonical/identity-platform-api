@@ -31,7 +31,7 @@ components:
                 email:
                     type: string
             type: object
-        TenantServicePutTenantMFAPolicyBody:
+        TenantServiceSetTenantMFAPolicyBody:
             properties:
                 requirement:
                     $ref: '#/components/schemas/tenantMFARequirement'
@@ -198,7 +198,7 @@ components:
                 policy:
                     $ref: '#/components/schemas/tenantTenantSSOPolicy'
             type: object
-        apissoPutTenantSSOPolicyResponse:
+        apissoSetTenantSSOPolicyResponse:
             properties:
                 policy:
                     $ref: '#/components/schemas/tenantTenantSSOPolicy'
@@ -215,7 +215,7 @@ components:
                 policy:
                     $ref: '#/components/schemas/tenantTenantSSOPolicy'
             type: object
-        apitenantPutTenantSSOPolicyResponse:
+        apitenantSetTenantSSOPolicyResponse:
             properties:
                 policy:
                     $ref: '#/components/schemas/tenantTenantSSOPolicy'
@@ -1361,13 +1361,6 @@ components:
                     format: int32
                     type: integer
             type: object
-        ssoCompleteAttemptResponse:
-            properties:
-                connection_id:
-                    type: string
-                tenant_id:
-                    type: string
-            type: object
         ssoConnection:
             description: |-
                 Connection is a tenant's registration of its OIDC identity provider. The
@@ -1375,7 +1368,7 @@ components:
             properties:
                 client_id:
                     type: string
-                create_time:
+                created_at:
                     type: string
                 created_by:
                     type: string
@@ -1394,9 +1387,9 @@ components:
                     type: string
                 status:
                     $ref: '#/components/schemas/ssoConnectionStatus'
-                test_time:
+                tested_at:
                     type: string
-                update_time:
+                updated_at:
                     type: string
             type: object
         ssoConnectionStatus:
@@ -1490,15 +1483,14 @@ components:
                 label:
                     type: string
             type: object
-        ssoSSOTenantAdminServicePutTenantSSOPolicyBody:
+        ssoSSOTenantAdminServiceSetTenantSSOPolicyBody:
             properties:
                 auto_join:
-                    description: |-
-                        Domains are kept as stored: platform admins set them
-                        (SSOPlatformAdminService.SetTenantDomains).
                     type: boolean
                 bindings:
-                    description: Only connections the tenant owns.
+                    description: |-
+                        The whole set; only connections the tenant owns. Domains are kept as
+                        stored: platform admins set them (SSOPlatformAdminService.SetTenantDomains).
                     items:
                         $ref: '#/components/schemas/tenantSSOBinding'
                     type: array
@@ -1522,15 +1514,21 @@ components:
             properties:
                 url:
                     description: |-
-                        Open in a browser; sent to the IdP with prompt=login and max_age=0. The
-                        page it ends on shows the result, and a success turns the connection
-                        TESTED.
+                        Open in a browser. The page it ends on shows the result, and a success
+                        turns the connection TESTED.
                     type: string
             type: object
         ssoUpdateConnectionResponse:
             properties:
                 connection:
                     $ref: '#/components/schemas/ssoConnection'
+            type: object
+        ssoVerifyAttemptResponse:
+            properties:
+                connection_id:
+                    type: string
+                tenant_id:
+                    type: string
             type: object
         statusBuildInfo:
             properties:
@@ -1567,9 +1565,11 @@ components:
         tenantEnforcement:
             default: ENFORCEMENT_UNSPECIFIED
             description: |-
-                Enforcement of a tenant's company sign-in. A tenant is OFF until its
-                enforcement is first written, and only OPTIONAL or REQUIRED can be written;
-                with no active binding it is off whatever it stores.
+                Enforcement says how strictly a tenant asks for its company sign-in while
+                it has an active binding. Without an active binding the tenant is OFF,
+                whatever value is stored. So OFF cannot be written: a tenant turns company
+                sign-in off by deactivating or removing its bindings. A tenant that never
+                wrote a policy reads OFF.
             enum:
                 - ENFORCEMENT_UNSPECIFIED
                 - ENFORCEMENT_OFF
@@ -1598,11 +1598,17 @@ components:
                     type: string
                 status:
                     description: |-
-                        "invited": a membership: a new account at a tenant that does not require
-                        company sign-in, with a recovery link and code; or an account that is a
-                        member already, with neither. "pending": a pending invitation and no
-                        membership: an existing account that is not a member, or a new address
-                        at a REQUIRED tenant, which gets no account either.
+                        "invited": the address is a member of the tenant now.
+                          - It had no account: one was created, and link and code let its owner
+                            sign in for the first time. This happens only at a tenant that does
+                            not require company sign-in.
+                          - Its account was a member already: nothing changes, and link and code
+                            are empty.
+                        "pending": the address has an invitation and is not a member yet. It
+                        becomes a member when its owner signs in to the tenant.
+                          - It has an account that is not a member of the tenant.
+                          - It has no account and the tenant requires company sign-in: no
+                            account is created.
                     type: string
             type: object
         tenantJoinTenantResponse:
@@ -1653,7 +1659,7 @@ components:
         tenantLookupTenantsResponse:
             properties:
                 tenants:
-                    description: The account's personal tenant first.
+                    description: The account's personal tenant, when it has one, is always listed first.
                     items:
                         $ref: '#/components/schemas/tenantTenant'
                     type: array
@@ -1673,11 +1679,6 @@ components:
                 status:
                     type: string
             type: object
-        tenantPutTenantMFAPolicyResponse:
-            properties:
-                policy:
-                    $ref: '#/components/schemas/tenantTenantMFAPolicy'
-            type: object
         tenantRemoveTenantSSOBindingResponse:
             type: object
         tenantRemoveTenantUserResponse:
@@ -1689,6 +1690,11 @@ components:
                     type: boolean
                 connection_id:
                     type: string
+            type: object
+        tenantSetTenantMFAPolicyResponse:
+            properties:
+                policy:
+                    $ref: '#/components/schemas/tenantTenantMFAPolicy'
             type: object
         tenantSetTenantSSODomainsResponse:
             properties:
@@ -1727,9 +1733,10 @@ components:
             type: object
         tenantSignInTenant:
             description: |-
-                SignInTenant is a tenant an address may sign in to, and how the address
-                relates to it. Enforcement, connections, the MFA requirement and domains
-                are not part of it.
+                SignInTenant is one entry of ListSignInTenants: a tenant that an address
+                can sign in to, with the reason when the address is not a member yet.
+                Enforcement, connections, the MFA requirement and domains are not part of
+                it.
             properties:
                 auto_join_candidate:
                     description: |-
@@ -5189,7 +5196,7 @@ paths:
             tags:
                 - SSOTenantAdminService
         put:
-            operationId: SSOTenantAdminService_PutTenantSSOPolicy
+            operationId: SSOTenantAdminService_SetTenantSSOPolicy
             parameters:
                 - in: path
                   name: tenant_id
@@ -5200,7 +5207,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/ssoSSOTenantAdminServicePutTenantSSOPolicyBody'
+                            $ref: '#/components/schemas/ssoSSOTenantAdminServiceSetTenantSSOPolicyBody'
                 required: true
                 x-originalParamName: body
             responses:
@@ -5208,7 +5215,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/apissoPutTenantSSOPolicyResponse'
+                                $ref: '#/components/schemas/apissoSetTenantSSOPolicyResponse'
                     description: ""
                 "400":
                     content:
@@ -5552,7 +5559,7 @@ paths:
                 - TenantService
         put:
             description: Last write wins; the change is audited.
-            operationId: TenantService_PutTenantMFAPolicy
+            operationId: TenantService_SetTenantMFAPolicy
             parameters:
                 - in: path
                   name: tenant_id
@@ -5563,7 +5570,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/TenantServicePutTenantMFAPolicyBody'
+                            $ref: '#/components/schemas/TenantServiceSetTenantMFAPolicyBody'
                 required: true
                 x-originalParamName: body
             responses:
@@ -5571,7 +5578,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/tenantPutTenantMFAPolicyResponse'
+                                $ref: '#/components/schemas/tenantSetTenantMFAPolicyResponse'
                     description: ""
                 "400":
                     content:

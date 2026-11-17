@@ -23,7 +23,7 @@ service SSOSignInService {
   // remote calls.
   rpc StartAttempt(StartAttemptRequest) returns (StartAttemptResponse) {}
 
-  // CompleteAttempt confirms that the attempt ended at this account, in the
+  // VerifyAttempt confirms that the attempt ended at this account, in the
   // browser that presents it: the ticket is unexpired, the account has the
   // ticket's address and holds a link to the ticket's connection
   // (byo-sso:<connection_id>:<subject>), read from Kratos, which wrote it
@@ -32,7 +32,7 @@ service SSOSignInService {
   // this ticket as that subject. Nothing is stored or written: a repeat
   // returns the same answer; an expired ticket, another account or no such
   // receipt, NOT_APPLICABLE.
-  rpc CompleteAttempt(CompleteAttemptRequest) returns (CompleteAttemptResponse) {}
+  rpc VerifyAttempt(VerifyAttemptRequest) returns (VerifyAttemptResponse) {}
 
   // ListLinks reads the account's byo-sso identifiers from Kratos; those of
   // deleted connections are ignored.
@@ -59,10 +59,10 @@ service SSOSignInService {
 //     RPCs, for a personal tenant.
 //   IDP_CHECK_FAILED (FAILED_PRECONDITION): StartTestLogin, when the
 //     identity provider cannot be used as the connection describes it.
-//   CONNECTION_NOT_TESTED (FAILED_PRECONDITION): PutTenantSSOPolicy, an active
+//   CONNECTION_NOT_TESTED (FAILED_PRECONDITION): SetTenantSSOPolicy, an active
 //     binding to a connection that is not TESTED.
 //   REQUIRED_NEEDS_ACTIVE_BINDING, AUTO_JOIN_NEEDS_REQUIRED_AND_DOMAINS
-//     (FAILED_PRECONDITION): PutTenantSSOPolicy and DeleteConnection.
+//     (FAILED_PRECONDITION): SetTenantSSOPolicy and DeleteConnection.
 service SSOTenantAdminService {
   // ListConnections: the connections the tenant owns.
   rpc ListConnections(ListConnectionsRequest) returns (ListConnectionsResponse) {
@@ -595,8 +595,8 @@ service SSOTenantAdminService {
     };
   }
 
-  // PutTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
-  rpc PutTenantSSOPolicy(PutTenantSSOPolicyRequest) returns (PutTenantSSOPolicyResponse) {
+  // SetTenantSSOPolicy: bindings, enforcement and auto-join; domains are kept.
+  rpc SetTenantSSOPolicy(SetTenantSSOPolicyRequest) returns (SetTenantSSOPolicyResponse) {
     option (google.api.http) = {
       put: "/api/v0/sso/tenants/{tenant_id}/policy"
       body: "*"
@@ -609,7 +609,7 @@ service SSOTenantAdminService {
         value: {
           schema: {
             json_schema: {
-              ref: ".identity.platform.api.sso.PutTenantSSOPolicyResponse"
+              ref: ".identity.platform.api.sso.SetTenantSSOPolicyResponse"
             }
           }
         }
