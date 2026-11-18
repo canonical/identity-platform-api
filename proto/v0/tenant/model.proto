@@ -228,8 +228,8 @@ message CreatePersonalTenantResponse {
 
 message GetSignInContextRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
-	// At least one of email and identity_id. With identity_id the account's
-	// own address is used.
+	// At least one of email and identity_id. When both are set, identity_id
+	// wins: the account's own address is used and email is ignored.
 	string email = 2 [
 		(buf.validate.field).string.email = true,
 		(buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
@@ -243,6 +243,8 @@ message GetSignInContextRequest {
 message SignInContext {
 	// The account is a member of this tenant.
 	bool member = 1;
+	// The effective value: OFF when the tenant has no active binding,
+	// whatever TenantSSOPolicy.enforcement stores.
 	Enforcement enforcement = 2;
 	// Active bindings whose connection applies to the address (within the
 	// tenant's domains when it lists any).
@@ -296,8 +298,10 @@ message SetTenantSSOPolicyRequest {
 	// OPTIONAL or REQUIRED.
 	Enforcement enforcement = 2 [(buf.validate.field).enum = {in: [2, 3]}];
 	bool auto_join = 3;
-	// The whole set; with none the tenant is OFF.
-	repeated SSOBinding bindings = 4;
+	// The whole set; with none the tenant is OFF. At most 5: this is the
+	// tenant service's limit of bindings for one tenant, repeated here so
+	// that a client can read it. The service enforces it too.
+	repeated SSOBinding bindings = 4 [(buf.validate.field).repeated.max_items = 5];
 }
 
 message SetTenantSSOPolicyResponse {
@@ -308,8 +312,13 @@ message SetTenantSSOPolicyResponse {
 // domains. Enforcement, auto-join and the bindings are kept as stored.
 message SetTenantSSODomainsRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
-	// The whole set; empty clears it.
-	repeated string domains = 2 [(buf.validate.field).repeated.max_items = 50];
+	// The whole set; empty clears it. At most 50, and none empty: these are
+	// the tenant service's limits, repeated here so that a client can read
+	// them. The service enforces them too, and it checks each domain's syntax.
+	repeated string domains = 2 [(buf.validate.field).repeated = {
+		max_items: 50,
+		items: {string: {min_len: 1, max_len: 255}}
+	}];
 }
 
 message SetTenantSSODomainsResponse {

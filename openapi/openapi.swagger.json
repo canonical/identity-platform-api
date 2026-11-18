@@ -3540,14 +3540,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SSOTenantAdminServiceStartTestLoginBody"
-            }
           }
         ],
         "tags": [
@@ -4634,7 +4626,7 @@
       },
       "put": {
         "summary": "Set the MFA policy of a tenant",
-        "description": "Last write wins; the change is audited.",
+        "description": "Last write wins; the change is audited. Also for a personal tenant.",
         "operationId": "TenantService_SetTenantMFAPolicy",
         "responses": {
           "200": {
@@ -4668,7 +4660,7 @@
             }
           },
           "409": {
-            "description": "Conflict",
+            "description": "Conflict: another request is changing the tenant; try again",
             "schema": {
               "$ref": "#/definitions/typesErrorResponse"
             }
@@ -4711,7 +4703,7 @@
           "items": {
             "type": "string"
           },
-          "description": "After their ownership was checked outside the portal."
+          "description": "After their ownership was checked outside the portal. The limits are\nthe tenant service's: see its SetTenantSSODomainsRequest."
         }
       }
     },
@@ -4731,9 +4723,6 @@
           "type": "string"
         }
       }
-    },
-    "SSOTenantAdminServiceStartTestLoginBody": {
-      "type": "object"
     },
     "TenantServiceInviteMemberBody": {
       "type": "object",
@@ -6662,7 +6651,7 @@
           "type": "string"
         }
       },
-      "description": "ConnectionUpdate carries the fields UpdateConnection may change."
+      "description": "ConnectionUpdate carries the fields UpdateConnection may change. A field\nthat update_mask names must not be empty."
     },
     "ssoCreateConnectionResponse": {
       "type": "object",
@@ -6797,7 +6786,7 @@
             "type": "object",
             "$ref": "#/definitions/tenantSSOBinding"
           },
-          "description": "The whole set; only connections the tenant owns. Domains are kept as\nstored: platform admins set them (SSOPlatformAdminService.SetTenantDomains)."
+          "description": "The whole set; only connections the tenant owns. Domains are kept as\nstored: platform admins set them (SSOPlatformAdminService.SetTenantDomains).\nThe limit is the tenant service's: see its SetTenantSSOPolicyRequest."
         }
       }
     },
@@ -7083,7 +7072,8 @@
           "description": "The account is a member of this tenant."
         },
         "enforcement": {
-          "$ref": "#/definitions/tenantEnforcement"
+          "$ref": "#/definitions/tenantEnforcement",
+          "description": "The effective value: OFF when the tenant has no active binding,\nwhatever TenantSSOPolicy.enforcement stores."
         },
         "connection_ids": {
           "type": "array",

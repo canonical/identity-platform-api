@@ -11,7 +11,9 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 // google.rpc.ErrorInfo detail (domain "tenant-service"), over HTTP the
 // message begins with "<REASON>: ". The reasons, with their status codes:
 //   PERSONAL_TENANT (FAILED_PRECONDITION): InviteMember, ProvisionUser and
-//     RemoveTenantUser on a personal tenant; the SSO-policy RPCs on one.
+//     RemoveTenantUser on a personal tenant; GetTenantSSOPolicy and the
+//     SSO-policy writes on one. Not the MFA-policy RPCs: a personal tenant
+//     has an MFA policy.
 //   DOMAIN_NOT_ALLOWED (INVALID_ARGUMENT): InviteMember, an address outside
 //     the domains of a tenant that requires company sign-in.
 //   NOT_ADMITTED (FAILED_PRECONDITION): JoinTenant.
@@ -824,7 +826,7 @@ service TenantService {
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "Set the MFA policy of a tenant";
-      description: "Last write wins; the change is audited.";
+      description: "Last write wins; the change is audited. Also for a personal tenant.";
       responses: {
         key: "200",
         value: {
@@ -887,7 +889,7 @@ service TenantService {
               ref: ".identity.platform.api.types.ErrorResponse"
             }
           }
-          description: "Conflict";
+          description: "Conflict: another request is changing the tenant; try again";
         }
       };
       responses: {
