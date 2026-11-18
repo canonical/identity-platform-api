@@ -55,8 +55,8 @@ service SSOSignInService {
 // begins with "<REASON>: ". The reasons, with their status codes:
 //   CONNECTION_NOT_FOUND (NOT_FOUND): every RPC that names a connection.
 //   CONNECTION_LIMIT (FAILED_PRECONDITION): CreateConnection.
-//   PERSONAL_TENANT (FAILED_PRECONDITION): CreateConnection and the policy
-//     RPCs, for a personal tenant.
+//   PERSONAL_TENANT (FAILED_PRECONDITION): CreateConnection,
+//     GetTenantSSOPolicy and SetTenantSSOPolicy, for a personal tenant.
 //   IDP_CHECK_FAILED (FAILED_PRECONDITION): StartTestLogin, when the
 //     identity provider cannot be used as the connection describes it.
 //   CONNECTION_NOT_TESTED (FAILED_PRECONDITION): SetTenantSSOPolicy, an active
@@ -446,7 +446,6 @@ service SSOTenantAdminService {
   rpc StartTestLogin(StartTestLoginRequest) returns (StartTestLoginResponse) {
     option (google.api.http) = {
       post: "/api/v0/sso/tenants/{tenant_id}/connections/{connection_id}/test-logins"
-      body: "*"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {

@@ -146,10 +146,11 @@ message GetConnectionResponse {
 	Connection connection = 1;
 }
 
-// ConnectionUpdate carries the fields UpdateConnection may change.
+// ConnectionUpdate carries the fields UpdateConnection may change. A field
+// that update_mask names must not be empty.
 message ConnectionUpdate {
-	string label = 1;
-	string client_secret = 2;
+	string label = 1 [(buf.validate.field).string.max_len = 100];
+	string client_secret = 2 [(buf.validate.field).string.max_len = 4096];
 }
 
 message UpdateConnectionRequest {
@@ -197,7 +198,8 @@ message SetTenantSSOPolicyRequest {
 	bool auto_join = 3;
 	// The whole set; only connections the tenant owns. Domains are kept as
 	// stored: platform admins set them (SSOPlatformAdminService.SetTenantDomains).
-	repeated identity.platform.api.tenant.SSOBinding bindings = 4;
+	// The limit is the tenant service's: see its SetTenantSSOPolicyRequest.
+	repeated identity.platform.api.tenant.SSOBinding bindings = 4 [(buf.validate.field).repeated.max_items = 5];
 }
 
 message SetTenantSSOPolicyResponse {
@@ -231,8 +233,12 @@ message GetTenantDomainsResponse {
 
 message SetTenantDomainsRequest {
 	string tenant_id = 1 [(buf.validate.field).string.uuid = true];
-	// After their ownership was checked outside the portal.
-	repeated string domains = 2 [(buf.validate.field).repeated.max_items = 50];
+	// After their ownership was checked outside the portal. The limits are
+	// the tenant service's: see its SetTenantSSODomainsRequest.
+	repeated string domains = 2 [(buf.validate.field).repeated = {
+		max_items: 50,
+		items: {string: {min_len: 1, max_len: 255}}
+	}];
 }
 
 message SetTenantDomainsResponse {

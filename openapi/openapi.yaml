@@ -3,7 +3,9 @@ components:
         SSOPlatformAdminServiceSetTenantDomainsBody:
             properties:
                 domains:
-                    description: After their ownership was checked outside the portal.
+                    description: |-
+                        After their ownership was checked outside the portal. The limits are
+                        the tenant service's: see its SetTenantSSODomainsRequest.
                     items:
                         type: string
                     type: array
@@ -18,8 +20,6 @@ components:
                     type: string
                 label:
                     type: string
-            type: object
-        SSOTenantAdminServiceStartTestLoginBody:
             type: object
         TenantServiceInviteMemberBody:
             properties:
@@ -1401,7 +1401,9 @@ components:
                 - CONNECTION_STATUS_TESTED
             type: string
         ssoConnectionUpdate:
-            description: ConnectionUpdate carries the fields UpdateConnection may change.
+            description: |-
+                ConnectionUpdate carries the fields UpdateConnection may change. A field
+                that update_mask names must not be empty.
             properties:
                 client_secret:
                     type: string
@@ -1491,6 +1493,7 @@ components:
                     description: |-
                         The whole set; only connections the tenant owns. Domains are kept as
                         stored: platform admins set them (SSOPlatformAdminService.SetTenantDomains).
+                        The limit is the tenant service's: see its SetTenantSSOPolicyRequest.
                     items:
                         $ref: '#/components/schemas/tenantSSOBinding'
                     type: array
@@ -4995,13 +4998,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/SSOTenantAdminServiceStartTestLoginBody'
-                required: true
-                x-originalParamName: body
             responses:
                 "200":
                     content:
@@ -5558,7 +5554,7 @@ paths:
             tags:
                 - TenantService
         put:
-            description: Last write wins; the change is audited.
+            description: Last write wins; the change is audited. Also for a personal tenant.
             operationId: TenantService_SetTenantMFAPolicy
             parameters:
                 - in: path
@@ -5609,7 +5605,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/typesErrorResponse'
-                    description: Conflict
+                    description: 'Conflict: another request is changing the tenant; try again'
                 default:
                     content:
                         application/json:
